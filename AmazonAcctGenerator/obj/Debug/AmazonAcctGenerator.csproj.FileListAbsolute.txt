@@ -1,0 +1,9 @@
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe.config
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.pdb
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Form1.resources
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Properties.Resources.resources
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.exe
+D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.pdb
