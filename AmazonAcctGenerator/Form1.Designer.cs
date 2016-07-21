@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_open = new System.Windows.Forms.Button();
-            this.btn_create = new System.Windows.Forms.Button();
             this.btn_export = new System.Windows.Forms.Button();
+            this.btn_create = new System.Windows.Forms.Button();
+            this.btn_open = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -51,13 +51,28 @@
             this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 251F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(376, 415);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 201F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(468, 460);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // listBox2
+            // 
+            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox2.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 15;
+            this.listBox2.Items.AddRange(new object[] {
+            "finish items"});
+            this.listBox2.Location = new System.Drawing.Point(236, 94);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(230, 364);
+            this.listBox2.TabIndex = 3;
             // 
             // groupBox1
             // 
@@ -66,81 +81,78 @@
             this.groupBox1.Controls.Add(this.btn_create);
             this.groupBox1.Controls.Add(this.btn_open);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(370, 59);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Size = new System.Drawing.Size(464, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Main Functions";
             // 
-            // btn_open
+            // btn_export
             // 
-            this.btn_open.Location = new System.Drawing.Point(9, 22);
-            this.btn_open.Name = "btn_open";
-            this.btn_open.Size = new System.Drawing.Size(103, 31);
-            this.btn_open.TabIndex = 1;
-            this.btn_open.Text = "Open n\' Read";
-            this.btn_open.UseVisualStyleBackColor = true;
-            this.btn_open.Click += new System.EventHandler(this.btn_open_Click);
+            this.btn_export.Location = new System.Drawing.Point(191, 18);
+            this.btn_export.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_export.Name = "btn_export";
+            this.btn_export.Size = new System.Drawing.Size(77, 25);
+            this.btn_export.TabIndex = 3;
+            this.btn_export.Text = "Export";
+            this.btn_export.UseVisualStyleBackColor = true;
             // 
             // btn_create
             // 
-            this.btn_create.Location = new System.Drawing.Point(130, 22);
+            this.btn_create.Location = new System.Drawing.Point(98, 18);
+            this.btn_create.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_create.Name = "btn_create";
-            this.btn_create.Size = new System.Drawing.Size(103, 31);
+            this.btn_create.Size = new System.Drawing.Size(77, 25);
             this.btn_create.TabIndex = 2;
             this.btn_create.Text = "Start Create";
             this.btn_create.UseVisualStyleBackColor = true;
             // 
-            // btn_export
+            // btn_open
             // 
-            this.btn_export.Location = new System.Drawing.Point(255, 22);
-            this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(103, 31);
-            this.btn_export.TabIndex = 3;
-            this.btn_export.Text = "Export";
-            this.btn_export.UseVisualStyleBackColor = true;
+            this.btn_open.Location = new System.Drawing.Point(7, 18);
+            this.btn_open.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btn_open.Name = "btn_open";
+            this.btn_open.Size = new System.Drawing.Size(77, 25);
+            this.btn_open.TabIndex = 1;
+            this.btn_open.Text = "Open n\' Read";
+            this.btn_open.UseVisualStyleBackColor = true;
+            this.btn_open.Click += new System.EventHandler(this.btn_open_Click);
             // 
             // msgpanel
             // 
             this.msgpanel.AutoScroll = true;
             this.tableLayoutPanel1.SetColumnSpan(this.msgpanel, 2);
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.msgpanel.Location = new System.Drawing.Point(3, 68);
+            this.msgpanel.Location = new System.Drawing.Point(2, 54);
+            this.msgpanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(370, 44);
+            this.msgpanel.Size = new System.Drawing.Size(464, 36);
             this.msgpanel.TabIndex = 1;
             // 
             // listBox1
             // 
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.Font = new System.Drawing.Font("Calibri", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 15;
             this.listBox1.Items.AddRange(new object[] {
             "prepare to go"});
-            this.listBox1.Location = new System.Drawing.Point(3, 118);
+            this.listBox1.Location = new System.Drawing.Point(2, 94);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(182, 294);
+            this.listBox1.Size = new System.Drawing.Size(230, 364);
             this.listBox1.TabIndex = 2;
-            // 
-            // listBox2
-            // 
-            this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 15;
-            this.listBox2.Items.AddRange(new object[] {
-            "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(191, 118);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(182, 294);
-            this.listBox2.TabIndex = 3;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 415);
+            this.ClientSize = new System.Drawing.Size(468, 460);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

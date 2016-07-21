@@ -7,3 +7,12 @@ D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenera
 D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
 D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.exe
 D:\VSProjects\AmazonAcctGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.pdb
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe.config
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.exe
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.pdb
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.pdb
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Form1.resources
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Properties.Resources.resources
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
