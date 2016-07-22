@@ -24,3 +24,6 @@ D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Form1.resources
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Properties.Resources.resources
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe.config
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.exe
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.pdb
