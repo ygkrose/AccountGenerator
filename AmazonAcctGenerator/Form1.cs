@@ -117,8 +117,8 @@ namespace AmazonAcctGenerator
                 
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
-               
 
+                listBox2.Items.Clear();
                 for (int i = 0; i < 5; i++)
                 {
                     _driver = new ChromeDriver(co);
@@ -139,7 +139,8 @@ namespace AmazonAcctGenerator
 
                     IWebElement creatbtn = _driver.FindElement(By.Id("continue"));
                     //creatbtn.Click();
-                    //System.Threading.Thread.Sleep(3000);
+                    System.Threading.Thread.Sleep(2000);
+                    listBox2.Items.Add(_users[i].email);
                     _driver.Quit();
                 }
                   
