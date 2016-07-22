@@ -106,6 +106,8 @@ namespace AmazonAcctGenerator
                 //_driver.Navigate().GoToUrl("www.amazon.com");
                 //_driver.Manage().Cookies.DeleteAllCookies();
 
+
+                //
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
                 _driver = new ChromeDriver(co);
