@@ -59,15 +59,19 @@ namespace AmazonAcctGenerator
                         List<string> headlist = new List<string>(headerline.Split(new char[] { ',' }));
                         int emailidx = headlist.IndexOf("emailaddress");
                         int birthidx = headlist.IndexOf("birthday");
-                        if (headlist.IndexOf("browseruseragent") < birthidx)
-                            birthidx++;
-                        string data ;
-                        while ((data = await csvReader.ReadLineAsync())!=null)
+                        //if (headlist.IndexOf("browseruseragent") < birthidx)
+                        //    birthidx++;
+                        string data;
+                        listBox1.Items.Clear();
+                        while ((data = await csvReader.ReadLineAsync()) != null)
                         {
-                            string _email = data.Split(new char[] { ',' })[emailidx];
-                            string _birth = data.Split(new char[] { ',' })[birthidx];
+                            string[] splitdata = data.Split(new char[] { ',' });
+                            string _email = splitdata[emailidx];
+                            string _birth = splitdata[birthidx];
                             string[] bary = _birth.Split(new char[] { '/' });
-                            string birthmd = string.Format("00", bary[0]) + string.Format("00",bary[1]);
+                            string birthmd = bary[0].PadLeft(2, '0') + bary[1].PadLeft(2, '0');
+                            listBox1.Items.Add(splitdata[0] + ":" + _email.Replace("@", birthmd + "@"));
+
                         }
                     }
                     
