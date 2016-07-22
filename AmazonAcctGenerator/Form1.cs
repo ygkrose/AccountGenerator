@@ -1,4 +1,8 @@
-﻿using System;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Remote;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,8 +15,11 @@ using System.Windows.Forms;
 
 namespace AmazonAcctGenerator
 {
+    
     public partial class Form1 : Form
     {
+        IWebDriver _driver = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,6 +28,7 @@ namespace AmazonAcctGenerator
         private void Form1_Load(object sender, EventArgs e)
         {
             ctlStatus(frmStatus.load);
+            
         }
 
         private void ctlStatus(frmStatus fs)
@@ -84,5 +92,69 @@ namespace AmazonAcctGenerator
             l.AutoSize = true;
             msgpanel.Controls.Add(l);
         }
+
+        private void btn_create_Click(object sender, EventArgs e)
+        {
+            EdgeOptions eo = new EdgeOptions();
+            eo.PageLoadStrategy = EdgePageLoadStrategy.Normal;
+            try
+            {
+                //_driver = new EdgeDriver(eo);
+                //System.Threading.Thread.Sleep(1500);
+                //_driver.Navigate().GoToUrl("about:InPrivate");
+                //_driver.Url = "www.amazon.com";
+                //_driver.Navigate().GoToUrl("www.amazon.com");
+                //_driver.Manage().Cookies.DeleteAllCookies();
+
+                ChromeOptions co = new ChromeOptions();
+                co.AddArgument("-incognito");
+                _driver = new ChromeDriver(co);
+                _driver.Manage().Cookies.DeleteAllCookies();
+                forceDeleteCookieFile(_driver);
+                _driver.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin");
+                
+                
+            }
+            catch (Exception err)
+            {
+                addMsg(err.Message);
+                if (_driver != null)
+                {
+                    _driver.Close();
+                    _driver.Dispose();
+                }
+            }
+
+        }
+
+        private void forceDeleteCookieFile(IWebDriver browsertype)
+        {
+            string appPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            if (browsertype.GetType().Name.ToString() == "ChromeDriver")
+            {
+                appPath = appPath.Replace("Roaming", "") + @"Local\Google\Chrome\User Data\Default";
+            }
+            
+            DirectoryInfo di = new DirectoryInfo(appPath);
+            if (di.Exists)
+            {
+                foreach (FileInfo f in di.GetFiles("*Cookie*.*"))
+                {
+                    f.Delete();
+                }
+            }
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ChromeOptions co = new ChromeOptions();
+            co.AddArgument("-incognito");
+            ChromeDriver cd = new ChromeDriver(co);
+            cd.Manage().Cookies.DeleteAllCookies();
+            forceDeleteCookieFile(cd);
+        }
+
+       
     }
 }
