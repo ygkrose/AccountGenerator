@@ -142,9 +142,9 @@
             // 
             this.button1.Location = new System.Drawing.Point(385, 22);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 31);
+            this.button1.Size = new System.Drawing.Size(124, 31);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Open inPrivate";
+            this.button1.Text = "Chrome inPrivate";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 

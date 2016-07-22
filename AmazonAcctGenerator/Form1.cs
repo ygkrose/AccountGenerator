@@ -105,17 +105,32 @@ namespace AmazonAcctGenerator
                 //_driver.Url = "www.amazon.com";
                 //_driver.Navigate().GoToUrl("www.amazon.com");
                 //_driver.Manage().Cookies.DeleteAllCookies();
-
-
-                //
+                
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
                 _driver = new ChromeDriver(co);
                 _driver.Manage().Cookies.DeleteAllCookies();
                 forceDeleteCookieFile(_driver);
                 _driver.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin");
+                IWebElement getreport = _driver.FindElement(By.Id("createAccountSubmit"));
+                getreport.Click();
+
+                IWebElement username = _driver.FindElement(By.Id("ap_customer_name"));
+                username.SendKeys("admins2@hkadmin.com");
+                IWebElement useremail = _driver.FindElement(By.Id("ap_email"));
+                useremail.SendKeys("admins2@hkadmin.com");
+                IWebElement userpwd = _driver.FindElement(By.Id("ap_password"));
+                userpwd.SendKeys("4rfv5tgb");
+                IWebElement userpwdchk = _driver.FindElement(By.Id("ap_password_check"));
+                userpwdchk.SendKeys("4rfv5tgb");
+                //ap_email
+                //ap_password
+                //ap_password_check
+
+                IWebElement creatbtn = _driver.FindElement(By.Id("continue"));
+                //creatbtn.Click();
                 
-                
+
             }
             catch (Exception err)
             {
@@ -155,6 +170,7 @@ namespace AmazonAcctGenerator
             ChromeDriver cd = new ChromeDriver(co);
             cd.Manage().Cookies.DeleteAllCookies();
             forceDeleteCookieFile(cd);
+            cd.Navigate().GoToUrl("https://www.amazon.com");
         }
 
        
