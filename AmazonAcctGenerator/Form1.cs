@@ -201,11 +201,12 @@ namespace AmazonAcctGenerator
             
         }
 
+        ChromeDriver cd;
         private void button1_Click(object sender, EventArgs e)
         {
             ChromeOptions co = new ChromeOptions();
             co.AddArgument("-incognito");
-            ChromeDriver cd = new ChromeDriver(co);
+            cd = new ChromeDriver(co);
             cd.Manage().Cookies.DeleteAllCookies();
             forceDeleteCookieFile(cd);
             cd.Navigate().GoToUrl("https://www.amazon.com");
@@ -214,12 +215,19 @@ namespace AmazonAcctGenerator
         private void button3_Click(object sender, EventArgs e)
         {
             //$("div.span12.info")
-            ChromeOptions co = new ChromeOptions();
-            co.AddArgument("-incognito");
-            ChromeDriver cd = new ChromeDriver(co);
-            cd.Manage().Cookies.DeleteAllCookies();
-            forceDeleteCookieFile(cd);
-            cd.Navigate().GoToUrl("http://www.ccyp.com");
+            if (cd != null)
+            {
+                
+                IReadOnlyCollection<IWebElement> elems = cd.FindElementsByCssSelector("div.span12.info");
+                foreach (IWebElement iwe in elems) {
+                    if (iwe.FindElements(By.TagName("h1")).Count > 1)
+                    {
+
+                    }
+                   string _html =  iwe.GetAttribute("innerHTML");
+                }
+
+            }
         }
     }
 }
