@@ -211,6 +211,15 @@ namespace AmazonAcctGenerator
             cd.Navigate().GoToUrl("https://www.amazon.com");
         }
 
-       
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //$("div.span12.info")
+            ChromeOptions co = new ChromeOptions();
+            co.AddArgument("-incognito");
+            ChromeDriver cd = new ChromeDriver(co);
+            cd.Manage().Cookies.DeleteAllCookies();
+            forceDeleteCookieFile(cd);
+            cd.Navigate().GoToUrl("http://www.ccyp.com");
+        }
     }
 }

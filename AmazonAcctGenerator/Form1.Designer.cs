@@ -39,6 +39,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -79,6 +80,7 @@
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
+            this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
@@ -97,28 +99,28 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(289, 18);
+            this.button1.Location = new System.Drawing.Point(234, 15);
             this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(73, 25);
+            this.button1.Size = new System.Drawing.Size(56, 25);
             this.button1.TabIndex = 4;
-            this.button1.Text = "Chrome inPrivate";
+            this.button1.Text = "Chrome";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_export
             // 
-            this.btn_export.Location = new System.Drawing.Point(191, 18);
+            this.btn_export.Location = new System.Drawing.Point(169, 17);
             this.btn_export.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(84, 25);
+            this.btn_export.Size = new System.Drawing.Size(57, 25);
             this.btn_export.TabIndex = 3;
             this.btn_export.Text = "Export Accounts";
             this.btn_export.UseVisualStyleBackColor = true;
             // 
             // btn_create
             // 
-            this.btn_create.Location = new System.Drawing.Point(98, 18);
+            this.btn_create.Location = new System.Drawing.Point(88, 17);
             this.btn_create.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_create.Name = "btn_create";
             this.btn_create.Size = new System.Drawing.Size(77, 25);
@@ -184,6 +186,17 @@
             this.comboBox1.Size = new System.Drawing.Size(158, 20);
             this.comboBox1.TabIndex = 6;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(305, 15);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(51, 25);
+            this.button3.TabIndex = 7;
+            this.button3.Text = "get info";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -213,6 +226,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 
