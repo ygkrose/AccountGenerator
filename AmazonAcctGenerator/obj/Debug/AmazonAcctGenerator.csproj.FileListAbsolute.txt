@@ -27,3 +27,17 @@ D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe.config
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.exe
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.pdb
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Form1.resources
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Properties.Resources.resources
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.exe
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\AmazonAcctGenerator.pdb
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Selenium.WebDriverBackedSelenium.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\ThoughtWorks.Selenium.Core.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.Support.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Selenium.WebDriverBackedSelenium.xml
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\ThoughtWorks.Selenium.Core.xml
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.xml
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.Support.xml

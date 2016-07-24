@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
@@ -201,33 +202,60 @@ namespace AmazonAcctGenerator
             
         }
 
-        ChromeDriver cd;
+       
         private void button1_Click(object sender, EventArgs e)
         {
             ChromeOptions co = new ChromeOptions();
             co.AddArgument("-incognito");
-            cd = new ChromeDriver(co);
+            ChromeDriver cd = new ChromeDriver(co);
             cd.Manage().Cookies.DeleteAllCookies();
             forceDeleteCookieFile(cd);
             cd.Navigate().GoToUrl("https://www.amazon.com");
         }
 
+
+
+        ChromeDriver ccypdriver = null;
+        private void button4_Click(object sender, EventArgs e)
+        {
+            ChromeOptions co = new ChromeOptions();
+            co.AddArgument("-incognito");
+            ccypdriver = new ChromeDriver(co);
+            ccypdriver.Manage().Cookies.DeleteAllCookies();
+            forceDeleteCookieFile(ccypdriver);
+            ccypdriver.Navigate().GoToUrl("http://www.ccyp.com");
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             //$("div.span12.info")
-            if (cd != null)
+            if (ccypdriver != null)
             {
-                
-                IReadOnlyCollection<IWebElement> elems = cd.FindElementsByCssSelector("div.span12.info");
-                foreach (IWebElement iwe in elems) {
-                    if (iwe.FindElements(By.TagName("h1")).Count > 1)
+                IReadOnlyCollection<IWebElement> elems = ccypdriver.FindElementsByCssSelector("div.span12.info");
+                foreach (IWebElement iwe in elems)
+                {
+                    if (iwe.FindElements(By.TagName("h1")).Count ==2)
                     {
-
+                        //string _html = iwe.GetAttribute("innerHTML");
+                        string chName = iwe.FindElements(By.TagName("h1"))[0].Text.Trim();
+                        string enName = iwe.FindElements(By.TagName("h1"))[1].Text.Trim();
+                        string addr = iwe.FindElements(By.TagName("address"))[0].Text;
                     }
-                   string _html =  iwe.GetAttribute("innerHTML");
+
                 }
 
             }
+        }
+
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            EdgeOptions eo = new EdgeOptions();
+            InternetExplorerOptions opt = new InternetExplorerOptions();
+            //opt.ForceCreateProcessApi = true;
+            opt.BrowserCommandLineArguments = "-private";
+            InternetExplorerDriver iedrv = new InternetExplorerDriver(opt);
+            
         }
     }
 }
