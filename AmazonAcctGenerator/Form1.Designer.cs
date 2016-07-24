@@ -44,6 +44,7 @@
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -74,6 +75,7 @@
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
+            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.btn_edge);
             this.groupBox1.Controls.Add(this.btn_export);
             this.groupBox1.Controls.Add(this.btn_create);
@@ -207,7 +209,7 @@
             // 
             // btn_fillbill
             // 
-            this.btn_fillbill.Location = new System.Drawing.Point(451, 13);
+            this.btn_fillbill.Location = new System.Drawing.Point(478, 13);
             this.btn_fillbill.Name = "btn_fillbill";
             this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
             this.btn_fillbill.TabIndex = 5;
@@ -220,12 +222,9 @@
             this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cardpickup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cardpickup.FormattingEnabled = true;
-            this.cardpickup.Items.AddRange(new object[] {
-            "4941606403191354,7/2024",
-            "4941596723069143,6/2024"});
-            this.cardpickup.Location = new System.Drawing.Point(287, 16);
+            this.cardpickup.Location = new System.Drawing.Point(303, 15);
             this.cardpickup.Name = "cardpickup";
-            this.cardpickup.Size = new System.Drawing.Size(158, 20);
+            this.cardpickup.Size = new System.Drawing.Size(169, 20);
             this.cardpickup.TabIndex = 6;
             // 
             // btn_save
@@ -249,6 +248,16 @@
             this.msgpanel.Size = new System.Drawing.Size(616, 34);
             this.msgpanel.TabIndex = 5;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(479, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "resume";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -258,6 +267,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Amazon Account Manager";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -284,6 +294,7 @@
         private System.Windows.Forms.Button btn_ccyp;
         private System.Windows.Forms.Button btn_edge;
         private System.Windows.Forms.FlowLayoutPanel msgpanel;
+        private System.Windows.Forms.Button button1;
     }
 }
 

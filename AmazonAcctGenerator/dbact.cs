@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,25 @@ namespace AmazonAcctGenerator
             {
                 throw err;
             }
+        }
+
+        public static DataTable getColRows(string tablename,string colname)
+        {
+            DataTable rtn = new DataTable();
+            try
+            {
+                if (conn.State != System.Data.ConnectionState.Open)
+                    conn.Open();
+
+                SqlDataAdapter sdp = new SqlDataAdapter("select " + colname + " from " + tablename, conn);
+                sdp.Fill(rtn);
+            }
+            catch (Exception err)
+            {
+                throw err;
+            }
+
+            return rtn;
         }
 
     }

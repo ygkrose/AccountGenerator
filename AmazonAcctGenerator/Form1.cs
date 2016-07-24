@@ -7,10 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,17 +25,20 @@ namespace AmazonAcctGenerator
         List<UserStruct> _users = null;
 
         public delegate void AddListItem(String myString);
-        public AddListItem myDelegate;
+        public AddListItem Delegate_listbox1;
+        public AddListItem Delegate_listbox2;
 
+        private const string pwd = "4rfv5tgb";
         public Form1()
         {
             InitializeComponent();
-            myDelegate = new AddListItem(AddListItemMethod);
+            Delegate_listbox2 = new AddListItem(AddListItemMethod);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             ctlStatus(frmStatus.load);
+            getCardNo();
         }
 
         private void ctlStatus(frmStatus fs)
@@ -44,6 +49,18 @@ namespace AmazonAcctGenerator
             //    btn_create.Enabled = false;
             //    btn_export.Enabled = false;
             //}
+        }
+
+        private void getCardNo()
+        {
+            using (SqlDataReader dr = getSqlCmd("select * from card where status=1").ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    cardpickup.Items.Add(dr["CardID"].ToString().Trim() + "," + dr["bmonth"].ToString().Trim() + "/" + dr["byear"].ToString().Trim());
+                }
+            }
+
         }
 
         private async void btn_open_Click(object sender, EventArgs e)
@@ -73,8 +90,8 @@ namespace AmazonAcctGenerator
                         {
                             UserStruct us = new UserStruct();
                             string[] splitdata = data.Split(new char[] { ',' });
-                            string _email = splitdata[emailidx];
-                            string _birth = splitdata[birthidx];
+                            string _email = splitdata[emailidx].Trim();
+                            string _birth = splitdata[birthidx].Trim();
                             string[] bary = _birth.Split(new char[] { '/' });
                             string birthmd = bary[0].PadLeft(2, '0') + bary[1].PadLeft(2, '0');
                             listBox1.Items.Add(splitdata[0] + ":" + _email.Replace("@", birthmd + "@"));
@@ -116,47 +133,25 @@ namespace AmazonAcctGenerator
 
         private void btn_create_Click(object sender, EventArgs e)
         {
-            EdgeOptions eo = new EdgeOptions();
-            eo.PageLoadStrategy = EdgePageLoadStrategy.Normal;
             try
             {
-                //_driver = new EdgeDriver(eo);
-                //System.Threading.Thread.Sleep(1500);
-                //_driver.Navigate().GoToUrl("about:InPrivate");
-                //_driver.Url = "www.amazon.com";
-                //_driver.Navigate().GoToUrl("www.amazon.com");
-                //_driver.Manage().Cookies.DeleteAllCookies();
-                
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
-
+                getallemail();
                 listBox2.Items.Clear();
-                //Parallel.For(0, 5, i => {
-                //    _driver = new ChromeDriver(co);
-                //    _driver.Manage().Cookies.DeleteAllCookies();
-                //    forceDeleteCookieFile(_driver);
-                //    _driver.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin");
-                //    IWebElement getreport = _driver.FindElement(By.Id("createAccountSubmit"));
-                //    getreport.Click();
-
-                //    IWebElement username = _driver.FindElement(By.Id("ap_customer_name"));
-                //    username.SendKeys(_users[i].name);
-                //    IWebElement useremail = _driver.FindElement(By.Id("ap_email"));
-                //    useremail.SendKeys(_users[i].email);
-                //    IWebElement userpwd = _driver.FindElement(By.Id("ap_password"));
-                //    userpwd.SendKeys("4rfv5tgb");
-                //    IWebElement userpwdchk = _driver.FindElement(By.Id("ap_password_check"));
-                //    userpwdchk.SendKeys("4rfv5tgb");
-
-                //    IWebElement creatbtn = _driver.FindElement(By.Id("continue"));
-                //    //creatbtn.Click();
-                //    System.Threading.Thread.Sleep(2000);
-                //    listBox2.Items.Add(_users[i].email);
-                //    _driver.Quit();
-                //});
-
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < _users.Count; i++)
                 {
+                    if (allEmail.Exists(
+                        delegate (DataRow bk)
+                        {
+                            return bk["email"].ToString().Trim() == _users[i].email;
+                        }
+                        ))
+                    {
+                        continue;
+                    }
+                      
+                   
                     _driver = new ChromeDriver(co);
                     _driver.Manage().Cookies.DeleteAllCookies();
                     forceDeleteCookieFile(_driver);
@@ -174,9 +169,35 @@ namespace AmazonAcctGenerator
                     userpwdchk.SendKeys("4rfv5tgb");
 
                     IWebElement creatbtn = _driver.FindElement(By.Id("continue"));
-                    //creatbtn.Click();
-                    System.Threading.Thread.Sleep(2000);
-                    listBox2.Items.Add(_users[i].email);
+                    creatbtn.Click();
+                    
+                    
+                    IWebElement resultpage = _driver.FindElement(By.Id("a-page"));
+                    if (resultpage != null)
+                    {
+                        IWebElement navpage = _driver.FindElement(By.Id("nav-tools"));
+                        if (navpage != null && navpage.GetAttribute("innerText").IndexOf("Hello")>-1)
+                            this.Invoke(Delegate_listbox2, new Object[] { _users[i].email + addAccount(_users[i]) });
+                        else
+                        {
+                            if (resultpage.GetAttribute("innerText").IndexOf("Email address already in use") > -1)
+                            {
+                                this.Invoke(Delegate_listbox2, new Object[] { _users[i].email + "Email address already in use" });
+                            }
+                            else if (resultpage.GetAttribute("innerText").IndexOf("a problem") > -1)
+                            {
+                                addMsg("detect robot error! Stop Running program.");
+                                break;
+                            }
+                            else
+                            {
+                                addMsg("unknow error! Stop Running program.");
+                                break;
+                            }
+                            
+                        }
+                    }
+                    
                     _driver.Quit();
                 }
 
@@ -192,6 +213,27 @@ namespace AmazonAcctGenerator
                 }
             }
 
+        }
+
+        List<DataRow> allEmail = null;
+        private void getallemail()
+        {
+            allEmail = getColRows("account", "email").AsEnumerable().ToList();
+        }
+
+        private string addAccount(UserStruct user)
+        {
+            string rtn = "";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0)";
+            try
+            {
+                getSqlCmd(insSql).ExecuteNonQuery();
+            }
+            catch (Exception err)
+            {
+                addMsg(err.Message);
+            }
+            return rtn;
         }
 
         private void forceDeleteCookieFile(IWebDriver browsertype)
@@ -212,7 +254,6 @@ namespace AmazonAcctGenerator
             }
             
         }
-
 
         ChromeDriver ccypdriver = null;
         private void btn_ccyp_Click(object sender, EventArgs e)
@@ -265,7 +306,7 @@ namespace AmazonAcctGenerator
                             {
                                 string insertsql = "insert into shipping values (N'" + chName + "', '" + enName + "', '" + _addr1 + "', '" + _addr2 + "', '" + _city + "', '" + _state + "', '" + _zip + "', '" + _tel + "')";
                                 getSqlCmd(insertsql).ExecuteNonQuery();
-                                this.Invoke(myDelegate, new Object[] { chName + " " + enName });
+                                this.Invoke(Delegate_listbox2, new Object[] { chName + " " + enName });
                                // listBox2.Items.Add(chName + " " + enName);
                             }
                             catch (Exception err)
@@ -312,6 +353,17 @@ namespace AmazonAcctGenerator
         private void btn_fillbill_Click(object sender, EventArgs e)
         {
             addMsg(DateTime.Now.ToString());
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (conn.State == ConnectionState.Open)
+                conn.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Thread.CurrentThread.Resume();
         }
     }
 }
