@@ -30,20 +30,20 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_edge = new System.Windows.Forms.Button();
             this.btn_export = new System.Windows.Forms.Button();
             this.btn_create = new System.Windows.Forms.Button();
             this.btn_open = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_chrome = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.msgpanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_onedollor = new System.Windows.Forms.Button();
+            this.btn_ccyp = new System.Windows.Forms.Button();
+            this.btn_fillbill = new System.Windows.Forms.Button();
+            this.cardpickup = new System.Windows.Forms.ComboBox();
+            this.btn_save = new System.Windows.Forms.Button();
+            this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -57,8 +57,8 @@
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.listBox2, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.msgpanel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.msgpanel, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
@@ -74,11 +74,11 @@
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
-            this.groupBox1.Controls.Add(this.button6);
+            this.groupBox1.Controls.Add(this.btn_edge);
             this.groupBox1.Controls.Add(this.btn_export);
             this.groupBox1.Controls.Add(this.btn_create);
             this.groupBox1.Controls.Add(this.btn_open);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btn_chrome);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(2, 2);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -89,16 +89,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
             // 
-            // button6
+            // btn_edge
             // 
-            this.button6.Location = new System.Drawing.Point(374, 17);
-            this.button6.Margin = new System.Windows.Forms.Padding(2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(83, 25);
-            this.button6.TabIndex = 5;
-            this.button6.Text = "Edge inPrivate";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.btn_edge.Location = new System.Drawing.Point(374, 17);
+            this.btn_edge.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_edge.Name = "btn_edge";
+            this.btn_edge.Size = new System.Drawing.Size(83, 25);
+            this.btn_edge.TabIndex = 5;
+            this.btn_edge.Text = "Edge inPrivate";
+            this.btn_edge.UseVisualStyleBackColor = true;
+            this.btn_edge.Click += new System.EventHandler(this.btn_edge_Click);
             // 
             // btn_export
             // 
@@ -132,16 +132,16 @@
             this.btn_open.UseVisualStyleBackColor = true;
             this.btn_open.Click += new System.EventHandler(this.btn_open_Click);
             // 
-            // button1
+            // btn_chrome
             // 
-            this.button1.Location = new System.Drawing.Point(260, 17);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 25);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Chrome inPrivate";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_chrome.Location = new System.Drawing.Point(260, 17);
+            this.btn_chrome.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_chrome.Name = "btn_chrome";
+            this.btn_chrome.Size = new System.Drawing.Size(104, 25);
+            this.btn_chrome.TabIndex = 4;
+            this.btn_chrome.Text = "Chrome inPrivate";
+            this.btn_chrome.UseVisualStyleBackColor = true;
+            this.btn_chrome.Click += new System.EventHandler(this.btn_chrome_Click);
             // 
             // listBox1
             // 
@@ -169,24 +169,14 @@
             this.listBox2.Size = new System.Drawing.Size(307, 287);
             this.listBox2.TabIndex = 3;
             // 
-            // msgpanel
-            // 
-            this.msgpanel.AutoScroll = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.msgpanel, 2);
-            this.msgpanel.Location = new System.Drawing.Point(2, 106);
-            this.msgpanel.Margin = new System.Windows.Forms.Padding(2);
-            this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(618, 36);
-            this.msgpanel.TabIndex = 1;
-            // 
             // groupBox2
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.btn_onedollor);
+            this.groupBox2.Controls.Add(this.btn_ccyp);
+            this.groupBox2.Controls.Add(this.btn_fillbill);
+            this.groupBox2.Controls.Add(this.cardpickup);
+            this.groupBox2.Controls.Add(this.btn_save);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 55);
             this.groupBox2.Name = "groupBox2";
@@ -195,57 +185,69 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
             // 
-            // button5
+            // btn_onedollor
             // 
-            this.button5.Location = new System.Drawing.Point(206, 13);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 26);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "$1 page";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_onedollor.Location = new System.Drawing.Point(206, 13);
+            this.btn_onedollor.Name = "btn_onedollor";
+            this.btn_onedollor.Size = new System.Drawing.Size(75, 26);
+            this.btn_onedollor.TabIndex = 9;
+            this.btn_onedollor.Text = "$1 page";
+            this.btn_onedollor.UseVisualStyleBackColor = true;
+            this.btn_onedollor.Click += new System.EventHandler(this.btn_onedollor_Click);
             // 
-            // button4
+            // btn_ccyp
             // 
-            this.button4.Location = new System.Drawing.Point(6, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(79, 23);
-            this.button4.TabIndex = 8;
-            this.button4.Text = "ccyp.com";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btn_ccyp.Location = new System.Drawing.Point(6, 16);
+            this.btn_ccyp.Name = "btn_ccyp";
+            this.btn_ccyp.Size = new System.Drawing.Size(79, 23);
+            this.btn_ccyp.TabIndex = 8;
+            this.btn_ccyp.Text = "ccyp.com";
+            this.btn_ccyp.UseVisualStyleBackColor = true;
+            this.btn_ccyp.Click += new System.EventHandler(this.btn_ccyp_Click);
             // 
-            // button2
+            // btn_fillbill
             // 
-            this.button2.Location = new System.Drawing.Point(537, 14);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(61, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "fill bill";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_fillbill.Location = new System.Drawing.Point(451, 13);
+            this.btn_fillbill.Name = "btn_fillbill";
+            this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
+            this.btn_fillbill.TabIndex = 5;
+            this.btn_fillbill.Text = "fill bill";
+            this.btn_fillbill.UseVisualStyleBackColor = true;
+            this.btn_fillbill.Click += new System.EventHandler(this.btn_fillbill_Click);
             // 
-            // comboBox1
+            // cardpickup
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cardpickup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cardpickup.FormattingEnabled = true;
+            this.cardpickup.Items.AddRange(new object[] {
             "4941606403191354,7/2024",
             "4941596723069143,6/2024"});
-            this.comboBox1.Location = new System.Drawing.Point(373, 16);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(158, 20);
-            this.comboBox1.TabIndex = 6;
+            this.cardpickup.Location = new System.Drawing.Point(287, 16);
+            this.cardpickup.Name = "cardpickup";
+            this.cardpickup.Size = new System.Drawing.Size(158, 20);
+            this.cardpickup.TabIndex = 6;
             // 
-            // button3
+            // btn_save
             // 
-            this.button3.Location = new System.Drawing.Point(96, 15);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 25);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "save contact info";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btn_save.Location = new System.Drawing.Point(96, 15);
+            this.btn_save.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(96, 25);
+            this.btn_save.TabIndex = 7;
+            this.btn_save.Text = "save contact info";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
+            // msgpanel
+            // 
+            this.msgpanel.AutoScroll = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.msgpanel, 2);
+            this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.msgpanel.Location = new System.Drawing.Point(3, 107);
+            this.msgpanel.Name = "msgpanel";
+            this.msgpanel.Size = new System.Drawing.Size(616, 34);
+            this.msgpanel.TabIndex = 5;
             // 
             // Form1
             // 
@@ -271,17 +273,17 @@
         private System.Windows.Forms.Button btn_export;
         private System.Windows.Forms.Button btn_create;
         private System.Windows.Forms.Button btn_open;
-        private System.Windows.Forms.Panel msgpanel;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_chrome;
+        private System.Windows.Forms.ComboBox cardpickup;
+        private System.Windows.Forms.Button btn_fillbill;
+        private System.Windows.Forms.Button btn_save;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_onedollor;
+        private System.Windows.Forms.Button btn_ccyp;
+        private System.Windows.Forms.Button btn_edge;
+        private System.Windows.Forms.FlowLayoutPanel msgpanel;
     }
 }
 

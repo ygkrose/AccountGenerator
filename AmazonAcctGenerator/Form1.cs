@@ -16,20 +16,24 @@ using System.Windows.Forms;
 
 namespace AmazonAcctGenerator
 {
-    
+
     public partial class Form1 : Form
     {
         IWebDriver _driver = null;
         List<UserStruct> _users = null;
+
+        public delegate void AddListItem(String myString);
+        public AddListItem myDelegate;
+
         public Form1()
         {
             InitializeComponent();
+            myDelegate = new AddListItem(AddListItemMethod);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             ctlStatus(frmStatus.load);
-            
         }
 
         private void ctlStatus(frmStatus fs)
@@ -80,7 +84,7 @@ namespace AmazonAcctGenerator
                             _users.Add(us);
                         }
                     }
-                    
+
                 }
             }
             catch (Exception err)
@@ -90,17 +94,24 @@ namespace AmazonAcctGenerator
             }
         }
 
+        public void AddListItemMethod(String myItem)
+        {
+            listBox2.Items.Add(myItem);
+            listBox2.Update();
+
+        }
 
         private void clearMsgCtrl()
         {
             msgpanel.Controls.Clear();
         }
-        private void addMsg(string txt)
+        public void addMsg(string txt)
         {
             Label l = new Label();
             l.Text = txt;
             l.AutoSize = true;
             msgpanel.Controls.Add(l);
+            l.BringToFront();
         }
 
         private void btn_create_Click(object sender, EventArgs e)
@@ -202,21 +213,9 @@ namespace AmazonAcctGenerator
             
         }
 
-       
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ChromeOptions co = new ChromeOptions();
-            co.AddArgument("-incognito");
-            ChromeDriver cd = new ChromeDriver(co);
-            cd.Manage().Cookies.DeleteAllCookies();
-            forceDeleteCookieFile(cd);
-            cd.Navigate().GoToUrl("https://www.amazon.com");
-        }
-
-
 
         ChromeDriver ccypdriver = null;
-        private void button4_Click(object sender, EventArgs e)
+        private void btn_ccyp_Click(object sender, EventArgs e)
         {
             ChromeOptions co = new ChromeOptions();
             co.AddArgument("-incognito");
@@ -226,36 +225,93 @@ namespace AmazonAcctGenerator
             ccypdriver.Navigate().GoToUrl("http://www.ccyp.com");
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btn_save_Click(object sender, EventArgs e)
         {
             //$("div.span12.info")
             if (ccypdriver != null)
             {
                 IReadOnlyCollection<IWebElement> elems = ccypdriver.FindElementsByCssSelector("div.span12.info");
+                listBox2.Items.Clear();
                 foreach (IWebElement iwe in elems)
                 {
-                    if (iwe.FindElements(By.TagName("h1")).Count ==2)
+                    if (iwe.FindElements(By.TagName("h1")).Count == 2)
                     {
                         //string _html = iwe.GetAttribute("innerHTML");
                         string chName = iwe.FindElements(By.TagName("h1"))[0].Text.Trim();
-                        string enName = iwe.FindElements(By.TagName("h1"))[1].Text.Trim();
+                        string enName = iwe.FindElements(By.TagName("h1"))[1].Text.Trim().Replace("'","\'");
                         string addr = iwe.FindElements(By.TagName("address"))[0].Text;
+                        string[] partaddr = addr.Split(new char[] { '\r' });
+                        if (partaddr.Length == 3)
+                        {
+                            string _tel = partaddr[0].Split(new char[] { '：' })[1];
+                            string[] _addr = partaddr[1].Split(new char[] { '：' })[1].Split(new char[] { ',' });
+                            string _addr1 = "", _addr2 = "", _city = "", _zip = "", _state = "";
+                            if (_addr.Length == 3)
+                            {
+                                _addr1 = _addr[0].Trim();
+                                _city = _addr[1].Trim();
+                                _state = _addr[2].Trim().Split(new char[] { ' ' })[0].Trim();
+                                _zip = _addr[2].Trim().Split(new char[] { ' ' })[1].Trim();
+                            }
+                            else if (_addr.Length == 4)
+                            {
+                                _addr1 = _addr[0].Trim();
+                                _addr2 = _addr[1].Trim();
+                                _city = _addr[2].Trim();
+                                _state = _addr[3].Trim().Split(new char[] { ' ' })[0].Trim();
+                                _zip = _addr[3].Trim().Split(new char[] { ' ' })[1].Trim();
+                            }
+                            try
+                            {
+                                string insertsql = "insert into shipping values (N'" + chName + "', '" + enName + "', '" + _addr1 + "', '" + _addr2 + "', '" + _city + "', '" + _state + "', '" + _zip + "', '" + _tel + "')";
+                                getSqlCmd(insertsql).ExecuteNonQuery();
+                                this.Invoke(myDelegate, new Object[] { chName + " " + enName });
+                               // listBox2.Items.Add(chName + " " + enName);
+                            }
+                            catch (Exception err)
+                            {
+                                addMsg(err.Message + Environment.NewLine);
+                            }
+                        }
                     }
-
                 }
-
+                addMsg("save DB Finish!");
             }
         }
 
+        private void btn_onedollor_Click(object sender, EventArgs e)
+        {
+            ChromeOptions co = new ChromeOptions();
+            co.AddArgument("-incognito");
+            ChromeDriver cd = new ChromeDriver(co);
+            cd.Manage().Cookies.DeleteAllCookies();
+            forceDeleteCookieFile(cd);
+            cd.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
+        }
 
-        private void button6_Click(object sender, EventArgs e)
+
+        private void btn_chrome_Click(object sender, EventArgs e)
+        {
+            ChromeOptions co = new ChromeOptions();
+            co.AddArgument("-incognito");
+            ChromeDriver cd = new ChromeDriver(co);
+            cd.Manage().Cookies.DeleteAllCookies();
+            forceDeleteCookieFile(cd);
+            cd.Navigate().GoToUrl("https://www.amazon.com");
+        }
+
+        private void btn_edge_Click(object sender, EventArgs e)
         {
             EdgeOptions eo = new EdgeOptions();
             InternetExplorerOptions opt = new InternetExplorerOptions();
             //opt.ForceCreateProcessApi = true;
             opt.BrowserCommandLineArguments = "-private";
             InternetExplorerDriver iedrv = new InternetExplorerDriver(opt);
-            
+        }
+
+        private void btn_fillbill_Click(object sender, EventArgs e)
+        {
+            addMsg(DateTime.Now.ToString());
         }
     }
 }
