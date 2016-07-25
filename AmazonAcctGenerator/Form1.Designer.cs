@@ -30,6 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_edge = new System.Windows.Forms.Button();
             this.btn_export = new System.Windows.Forms.Button();
             this.btn_create = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -90,6 +90,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(479, 17);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "resume";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_edge
             // 
@@ -195,7 +205,7 @@
             this.btn_onedollor.TabIndex = 9;
             this.btn_onedollor.Text = "$1 page";
             this.btn_onedollor.UseVisualStyleBackColor = true;
-            this.btn_onedollor.Click += new System.EventHandler(this.btn_onedollor_Click);
+            this.btn_onedollor.Click += new System.EventHandler(this.btn_onedollor_Click_1);
             // 
             // btn_ccyp
             // 
@@ -247,16 +257,6 @@
             this.msgpanel.Name = "msgpanel";
             this.msgpanel.Size = new System.Drawing.Size(616, 34);
             this.msgpanel.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(479, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "resume";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
