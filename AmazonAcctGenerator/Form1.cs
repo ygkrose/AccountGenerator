@@ -194,14 +194,11 @@ namespace AmazonAcctGenerator
                                 addMsg("unknow error! Stop Running program.");
                                 break;
                             }
-                            
                         }
                     }
                     
                     _driver.Quit();
                 }
-
-
             }
             catch (Exception err)
             {
@@ -347,10 +344,7 @@ namespace AmazonAcctGenerator
                 conn.Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Thread.CurrentThread.Resume();
-        }
+  
 
         ChromeDriver cdbid;
         private void btn_onedollor_Click_1(object sender, EventArgs e)
@@ -396,6 +390,35 @@ namespace AmazonAcctGenerator
                     cdbid.FindElementByName("shipToThisAddress").Click();
                 }
             }
+        }
+
+        DataGrid dg1 = null;
+        private void tabledata_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dg1 == null)
+                dg1 = new DataGrid();
+            else
+                dg1.DataSource = null;
+            tableLayoutPanel1.Controls.Add(dg1);
+            tableLayoutPanel1.SetRow(dg1, 4);
+            tableLayoutPanel1.SetColumnSpan(dg1, 2);
+            dg1.Dock = DockStyle.Fill;
+            dg1.BringToFront();
+            if (string.IsNullOrEmpty(tabledata.Text.Trim()))
+            {
+                listBox1.Visible = true;
+                listBox2.Visible = true;
+                dg1.SendToBack();
+            }
+            else
+            {
+                listBox1.Visible = false;
+                listBox2.Visible = false;
+                dg1.DataSource = getColRows(tabledata.Text, "*");
+            }
+            
+            
+            
         }
     }
 }

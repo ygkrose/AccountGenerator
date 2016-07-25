@@ -30,7 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.tabledata = new System.Windows.Forms.ComboBox();
             this.btn_edge = new System.Windows.Forms.Button();
             this.btn_export = new System.Windows.Forms.Button();
             this.btn_create = new System.Windows.Forms.Button();
@@ -69,13 +69,13 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(622, 435);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(787, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.tabledata);
             this.groupBox1.Controls.Add(this.btn_edge);
             this.groupBox1.Controls.Add(this.btn_export);
             this.groupBox1.Controls.Add(this.btn_create);
@@ -86,20 +86,25 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(618, 48);
+            this.groupBox1.Size = new System.Drawing.Size(783, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
             // 
-            // button1
+            // tabledata
             // 
-            this.button1.Location = new System.Drawing.Point(479, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "resume";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.tabledata.FormattingEnabled = true;
+            this.tabledata.Items.AddRange(new object[] {
+            "",
+            "account",
+            "review",
+            "shipping",
+            "card"});
+            this.tabledata.Location = new System.Drawing.Point(480, 19);
+            this.tabledata.Name = "tabledata";
+            this.tabledata.Size = new System.Drawing.Size(70, 20);
+            this.tabledata.TabIndex = 6;
+            this.tabledata.SelectedIndexChanged += new System.EventHandler(this.tabledata_SelectedIndexChanged);
             // 
             // btn_edge
             // 
@@ -165,7 +170,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 146);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(307, 287);
+            this.listBox1.Size = new System.Drawing.Size(389, 304);
             this.listBox1.TabIndex = 2;
             // 
             // listBox2
@@ -175,10 +180,10 @@
             this.listBox2.ItemHeight = 12;
             this.listBox2.Items.AddRange(new object[] {
             "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(313, 146);
+            this.listBox2.Location = new System.Drawing.Point(395, 146);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(307, 287);
+            this.listBox2.Size = new System.Drawing.Size(390, 304);
             this.listBox2.TabIndex = 3;
             // 
             // groupBox2
@@ -192,7 +197,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 55);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(616, 46);
+            this.groupBox2.Size = new System.Drawing.Size(781, 46);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
@@ -230,7 +235,6 @@
             // cardpickup
             // 
             this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cardpickup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cardpickup.FormattingEnabled = true;
             this.cardpickup.Location = new System.Drawing.Point(303, 15);
             this.cardpickup.Name = "cardpickup";
@@ -255,14 +259,14 @@
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.msgpanel.Location = new System.Drawing.Point(3, 107);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(616, 34);
+            this.msgpanel.Size = new System.Drawing.Size(781, 34);
             this.msgpanel.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 435);
+            this.ClientSize = new System.Drawing.Size(787, 452);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -294,7 +298,7 @@
         private System.Windows.Forms.Button btn_ccyp;
         private System.Windows.Forms.Button btn_edge;
         private System.Windows.Forms.FlowLayoutPanel msgpanel;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox tabledata;
     }
 }
 

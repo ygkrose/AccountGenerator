@@ -41,3 +41,5 @@ K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Selenium.WebDriverB
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\ThoughtWorks.Selenium.Core.xml
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.xml
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.Support.xml
+D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb.mdf
+D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb_log.ldf
