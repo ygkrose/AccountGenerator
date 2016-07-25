@@ -320,17 +320,6 @@ namespace AmazonAcctGenerator
             }
         }
 
-        private void btn_onedollor_Click(object sender, EventArgs e)
-        {
-            ChromeOptions co = new ChromeOptions();
-            co.AddArgument("-incognito");
-            ChromeDriver cd = new ChromeDriver(co);
-            cd.Manage().Cookies.DeleteAllCookies();
-            forceDeleteCookieFile(cd);
-            cd.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
-        }
-
-
         private void btn_chrome_Click(object sender, EventArgs e)
         {
             ChromeOptions co = new ChromeOptions();
@@ -350,10 +339,7 @@ namespace AmazonAcctGenerator
             InternetExplorerDriver iedrv = new InternetExplorerDriver(opt);
         }
 
-        private void btn_fillbill_Click(object sender, EventArgs e)
-        {
-            addMsg(DateTime.Now.ToString());
-        }
+
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -364,6 +350,52 @@ namespace AmazonAcctGenerator
         private void button1_Click(object sender, EventArgs e)
         {
             Thread.CurrentThread.Resume();
+        }
+
+        ChromeDriver cdbid;
+        private void btn_onedollor_Click_1(object sender, EventArgs e)
+        {
+            ChromeOptions co = new ChromeOptions();
+            co.AddArgument("-incognito");
+            cdbid = new ChromeDriver(co);
+            cdbid.Manage().Cookies.DeleteAllCookies();
+            forceDeleteCookieFile(cdbid);
+            cdbid.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
+        }
+
+        private void btn_fillbill_Click(object sender, EventArgs e)
+        {
+            if (cdbid != null)
+            {
+                //add to cart button
+                IWebElement addcart = cdbid.FindElementById("add-to-cart-button");
+                if (addcart == null) { addMsg("can't find add to cart btn!"); return; }
+                addcart.Click();
+                //process to checkout button
+                IWebElement chkout = cdbid.FindElementById("hlb-ptc-btn-native");
+                if (chkout==null) { addMsg("can't find process to checkout button!"); return; }
+                chkout.Click();
+                //sign in form
+                if (cdbid.FindElementByName("signIn") != null)
+                {
+                    //get account from db here
+                    cdbid.FindElementById("ap_email").SendKeys("");
+                    cdbid.FindElementById("ap_password").SendKeys("");
+                }
+                //fill shipping data
+                if (cdbid.FindElementById("newShippingAddressFormFromIdentity")!=null)
+                {
+                    //get shipping addr from db here
+                    cdbid.FindElementById("enterAddressFullName").SendKeys("");
+                    cdbid.FindElementById("enterAddressAddressLine1").SendKeys("");
+                    cdbid.FindElementById("enterAddressAddressLine2Container").SendKeys("");
+                    cdbid.FindElementById("enterAddressCityContainer").SendKeys("");
+                    cdbid.FindElementById("enterAddressStateOrRegionContainer").SendKeys("");
+                    cdbid.FindElementById("enterAddressPostCodeContainer").SendKeys("");
+                    cdbid.FindElementById("enterAddressPhoneNumberContainer").SendKeys("");
+                    cdbid.FindElementByName("shipToThisAddress").Click();
+                }
+            }
         }
     }
 }
