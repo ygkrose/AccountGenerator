@@ -126,6 +126,7 @@
             this.btn_export.TabIndex = 3;
             this.btn_export.Text = "Export Accounts";
             this.btn_export.UseVisualStyleBackColor = true;
+            this.btn_export.Click += new System.EventHandler(this.btn_export_Click);
             // 
             // btn_create
             // 

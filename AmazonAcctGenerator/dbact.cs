@@ -27,15 +27,18 @@ namespace AmazonAcctGenerator
             }
         }
 
-        public static DataTable getColRows(string tablename,string colname)
+        public static DataTable getColRows(string tablename,string colname,string condition="")
         {
             DataTable rtn = new DataTable();
             try
             {
                 if (conn.State != System.Data.ConnectionState.Open)
                     conn.Open();
-
-                SqlDataAdapter sdp = new SqlDataAdapter("select " + colname + " from " + tablename, conn);
+                if (!string.IsNullOrEmpty(condition))
+                {
+                    condition = " where " + condition;
+                }
+                SqlDataAdapter sdp = new SqlDataAdapter("select " + colname + " from " + tablename + condition, conn);
                 sdp.Fill(rtn);
             }
             catch (Exception err)

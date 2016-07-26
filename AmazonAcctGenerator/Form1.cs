@@ -361,10 +361,13 @@ namespace AmazonAcctGenerator
             cdbid.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
         }
 
+        shipper _currentShipper = null;
+        UserStruct _currentBuyer = null;
         private void btn_fillbill_Click(object sender, EventArgs e)
         {
             if (cdbid != null)
             {
+                string _pitem = cdbid.FindElementById("productDetails_detailBullets_sections1").FindElements(By.TagName("td"))[2].Text;
                 //add to cart button
                 IWebElement addcart = cdbid.FindElementById("add-to-cart-button");
                 if (addcart == null) { addMsg("can't find add to cart btn!"); return; }
@@ -377,24 +380,64 @@ namespace AmazonAcctGenerator
                 if (cdbid.FindElementByName("signIn") != null)
                 {
                     //get account from db here
-                    cdbid.FindElementById("ap_email").SendKeys("");
-                    cdbid.FindElementById("ap_password").SendKeys("");
+                    _currentBuyer = getRndBuyer();
+                    _currentBuyer.pitm = _pitem.Trim();
+                    cdbid.FindElementById("ap_email").SendKeys(_currentBuyer.email);
+                    cdbid.FindElementById("ap_password").SendKeys(_currentBuyer.pwd);
+                    cdbid.FindElementById("signInSubmit").Click();
                 }
                 //fill shipping data
                 if (cdbid.FindElementById("newShippingAddressFormFromIdentity")!=null)
                 {
                     //get shipping addr from db here
-                    cdbid.FindElementById("enterAddressFullName").SendKeys("");
-                    cdbid.FindElementById("enterAddressAddressLine1").SendKeys("");
-                    cdbid.FindElementById("enterAddressAddressLine2Container").SendKeys("");
-                    cdbid.FindElementById("enterAddressCityContainer").SendKeys("");
-                    cdbid.FindElementById("enterAddressStateOrRegionContainer").SendKeys("");
-                    cdbid.FindElementById("enterAddressPostCodeContainer").SendKeys("");
-                    cdbid.FindElementById("enterAddressPhoneNumberContainer").SendKeys("");
+                    _currentShipper = getRndshipper();
+                    cdbid.FindElementById("enterAddressFullName").SendKeys(_currentShipper.enname);
+                    cdbid.FindElementById("enterAddressAddressLine1").SendKeys(_currentShipper.addr1);
+                    cdbid.FindElementById("enterAddressAddressLine2").SendKeys(_currentShipper.addr2);
+                    cdbid.FindElementById("enterAddressCity").SendKeys(_currentShipper.city);
+                    cdbid.FindElementById("enterAddressStateOrRegion").SendKeys(_currentShipper.state);
+                    cdbid.FindElementById("enterAddressPostalCode").SendKeys(_currentShipper.zipcode);
+                    cdbid.FindElementById("enterAddressPhoneNumber").SendKeys(_currentShipper.phone);
                     cdbid.FindElementByName("shipToThisAddress").Click();
                 }
+                cdbid.FindElementByCssSelector("input[type=\"submit\"][value=\"continue\"]").Click();
+                //card info
+                cdbid.FindElementById("ccName").SendKeys(_currentShipper.enname);
+                cdbid.FindElementById("addCreditCardNumber").SendKeys(cardpickup.Text.Split(new char[] { ','})[0].Trim());
             }
         }
+
+        private UserStruct getRndBuyer()
+        {
+            DataTable tmptable = getColRows("account", "top 1 *", "pitem='' and status='created' order by NEWID()");
+            if (tmptable.Rows.Count == 0) { addMsg("no suitable buyer for use"); return null; }
+            UserStruct us = new UserStruct()
+            {
+                email = tmptable.Rows[0]["email"].ToString().Trim(),
+                 pwd = tmptable.Rows[0]["pwd"].ToString().Trim()
+            };
+            
+            return us;
+        }
+
+        private shipper getRndshipper()
+        {
+            DataTable tmptable = getColRows("shipping", "top 1 *", " 1=1 order by NEWID()");
+            if (tmptable.Rows.Count == 0) { addMsg("no suitable shipper for use"); return null; }
+            shipper ship = new shipper()
+            {
+                enname = tmptable.Rows[0]["enname"].ToString().Trim(),
+                addr1 = tmptable.Rows[0]["addr1"].ToString().Trim(),
+                addr2 = tmptable.Rows[0]["addr2"].ToString().Trim(),
+                city = tmptable.Rows[0]["city"].ToString().Trim(),
+                state = tmptable.Rows[0]["state"].ToString().Trim(),
+                zipcode = tmptable.Rows[0]["zipcode"].ToString().Trim(),
+                phone = tmptable.Rows[0]["tel"].ToString().Trim()
+            };
+
+            return ship;
+        }
+
 
         DataGrid dg1 = null;
         private void tabledata_SelectedIndexChanged(object sender, EventArgs e)
@@ -424,6 +467,11 @@ namespace AmazonAcctGenerator
             
             
             
+        }
+
+        private void btn_export_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
