@@ -152,6 +152,7 @@ namespace AmazonAcctGenerator
 
 
                     _driver = newAWebDriver("chrome");
+                    
                     _driver.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin");
                     IWebElement getreport = _driver.FindElement(By.Id("createAccountSubmit"));
                     getreport.Click();
@@ -174,7 +175,7 @@ namespace AmazonAcctGenerator
                     {
                         IWebElement navpage = _driver.FindElement(By.Id("nav-tools"));
                         if (navpage != null && navpage.GetAttribute("innerText").IndexOf("Hello")>-1)
-                            this.Invoke(Delegate_listbox2, new Object[] { _users[i].email + addAccount(_users[i]) });
+                            this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial + ":" + _users[i].email + addAccount(_users[i]) });
                         else
                         {
                             if (resultpage.GetAttribute("innerText").IndexOf("Email address already in use") > -1)
@@ -225,6 +226,7 @@ namespace AmazonAcctGenerator
             {
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
+                co.AddArgument("window-size=120,200");
                 ChromeDriver cd = new ChromeDriver(co);
                 cd.Manage().Cookies.DeleteAllCookies();
                 forceDeleteCookieFile(cd);
