@@ -136,8 +136,6 @@ namespace AmazonAcctGenerator
         {
             try
             {
-                ChromeOptions co = new ChromeOptions();
-                co.AddArgument("-incognito");
                 getallemail();
                 listBox2.Items.Clear();
                 for (int i = 0; i < _users.Count; i++)
@@ -151,11 +149,9 @@ namespace AmazonAcctGenerator
                     {
                         continue;
                     }
-                      
-                   
-                    _driver = new ChromeDriver(co);
-                    _driver.Manage().Cookies.DeleteAllCookies();
-                    forceDeleteCookieFile(_driver);
+
+
+                    _driver = newAWebDriver("chrome");
                     _driver.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin");
                     IWebElement getreport = _driver.FindElement(By.Id("createAccountSubmit"));
                     getreport.Click();
@@ -213,6 +209,30 @@ namespace AmazonAcctGenerator
 
         }
 
+        private IWebDriver newAWebDriver(string typ)
+        {
+            if (typ == "edge")
+            {
+                EdgeOptions eo = new EdgeOptions();
+                eo.AddAdditionalCapability("ForceCreateProcessApi", true);
+                eo.AddAdditionalCapability("BrowserCommandLineArguments", "private");
+                //eo.ForceCreateProcessApi = true;
+                //eo.BrowserCommandLineArguments = "-private";
+                EdgeDriver iedrv = new EdgeDriver(eo);
+                return iedrv;
+            }
+            else if (typ == "chrome")
+            {
+                ChromeOptions co = new ChromeOptions();
+                co.AddArgument("-incognito");
+                ChromeDriver cd = new ChromeDriver(co);
+                cd.Manage().Cookies.DeleteAllCookies();
+                forceDeleteCookieFile(cd);
+                return cd;
+            }
+            return null;
+        }
+
         List<DataRow> allEmail = null;
         private void getallemail()
         {
@@ -256,11 +276,7 @@ namespace AmazonAcctGenerator
         ChromeDriver ccypdriver = null;
         private void btn_ccyp_Click(object sender, EventArgs e)
         {
-            ChromeOptions co = new ChromeOptions();
-            co.AddArgument("-incognito");
-            ccypdriver = new ChromeDriver(co);
-            ccypdriver.Manage().Cookies.DeleteAllCookies();
-            forceDeleteCookieFile(ccypdriver);
+            ccypdriver = newAWebDriver("chrome") as ChromeDriver;
             ccypdriver.Navigate().GoToUrl("http://www.ccyp.com");
         }
 
@@ -320,21 +336,13 @@ namespace AmazonAcctGenerator
 
         private void btn_chrome_Click(object sender, EventArgs e)
         {
-            ChromeOptions co = new ChromeOptions();
-            co.AddArgument("-incognito");
-            ChromeDriver cd = new ChromeDriver(co);
-            cd.Manage().Cookies.DeleteAllCookies();
-            forceDeleteCookieFile(cd);
+            ChromeDriver cd = newAWebDriver("chrome") as ChromeDriver;
             cd.Navigate().GoToUrl("https://www.amazon.com");
         }
 
         private void btn_edge_Click(object sender, EventArgs e)
         {
-            EdgeOptions eo = new EdgeOptions();
-            InternetExplorerOptions opt = new InternetExplorerOptions();
-            //opt.ForceCreateProcessApi = true;
-            opt.BrowserCommandLineArguments = "-private";
-            InternetExplorerDriver iedrv = new InternetExplorerDriver(opt);
+            EdgeDriver iedrv = newAWebDriver("edge") as EdgeDriver;
         }
 
 
@@ -350,11 +358,7 @@ namespace AmazonAcctGenerator
         ChromeDriver cdbid;
         private void btn_onedollor_Click_1(object sender, EventArgs e)
         {
-            ChromeOptions co = new ChromeOptions();
-            co.AddArgument("-incognito");
-            cdbid = new ChromeDriver(co);
-            cdbid.Manage().Cookies.DeleteAllCookies();
-            forceDeleteCookieFile(cdbid);
+            cdbid = newAWebDriver("chrome") as ChromeDriver;
             cdbid.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
         }
 
