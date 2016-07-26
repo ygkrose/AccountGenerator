@@ -95,6 +95,7 @@ namespace AmazonAcctGenerator
                             string[] bary = _birth.Split(new char[] { '/' });
                             string birthmd = bary[0].PadLeft(2, '0') + bary[1].PadLeft(2, '0');
                             listBox1.Items.Add(splitdata[0] + ":" + _email.Replace("@", birthmd + "@"));
+                            us.serial = splitdata[0];
                             us.name = _email.Split(new char[] { '@' })[0];
                             us.email = _email.Replace("@", birthmd + "@");
                             us.birthday = _birth;
@@ -182,7 +183,7 @@ namespace AmazonAcctGenerator
                         {
                             if (resultpage.GetAttribute("innerText").IndexOf("Email address already in use") > -1)
                             {
-                                this.Invoke(Delegate_listbox2, new Object[] { _users[i].email + "Email address already in use" });
+                                this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial+":"+ _users[i].email + "Email address already in use" });
                             }
                             else if (resultpage.GetAttribute("innerText").IndexOf("a problem") > -1)
                             {
@@ -221,7 +222,7 @@ namespace AmazonAcctGenerator
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0)";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0,'')";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();
