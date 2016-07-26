@@ -216,8 +216,8 @@ namespace AmazonAcctGenerator
                 EdgeOptions eo = new EdgeOptions();
                 eo.AddAdditionalCapability("ForceCreateProcessApi", true);
                 eo.AddAdditionalCapability("BrowserCommandLineArguments", "private");
-                //eo.ForceCreateProcessApi = true;
-                //eo.BrowserCommandLineArguments = "-private";
+                eo.PageLoadStrategy = EdgePageLoadStrategy.Normal;
+                
                 EdgeDriver iedrv = new EdgeDriver(eo);
                 return iedrv;
             }
