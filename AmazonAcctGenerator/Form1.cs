@@ -1,19 +1,12 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
-using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AmazonAcctGenerator
@@ -173,9 +166,13 @@ namespace AmazonAcctGenerator
                     IWebElement resultpage = _driver.FindElement(By.Id("a-page"));
                     if (resultpage != null)
                     {
-                        IWebElement navpage = _driver.FindElement(By.Id("nav-tools"));
-                        if (navpage != null && navpage.GetAttribute("innerText").IndexOf("Hello")>-1)
-                            this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial + ":" + _users[i].email + addAccount(_users[i]) });
+                        IReadOnlyList<IWebElement> ls = _driver.FindElements(By.Id("nav-tools"));
+                        if (ls.Count == 1)
+                        {
+                            IWebElement navpage = _driver.FindElement(By.Id("nav-tools"));
+                            if (navpage != null && navpage.GetAttribute("innerText").IndexOf("Hello") > -1)
+                                this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial + ":" + _users[i].email + addAccount(_users[i]) });
+                        }
                         else
                         {
                             if (resultpage.GetAttribute("innerText").IndexOf("Email address already in use") > -1)
@@ -421,6 +418,7 @@ namespace AmazonAcctGenerator
             {
                 listBox1.Visible = false;
                 listBox2.Visible = false;
+                
                 dg1.DataSource = getColRows(tabledata.Text, "*");
             }
             

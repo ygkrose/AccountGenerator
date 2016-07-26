@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dapper;
 
 namespace AmazonAcctGenerator
 {
@@ -14,6 +11,7 @@ namespace AmazonAcctGenerator
         //private static string connstr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=K:\VSPROJECTS\ACCOUNTGENERATOR\AMAZONACCTGENERATOR\MYDB.MDF;Integrated Security=False;User ID=amazon;Password='wolf621030';Encrypt=False;ApplicationIntent=ReadWrite";
         private static string connstr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\VSProjects\AccountGenerator\AmazonAcctGenerator\mydb.mdf;Integrated Security=True";
         public static SqlConnection conn = new SqlConnection(connstr);
+        public static IDbConnection dapper = new SqlConnection(connstr);
         
         public static SqlCommand getSqlCmd(string sqltxt)
         {
