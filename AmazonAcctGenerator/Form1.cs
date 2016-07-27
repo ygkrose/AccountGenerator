@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AmazonAcctGenerator
@@ -127,6 +128,15 @@ namespace AmazonAcctGenerator
 
         private void btn_create_Click(object sender, EventArgs e)
         {
+            Task.Run(()=> {
+                doCreatAccount();
+            });
+
+        }
+
+
+        private void doCreatAccount()
+        {
             try
             {
                 getallemail();
@@ -145,7 +155,7 @@ namespace AmazonAcctGenerator
 
 
                     _driver = newAWebDriver("chrome");
-                    
+
                     _driver.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_signin");
                     IWebElement getreport = _driver.FindElement(By.Id("createAccountSubmit"));
                     getreport.Click();
@@ -161,8 +171,8 @@ namespace AmazonAcctGenerator
 
                     IWebElement creatbtn = _driver.FindElement(By.Id("continue"));
                     creatbtn.Click();
-                    
-                    
+
+
                     IWebElement resultpage = _driver.FindElement(By.Id("a-page"));
                     if (resultpage != null)
                     {
@@ -177,7 +187,7 @@ namespace AmazonAcctGenerator
                         {
                             if (resultpage.GetAttribute("innerText").IndexOf("Email address already in use") > -1)
                             {
-                                this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial+":"+ _users[i].email + "Email address already in use" });
+                                this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial + ":" + _users[i].email + "Email address already in use" });
                             }
                             else if (resultpage.GetAttribute("innerText").IndexOf("a problem") > -1)
                             {
@@ -191,7 +201,7 @@ namespace AmazonAcctGenerator
                             }
                         }
                     }
-                    
+
                     _driver.Quit();
                 }
             }
@@ -204,7 +214,6 @@ namespace AmazonAcctGenerator
                     _driver.Dispose();
                 }
             }
-
         }
 
         private IWebDriver newAWebDriver(string typ)
@@ -241,7 +250,7 @@ namespace AmazonAcctGenerator
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0,'')";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0)";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();

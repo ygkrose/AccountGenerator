@@ -20,7 +20,6 @@ D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Selenium.WebDriverB
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\ThoughtWorks.Selenium.Core.xml
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.xml
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.Support.xml
-D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Form1.resources
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Properties.Resources.resources
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
@@ -43,3 +42,6 @@ K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.xml
 K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\WebDriver.Support.xml
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb.mdf
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb_log.ldf
+D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Dapper.dll
+D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Dapper.xml
+D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
