@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenQA.Selenium.Support.UI;
 
 namespace AmazonAcctGenerator
 {
@@ -416,6 +417,23 @@ namespace AmazonAcctGenerator
                 //card info
                 cdbid.FindElementById("ccName").SendKeys(_currentShipper.enname);
                 cdbid.FindElementById("addCreditCardNumber").SendKeys(cardpickup.Text.Split(new char[] { ','})[0].Trim());
+
+
+                cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
+                cdbid.FindElementsByLinkText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0])[0].Click();
+
+                //SelectElement sem = new SelectElement(cdbid.FindElementById("ccMonth"));
+                //sem.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0]);
+
+                cdbid.FindElementsByClassName("a-dropdown-prompt")[1].Click();
+                cdbid.FindElementsByLinkText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1])[0].Click();
+                //SelectElement sey = new SelectElement(cdbid.FindElementById("ccYear"));
+                //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
+
+                cdbid.FindElementById("ccAddCard").Click();
+                System.Threading.Thread.Sleep(500);
+                cdbid.FindElementById("continue-top").Click();
+
             }
         }
 
