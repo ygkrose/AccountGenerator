@@ -474,6 +474,7 @@ namespace AmazonAcctGenerator
 
         private void btn_upt_Click(object sender, EventArgs e)
         {
+            if (_currentBuyer == null | _currentShipper == null) return;
             IDbCommand cmd = dapper.CreateCommand();
             if (dapper.State == ConnectionState.Closed)
                 dapper.Open();
