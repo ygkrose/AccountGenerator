@@ -126,21 +126,22 @@ namespace AmazonAcctGenerator
             l.BringToFront();
         }
 
-        private void btn_create_Click(object sender, EventArgs e)
+        private async void btn_create_Click(object sender, EventArgs e)
         {
-            Task.Run(()=> {
-                doCreatAccount();
-            });
-
+            string msg = "";
+            listBox2.Items.Clear();
+            msg = await Task.Run(() => doCreatAccount());
+            addMsg(msg);
         }
 
 
-        private void doCreatAccount()
+        private string doCreatAccount()
         {
+            string rtnmsg = "";
             try
             {
                 getallemail();
-                listBox2.Items.Clear();
+                
                 for (int i = 0; i < _users.Count; i++)
                 {
                     if (allEmail.Exists(
@@ -191,12 +192,12 @@ namespace AmazonAcctGenerator
                             }
                             else if (resultpage.GetAttribute("innerText").IndexOf("a problem") > -1)
                             {
-                                addMsg("detect robot error! Stop Running program.");
+                                rtnmsg = ("detect robot error! Stop Running program.");
                                 break;
                             }
                             else
                             {
-                                addMsg("unknow error! Stop Running program.");
+                                rtnmsg= ("unknow error! Stop Running program.");
                                 break;
                             }
                         }
@@ -207,13 +208,14 @@ namespace AmazonAcctGenerator
             }
             catch (Exception err)
             {
-                addMsg(err.Message);
+                rtnmsg = (err.Message);
                 if (_driver != null)
                 {
                     _driver.Quit();
                     _driver.Dispose();
                 }
             }
+            return rtnmsg;
         }
 
         private IWebDriver newAWebDriver(string typ)
@@ -250,14 +252,14 @@ namespace AmazonAcctGenerator
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0)";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0,null)";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();
             }
             catch (Exception err)
             {
-                addMsg(err.Message);
+                rtn=(err.Message);
             }
             return rtn;
         }
