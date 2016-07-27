@@ -45,6 +45,7 @@
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.btn_upt = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -190,6 +191,7 @@
             // groupBox2
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
+            this.groupBox2.Controls.Add(this.btn_upt);
             this.groupBox2.Controls.Add(this.btn_onedollor);
             this.groupBox2.Controls.Add(this.btn_ccyp);
             this.groupBox2.Controls.Add(this.btn_fillbill);
@@ -263,6 +265,16 @@
             this.msgpanel.Size = new System.Drawing.Size(781, 34);
             this.msgpanel.TabIndex = 5;
             // 
+            // btn_upt
+            // 
+            this.btn_upt.Location = new System.Drawing.Point(545, 12);
+            this.btn_upt.Name = "btn_upt";
+            this.btn_upt.Size = new System.Drawing.Size(75, 23);
+            this.btn_upt.TabIndex = 10;
+            this.btn_upt.Text = "upt purchase";
+            this.btn_upt.UseVisualStyleBackColor = true;
+            this.btn_upt.Click += new System.EventHandler(this.btn_upt_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -300,6 +312,7 @@
         private System.Windows.Forms.Button btn_edge;
         private System.Windows.Forms.FlowLayoutPanel msgpanel;
         private System.Windows.Forms.ComboBox tabledata;
+        private System.Windows.Forms.Button btn_upt;
     }
 }
 

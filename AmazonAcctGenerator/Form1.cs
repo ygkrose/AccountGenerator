@@ -400,7 +400,8 @@ namespace AmazonAcctGenerator
                     cdbid.FindElementById("enterAddressPhoneNumber").SendKeys(_currentShipper.phone);
                     cdbid.FindElementByName("shipToThisAddress").Click();
                 }
-                cdbid.FindElementByCssSelector("input[type=\"submit\"][value=\"continue\"]").Click();
+                cdbid.FindElementByClassName("a-button-text").Click();
+                System.Threading.Thread.Sleep(1500);
                 //card info
                 cdbid.FindElementById("ccName").SendKeys(_currentShipper.enname);
                 cdbid.FindElementById("addCreditCardNumber").SendKeys(cardpickup.Text.Split(new char[] { ','})[0].Trim());
@@ -464,14 +465,24 @@ namespace AmazonAcctGenerator
                 
                 dg1.DataSource = getColRows(tabledata.Text, "*");
             }
-            
-            
-            
         }
 
         private void btn_export_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_upt_Click(object sender, EventArgs e)
+        {
+            IDbCommand cmd = dapper.CreateCommand();
+            if (dapper.State == ConnectionState.Closed)
+                dapper.Open();
+            cmd.CommandText = "update account set rcvname='" + _currentShipper.enname + "' , tel='" + _currentShipper.phone + "', pitem='" + _currentBuyer.pitm + "',cardno='" +
+                cardpickup.Text.Split(new char[] { ',' })[0].Trim() + "',status='Ready',pdate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where email='" + _currentBuyer.email.Trim() + "'";
+            if (cmd.ExecuteNonQuery() == 1)
+                addMsg("update success!");
+            else
+                addMsg("update fail!");
         }
     }
 }
