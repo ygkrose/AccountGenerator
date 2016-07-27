@@ -398,6 +398,7 @@ namespace AmazonAcctGenerator
                     cdbid.FindElementById("ap_password").SendKeys(_currentBuyer.pwd);
                     cdbid.FindElementById("signInSubmit").Click();
                 }
+                this.Invoke(Delegate_listbox2, new Object[] { _currentBuyer.email });
                 //fill shipping data
                 if (cdbid.FindElementById("newShippingAddressFormFromIdentity")!=null)
                 {
@@ -416,23 +417,26 @@ namespace AmazonAcctGenerator
                 System.Threading.Thread.Sleep(1500);
                 //card info
                 cdbid.FindElementById("ccName").SendKeys(_currentShipper.enname);
-                cdbid.FindElementById("addCreditCardNumber").SendKeys(cardpickup.Text.Split(new char[] { ','})[0].Trim());
 
+                string[] ccds = cardpickup.Text.Split(new char[] { ',' });
+                cdbid.FindElementById("addCreditCardNumber").SendKeys(ccds[0].Trim());
 
+                string[] limit = ccds[1].Split(new char[] { '/' });
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
-                cdbid.FindElementsByLinkText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0])[0].Click();
+                cdbid.FindElementsByLinkText(limit[0])[0].Click();
 
                 //SelectElement sem = new SelectElement(cdbid.FindElementById("ccMonth"));
                 //sem.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0]);
 
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[1].Click();
-                cdbid.FindElementsByLinkText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1])[0].Click();
+                cdbid.FindElementsByLinkText(limit[1])[0].Click();
                 //SelectElement sey = new SelectElement(cdbid.FindElementById("ccYear"));
                 //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
 
                 cdbid.FindElementById("ccAddCard").Click();
                 System.Threading.Thread.Sleep(500);
                 cdbid.FindElementById("continue-top").Click();
+                //cdbid.FindElementByName("placeYourOrder1").Click();
 
             }
         }
@@ -472,6 +476,11 @@ namespace AmazonAcctGenerator
         DataGrid dg1 = null;
         private void tabledata_SelectedIndexChanged(object sender, EventArgs e)
         {
+            fillDataGrid();
+        }
+
+        private void fillDataGrid()
+        {
             if (dg1 == null)
                 dg1 = new DataGrid();
             else
@@ -491,7 +500,7 @@ namespace AmazonAcctGenerator
             {
                 listBox1.Visible = false;
                 listBox2.Visible = false;
-                
+
                 dg1.DataSource = getColRows(tabledata.Text, "*");
             }
         }
@@ -510,7 +519,10 @@ namespace AmazonAcctGenerator
             cmd.CommandText = "update account set rcvname='" + _currentShipper.enname + "' , tel='" + _currentShipper.phone + "', pitem='" + _currentBuyer.pitm + "',cardno='" +
                 cardpickup.Text.Split(new char[] { ',' })[0].Trim() + "',status='Ready',pdate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where email='" + _currentBuyer.email.Trim() + "'";
             if (cmd.ExecuteNonQuery() == 1)
+            {
                 addMsg("update success!");
+                fillDataGrid();
+            }
             else
                 addMsg("update fail!");
         }
