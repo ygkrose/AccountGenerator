@@ -39,13 +39,14 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_upt = new System.Windows.Forms.Button();
             this.btn_onedollor = new System.Windows.Forms.Button();
             this.btn_ccyp = new System.Windows.Forms.Button();
             this.btn_fillbill = new System.Windows.Forms.Button();
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.btn_upt = new System.Windows.Forms.Button();
+            this.btn_resume = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -76,6 +77,7 @@
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
+            this.groupBox1.Controls.Add(this.btn_resume);
             this.groupBox1.Controls.Add(this.tabledata);
             this.groupBox1.Controls.Add(this.btn_edge);
             this.groupBox1.Controls.Add(this.btn_export);
@@ -205,6 +207,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
             // 
+            // btn_upt
+            // 
+            this.btn_upt.Location = new System.Drawing.Point(545, 12);
+            this.btn_upt.Name = "btn_upt";
+            this.btn_upt.Size = new System.Drawing.Size(75, 23);
+            this.btn_upt.TabIndex = 10;
+            this.btn_upt.Text = "upt purchase";
+            this.btn_upt.UseVisualStyleBackColor = true;
+            this.btn_upt.Click += new System.EventHandler(this.btn_upt_Click);
+            // 
             // btn_onedollor
             // 
             this.btn_onedollor.Location = new System.Drawing.Point(206, 13);
@@ -265,15 +277,15 @@
             this.msgpanel.Size = new System.Drawing.Size(781, 34);
             this.msgpanel.TabIndex = 5;
             // 
-            // btn_upt
+            // btn_resume
             // 
-            this.btn_upt.Location = new System.Drawing.Point(545, 12);
-            this.btn_upt.Name = "btn_upt";
-            this.btn_upt.Size = new System.Drawing.Size(75, 23);
-            this.btn_upt.TabIndex = 10;
-            this.btn_upt.Text = "upt purchase";
-            this.btn_upt.UseVisualStyleBackColor = true;
-            this.btn_upt.Click += new System.EventHandler(this.btn_upt_Click);
+            this.btn_resume.Location = new System.Drawing.Point(568, 16);
+            this.btn_resume.Name = "btn_resume";
+            this.btn_resume.Size = new System.Drawing.Size(62, 23);
+            this.btn_resume.TabIndex = 7;
+            this.btn_resume.Text = "resume";
+            this.btn_resume.UseVisualStyleBackColor = true;
+            this.btn_resume.Click += new System.EventHandler(this.btn_resume_Click);
             // 
             // Form1
             // 
@@ -283,7 +295,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
-            this.Text = "Amazon Account Manager";
+            this.Text = "Amazon Account Management";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -313,6 +325,7 @@
         private System.Windows.Forms.FlowLayoutPanel msgpanel;
         private System.Windows.Forms.ComboBox tabledata;
         private System.Windows.Forms.Button btn_upt;
+        private System.Windows.Forms.Button btn_resume;
     }
 }
 

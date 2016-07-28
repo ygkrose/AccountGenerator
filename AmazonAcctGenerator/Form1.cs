@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenQA.Selenium.Support.UI;
+using System.Threading;
 
 namespace AmazonAcctGenerator
 {
@@ -22,6 +23,7 @@ namespace AmazonAcctGenerator
         public delegate void AddListItem(String myString);
         public AddListItem Delegate_listbox1;
         public AddListItem Delegate_listbox2;
+        ManualResetEvent _pauseEvent = new ManualResetEvent(true);
 
         private const string pwd = "4rfv5tgb";
         public Form1()
@@ -178,6 +180,7 @@ namespace AmazonAcctGenerator
                     IWebElement resultpage = _driver.FindElement(By.Id("a-page"));
                     if (resultpage != null)
                     {
+rechk:
                         IReadOnlyList<IWebElement> ls = _driver.FindElements(By.Id("nav-tools"));
                         if (ls.Count == 1)
                         {
@@ -194,7 +197,14 @@ namespace AmazonAcctGenerator
                             else if (resultpage.GetAttribute("innerText").IndexOf("a problem") > -1)
                             {
                                 rtnmsg = ("detect robot error! Stop Running program.");
-                                break;
+                                _pauseEvent.Reset();
+                                while (true)
+                                {
+                                    _pauseEvent.WaitOne(Timeout.Infinite);
+                                    if (_pauseEvent.WaitOne(0)) break;
+                                }
+                                goto rechk;
+                                //break;
                             }
                             else
                             {
@@ -525,6 +535,11 @@ namespace AmazonAcctGenerator
             }
             else
                 addMsg("update fail!");
+        }
+
+        private void btn_resume_Click(object sender, EventArgs e)
+        {
+            _pauseEvent.Set();
         }
     }
 }
