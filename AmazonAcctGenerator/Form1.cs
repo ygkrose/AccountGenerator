@@ -229,7 +229,7 @@ rechk:
             return rtnmsg;
         }
 
-        private IWebDriver newAWebDriver(string typ)
+        private IWebDriver newAWebDriver(string typ,int sizew=120,int sizeh=200)
         {
             if (typ == "edge")
             {
@@ -245,7 +245,7 @@ rechk:
             {
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
-                co.AddArgument("window-size=120,200");
+                co.AddArgument("window-size=" + sizew.ToString() + "," + sizeh.ToString() );
                 ChromeDriver cd = new ChromeDriver(co);
                 cd.Manage().Cookies.DeleteAllCookies();
                 forceDeleteCookieFile(cd);
@@ -357,7 +357,7 @@ rechk:
 
         private void btn_chrome_Click(object sender, EventArgs e)
         {
-            ChromeDriver cd = newAWebDriver("chrome") as ChromeDriver;
+            ChromeDriver cd = newAWebDriver("chrome",800,600) as ChromeDriver;
             cd.Navigate().GoToUrl("https://www.amazon.com");
         }
 
@@ -379,7 +379,7 @@ rechk:
         ChromeDriver cdbid;
         private void btn_onedollor_Click_1(object sender, EventArgs e)
         {
-            cdbid = newAWebDriver("chrome") as ChromeDriver;
+            cdbid = newAWebDriver("chrome",800,600) as ChromeDriver;
             cdbid.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
         }
 
@@ -444,7 +444,7 @@ rechk:
                 //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
 
                 cdbid.FindElementById("ccAddCard").Click();
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(1500);
                 cdbid.FindElementById("continue-top").Click();
                 //cdbid.FindElementByName("placeYourOrder1").Click();
 
@@ -492,7 +492,16 @@ rechk:
         private void fillDataGrid()
         {
             if (dg1 == null)
+            {
                 dg1 = new DataGrid();
+                dg1.ContextMenu = new ContextMenu(new MenuItem[] { new MenuItem("save", new EventHandler((o,e) => {                    
+                    if (MessageBox.Show("R U Sure?","Warning", MessageBoxButtons.YesNo)== DialogResult.Yes)
+                    {
+                        uptTableData(dg1.CurrentRowIndex);
+                    }
+                }))}
+                );
+            }
             else
                 dg1.DataSource = null;
             tableLayoutPanel1.Controls.Add(dg1);
@@ -513,6 +522,35 @@ rechk:
 
                 dg1.DataSource = getColRows(tabledata.Text, "*");
             }
+        }
+
+        private void uptTableData(int rowidx)
+        {
+            string uptsql = "";
+            switch (tabledata.Text.Trim())
+            {
+                case "account":
+                    uptsql = "update account set status='"+dg1[dg1.CurrentRowIndex,7].ToString().Trim()+"' where email='"+ dg1[dg1.CurrentRowIndex, 1].ToString().Trim() + "'";
+                    break;
+                case "card":
+                    int s = dg1[dg1.CurrentRowIndex, 4].ToString() == "False" ? 1 : 0;
+                    uptsql = "update card set status=" + s + " where CardId='" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "'";
+                    break;
+                default:
+                    MessageBox.Show("not yet!");
+                    return;
+            }
+            IDbCommand cmd = dapper.CreateCommand();
+            if (dapper.State == ConnectionState.Closed)
+                dapper.Open();
+            cmd.CommandText = uptsql;
+            if (cmd.ExecuteNonQuery() == 1)
+            {
+                addMsg("update success!");
+                fillDataGrid();
+            }
+            else
+                addMsg("update nothing!");
         }
 
         private void btn_export_Click(object sender, EventArgs e)

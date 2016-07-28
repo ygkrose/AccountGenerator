@@ -30,6 +30,7 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btn_resume = new System.Windows.Forms.Button();
             this.tabledata = new System.Windows.Forms.ComboBox();
             this.btn_edge = new System.Windows.Forms.Button();
             this.btn_export = new System.Windows.Forms.Button();
@@ -46,7 +47,6 @@
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.btn_resume = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -71,7 +71,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(787, 452);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(674, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -89,10 +89,20 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(783, 48);
+            this.groupBox1.Size = new System.Drawing.Size(670, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
+            // 
+            // btn_resume
+            // 
+            this.btn_resume.Location = new System.Drawing.Point(183, 17);
+            this.btn_resume.Name = "btn_resume";
+            this.btn_resume.Size = new System.Drawing.Size(62, 25);
+            this.btn_resume.TabIndex = 7;
+            this.btn_resume.Text = "resume";
+            this.btn_resume.UseVisualStyleBackColor = true;
+            this.btn_resume.Click += new System.EventHandler(this.btn_resume_Click);
             // 
             // tabledata
             // 
@@ -103,7 +113,7 @@
             "review",
             "shipping",
             "card"});
-            this.tabledata.Location = new System.Drawing.Point(480, 19);
+            this.tabledata.Location = new System.Drawing.Point(380, 21);
             this.tabledata.Name = "tabledata";
             this.tabledata.Size = new System.Drawing.Size(70, 20);
             this.tabledata.TabIndex = 6;
@@ -111,7 +121,7 @@
             // 
             // btn_edge
             // 
-            this.btn_edge.Location = new System.Drawing.Point(374, 17);
+            this.btn_edge.Location = new System.Drawing.Point(499, 16);
             this.btn_edge.Margin = new System.Windows.Forms.Padding(2);
             this.btn_edge.Name = "btn_edge";
             this.btn_edge.Size = new System.Drawing.Size(83, 25);
@@ -122,7 +132,7 @@
             // 
             // btn_export
             // 
-            this.btn_export.Location = new System.Drawing.Point(190, 17);
+            this.btn_export.Location = new System.Drawing.Point(595, 16);
             this.btn_export.Margin = new System.Windows.Forms.Padding(2);
             this.btn_export.Name = "btn_export";
             this.btn_export.Size = new System.Drawing.Size(57, 25);
@@ -174,7 +184,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 146);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(389, 304);
+            this.listBox1.Size = new System.Drawing.Size(333, 304);
             this.listBox1.TabIndex = 2;
             // 
             // listBox2
@@ -184,10 +194,10 @@
             this.listBox2.ItemHeight = 12;
             this.listBox2.Items.AddRange(new object[] {
             "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(395, 146);
+            this.listBox2.Location = new System.Drawing.Point(339, 146);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(390, 304);
+            this.listBox2.Size = new System.Drawing.Size(333, 304);
             this.listBox2.TabIndex = 3;
             // 
             // groupBox2
@@ -202,14 +212,14 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 55);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(781, 46);
+            this.groupBox2.Size = new System.Drawing.Size(668, 46);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
             // 
             // btn_upt
             // 
-            this.btn_upt.Location = new System.Drawing.Point(545, 12);
+            this.btn_upt.Location = new System.Drawing.Point(531, 13);
             this.btn_upt.Name = "btn_upt";
             this.btn_upt.Size = new System.Drawing.Size(75, 23);
             this.btn_upt.TabIndex = 10;
@@ -221,7 +231,7 @@
             // 
             this.btn_onedollor.Location = new System.Drawing.Point(206, 13);
             this.btn_onedollor.Name = "btn_onedollor";
-            this.btn_onedollor.Size = new System.Drawing.Size(75, 26);
+            this.btn_onedollor.Size = new System.Drawing.Size(60, 26);
             this.btn_onedollor.TabIndex = 9;
             this.btn_onedollor.Text = "$1 page";
             this.btn_onedollor.UseVisualStyleBackColor = true;
@@ -239,7 +249,7 @@
             // 
             // btn_fillbill
             // 
-            this.btn_fillbill.Location = new System.Drawing.Point(478, 13);
+            this.btn_fillbill.Location = new System.Drawing.Point(464, 14);
             this.btn_fillbill.Name = "btn_fillbill";
             this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
             this.btn_fillbill.TabIndex = 5;
@@ -251,7 +261,7 @@
             // 
             this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cardpickup.FormattingEnabled = true;
-            this.cardpickup.Location = new System.Drawing.Point(303, 15);
+            this.cardpickup.Location = new System.Drawing.Point(280, 16);
             this.cardpickup.Name = "cardpickup";
             this.cardpickup.Size = new System.Drawing.Size(169, 20);
             this.cardpickup.TabIndex = 6;
@@ -274,24 +284,14 @@
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.msgpanel.Location = new System.Drawing.Point(3, 107);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(781, 34);
+            this.msgpanel.Size = new System.Drawing.Size(668, 34);
             this.msgpanel.TabIndex = 5;
-            // 
-            // btn_resume
-            // 
-            this.btn_resume.Location = new System.Drawing.Point(568, 16);
-            this.btn_resume.Name = "btn_resume";
-            this.btn_resume.Size = new System.Drawing.Size(62, 23);
-            this.btn_resume.TabIndex = 7;
-            this.btn_resume.Text = "resume";
-            this.btn_resume.UseVisualStyleBackColor = true;
-            this.btn_resume.Click += new System.EventHandler(this.btn_resume_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(787, 452);
+            this.ClientSize = new System.Drawing.Size(674, 452);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
