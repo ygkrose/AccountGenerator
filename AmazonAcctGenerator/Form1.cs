@@ -410,8 +410,8 @@ rechk:
                 }
                 this.Invoke(Delegate_listbox2, new Object[] { _currentBuyer.email });
                 //fill shipping data
-                if (cdbid.FindElementById("newShippingAddressFormFromIdentity")!=null)
-                {
+                //if (cdbid.FindElementById("newShippingAddressFormFromIdentity")!=null)
+                //{
                     //get shipping addr from db here
                     _currentShipper = getRndshipper();
                     cdbid.FindElementById("enterAddressFullName").SendKeys(_currentShipper.enname);
@@ -422,8 +422,11 @@ rechk:
                     cdbid.FindElementById("enterAddressPostalCode").SendKeys(_currentShipper.zipcode);
                     cdbid.FindElementById("enterAddressPhoneNumber").SendKeys(_currentShipper.phone);
                     cdbid.FindElementByName("shipToThisAddress").Click();
-                }
-                cdbid.FindElementByClassName("a-button-text").Click();
+                //}
+                if (cdbid.FindElementsByClassName("a-button-text").Count>0)
+                    cdbid.FindElementByClassName("a-button-text").Click();
+                else if (cdbid.FindElementsByClassName("a-button-input").Count > 0)
+                    cdbid.FindElementByClassName("a-button-input").Click();
                 System.Threading.Thread.Sleep(1500);
                 //card info
                 cdbid.FindElementById("ccName").SendKeys(_currentShipper.enname);
@@ -444,7 +447,9 @@ rechk:
                 //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
 
                 cdbid.FindElementById("ccAddCard").Click();
-                System.Threading.Thread.Sleep(1500);
+
+                System.Threading.Thread.Sleep(2300);
+                
                 cdbid.FindElementById("continue-top").Click();
                 //cdbid.FindElementByName("placeYourOrder1").Click();
 
