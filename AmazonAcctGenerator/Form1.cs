@@ -25,7 +25,7 @@ namespace AmazonAcctGenerator
         public AddListItem Delegate_listbox2;
         ManualResetEvent _pauseEvent = new ManualResetEvent(true);
 
-        private const string pwd = "4rfv5tgb";
+        private const string pwd = "4esz5rdx";
         public Form1()
         {
             InitializeComponent();
@@ -169,9 +169,9 @@ namespace AmazonAcctGenerator
                     IWebElement useremail = _driver.FindElement(By.Id("ap_email"));
                     useremail.SendKeys(_users[i].email);
                     IWebElement userpwd = _driver.FindElement(By.Id("ap_password"));
-                    userpwd.SendKeys("4rfv5tgb");
+                    userpwd.SendKeys(pwd);
                     IWebElement userpwdchk = _driver.FindElement(By.Id("ap_password_check"));
-                    userpwdchk.SendKeys("4rfv5tgb");
+                    userpwdchk.SendKeys(pwd);
 
                     IWebElement creatbtn = _driver.FindElement(By.Id("continue"));
                     creatbtn.Click();
@@ -184,6 +184,7 @@ rechk:
                         IReadOnlyList<IWebElement> ls = _driver.FindElements(By.Id("nav-tools"));
                         if (ls.Count == 1)
                         {
+                            btn_resume.Enabled = false;
                             IWebElement navpage = _driver.FindElement(By.Id("nav-tools"));
                             if (navpage != null && navpage.GetAttribute("innerText").IndexOf("Hello") > -1)
                                 this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial + ":" + _users[i].email + addAccount(_users[i]) });
@@ -200,6 +201,11 @@ rechk:
                                 _pauseEvent.Reset();
                                 while (true)
                                 {
+                                    //IWebElement _userpwd = _driver.FindElement(By.Id("ap_password"));
+                                    //userpwd.SendKeys(pwd);
+                                    //IWebElement _userpwdchk = _driver.FindElement(By.Id("ap_password_check"));
+                                    //userpwdchk.SendKeys(pwd);
+                                    btn_resume.Enabled = true;
                                     _pauseEvent.WaitOne(Timeout.Infinite);
                                     if (_pauseEvent.WaitOne(0)) break;
                                 }

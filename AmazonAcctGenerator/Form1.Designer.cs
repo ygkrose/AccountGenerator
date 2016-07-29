@@ -96,6 +96,7 @@
             // 
             // btn_resume
             // 
+            this.btn_resume.Enabled = false;
             this.btn_resume.Location = new System.Drawing.Point(183, 17);
             this.btn_resume.Name = "btn_resume";
             this.btn_resume.Size = new System.Drawing.Size(62, 25);
