@@ -13,7 +13,7 @@ namespace AmazonAcctGenerator
         private static string connstr = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\VSProjects\AccountGenerator\AmazonAcctGenerator\mydb.mdf;Integrated Security=True";
         public static SqlConnection conn = new SqlConnection(connstr);
         public static IDbConnection dapper = new SqlConnection(connstr);
-        //static MongoClient client = new MongoClient("mongodb://ygkroses:4rfv5tgb@ds033015.mlab.com:33015/acct");
+        
         public static SqlCommand getSqlCmd(string sqltxt)
         {
             try

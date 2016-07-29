@@ -566,6 +566,14 @@ rechk:
 
         private void btn_export_Click(object sender, EventArgs e)
         {
+            mongodb mdb = new mongodb();
+            Task.Run(()=> {
+                foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
+                {
+                    mdb.wrapperAccount(r);
+                }
+            });
+                
         }
 
         private void btn_upt_Click(object sender, EventArgs e)
