@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using Dapper;
-using MongoDB.Driver;
+
 
 namespace AmazonAcctGenerator
 {
@@ -48,12 +48,6 @@ namespace AmazonAcctGenerator
             }
 
             return rtn;
-        }
-
-        public static void getMongo()
-        {
-            IMongoDatabase v = client.GetDatabase("acct");
-            
         }
 
     }

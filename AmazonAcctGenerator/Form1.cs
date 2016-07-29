@@ -566,7 +566,6 @@ rechk:
 
         private void btn_export_Click(object sender, EventArgs e)
         {
-            getMongo();
         }
 
         private void btn_upt_Click(object sender, EventArgs e)
