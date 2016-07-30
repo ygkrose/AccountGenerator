@@ -33,7 +33,7 @@
             this.btn_resume = new System.Windows.Forms.Button();
             this.tabledata = new System.Windows.Forms.ComboBox();
             this.btn_edge = new System.Windows.Forms.Button();
-            this.btn_export = new System.Windows.Forms.Button();
+            this.btn_sync = new System.Windows.Forms.Button();
             this.btn_create = new System.Windows.Forms.Button();
             this.btn_open = new System.Windows.Forms.Button();
             this.btn_chrome = new System.Windows.Forms.Button();
@@ -80,7 +80,7 @@
             this.groupBox1.Controls.Add(this.btn_resume);
             this.groupBox1.Controls.Add(this.tabledata);
             this.groupBox1.Controls.Add(this.btn_edge);
-            this.groupBox1.Controls.Add(this.btn_export);
+            this.groupBox1.Controls.Add(this.btn_sync);
             this.groupBox1.Controls.Add(this.btn_create);
             this.groupBox1.Controls.Add(this.btn_open);
             this.groupBox1.Controls.Add(this.btn_chrome);
@@ -122,7 +122,7 @@
             // 
             // btn_edge
             // 
-            this.btn_edge.Location = new System.Drawing.Point(499, 16);
+            this.btn_edge.Location = new System.Drawing.Point(465, 17);
             this.btn_edge.Margin = new System.Windows.Forms.Padding(2);
             this.btn_edge.Name = "btn_edge";
             this.btn_edge.Size = new System.Drawing.Size(83, 25);
@@ -131,16 +131,16 @@
             this.btn_edge.UseVisualStyleBackColor = true;
             this.btn_edge.Click += new System.EventHandler(this.btn_edge_Click);
             // 
-            // btn_export
+            // btn_sync
             // 
-            this.btn_export.Location = new System.Drawing.Point(595, 16);
-            this.btn_export.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(57, 25);
-            this.btn_export.TabIndex = 3;
-            this.btn_export.Text = "Export Accounts";
-            this.btn_export.UseVisualStyleBackColor = true;
-            this.btn_export.Click += new System.EventHandler(this.btn_export_Click);
+            this.btn_sync.Location = new System.Drawing.Point(566, 16);
+            this.btn_sync.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_sync.Name = "btn_sync";
+            this.btn_sync.Size = new System.Drawing.Size(86, 25);
+            this.btn_sync.TabIndex = 3;
+            this.btn_sync.Text = "Sync Accounts";
+            this.btn_sync.UseVisualStyleBackColor = true;
+            this.btn_sync.Click += new System.EventHandler(this.btn_sync_Click);
             // 
             // btn_create
             // 
@@ -310,7 +310,7 @@
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btn_export;
+        private System.Windows.Forms.Button btn_sync;
         private System.Windows.Forms.Button btn_create;
         private System.Windows.Forms.Button btn_open;
         private System.Windows.Forms.ListBox listBox2;

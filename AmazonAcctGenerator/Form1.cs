@@ -564,18 +564,6 @@ rechk:
                 addMsg("update nothing!");
         }
 
-        private void btn_export_Click(object sender, EventArgs e)
-        {
-            mongodb mdb = new mongodb();
-            Task.Run(()=> {
-                foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
-                {
-                    mdb.wrapperAccount(r);
-                }
-            });
-                
-        }
-
         private void btn_upt_Click(object sender, EventArgs e)
         {
             if (_currentBuyer == null | _currentShipper == null) return;
@@ -596,6 +584,26 @@ rechk:
         private void btn_resume_Click(object sender, EventArgs e)
         {
             _pauseEvent.Set();
+        }
+
+        private void btn_sync_Click(object sender, EventArgs e)
+        {
+            mongodb mdb = new mongodb();
+            string rtnmsg = "";
+            Task.Run(() => {
+                foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
+                {
+                    rtnmsg += mdb.wrapperAccount(r);
+                }
+            });
+            if (string.IsNullOrEmpty(rtnmsg))
+            {
+                addMsg(rtnmsg);
+            }
+            else
+            {
+                addMsg("Sync Finished!");
+            }
         }
     }
 }
