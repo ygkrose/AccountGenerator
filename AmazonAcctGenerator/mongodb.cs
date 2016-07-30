@@ -24,8 +24,8 @@ namespace AmazonAcctGenerator
 
         public string wrapperAccount(DataRow dr)
         {
-            var lst = eatMongo("acct").ToList();
-            var _bson = _collection.Find(Builders<BsonDocument>.Filter.Eq("email", dr["email"].ToString().Trim())).ToList();
+            var filter = Builders<BsonDocument>.Filter.Eq("email", dr["email"].ToString().Trim());
+            var _bson = _collection.Find(filter).ToList();
             int cnt = _bson.Count();
             try
             {
