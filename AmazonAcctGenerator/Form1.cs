@@ -500,6 +500,7 @@ rechk:
             fillDataGrid();
         }
 
+        int total = 0;
         private void fillDataGrid()
         {
             if (dg1 == null)
@@ -532,7 +533,9 @@ rechk:
                 listBox2.Visible = false;
 
                 dg1.DataSource = getColRows(tabledata.Text, "*");
+                total = (dg1.DataSource as DataTable).Rows.Count;
             }
+            
         }
 
         private void uptTableData(int rowidx)
@@ -586,17 +589,20 @@ rechk:
             _pauseEvent.Set();
         }
 
-        private void btn_sync_Click(object sender, EventArgs e)
+        private async void btn_sync_Click(object sender, EventArgs e)
         {
             mongodb mdb = new mongodb();
             string rtnmsg = "";
-            Task.Run(() => {
+            await Task.Run(() => {
+                int cur = 1;
                 foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
                 {
                     rtnmsg += mdb.wrapperAccount(r);
+                    cur++;
+                    this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
                 }
             });
-            if (string.IsNullOrEmpty(rtnmsg))
+            if (!string.IsNullOrEmpty(rtnmsg))
             {
                 addMsg(rtnmsg);
             }
