@@ -67,12 +67,13 @@ namespace AmazonAcctGenerator
 
         public string wrapperAccount(DataRow dr)
         {
-            BsonDocument _doc = null;
             try
             {
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
                 {
+                    BsonDocument _doc = null;
                     _doc = allaccounts[dr["email"].ToString().Trim()];
+                    //_collection.UpdateOne(_doc,)
                     return "";
                 }
                 else

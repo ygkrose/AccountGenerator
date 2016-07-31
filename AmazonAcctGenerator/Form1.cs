@@ -34,6 +34,7 @@ namespace AmazonAcctGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: 這行程式碼會將資料載入 'mydbDataSet.review' 資料表。您可以視需要進行移動或移除。
             ctlStatus(frmStatus.load);
             getCardNo();
         }
@@ -550,6 +551,9 @@ rechk:
                     int s = dg1[dg1.CurrentRowIndex, 4].ToString() == "False" ? 1 : 0;
                     uptsql = "update card set status=" + s + " where CardId='" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "'";
                     break;
+                case "review":
+                    uptsql = uptReview();
+                    break;
                 default:
                     MessageBox.Show("not yet!");
                     return;
@@ -558,6 +562,7 @@ rechk:
             if (dapper.State == ConnectionState.Closed)
                 dapper.Open();
             cmd.CommandText = uptsql;
+            if (string.IsNullOrEmpty(uptsql)) return;
             if (cmd.ExecuteNonQuery() == 1)
             {
                 addMsg("update success!");
@@ -565,6 +570,25 @@ rechk:
             }
             else
                 addMsg("update nothing!");
+        }
+
+        private string uptReview()
+        {
+            string ino = dg1[dg1.CurrentRowIndex, 0].ToString().Trim();
+            string email = dg1[dg1.CurrentRowIndex, 1].ToString().Trim();
+            IDbCommand cmd = dapper.CreateCommand();
+            if (dapper.State == ConnectionState.Closed)
+                dapper.Open();
+            cmd.CommandText = "select count(*) from review where itemno='" + ino + "' and email = '" +email+ "'" ;
+            int cnt =(int) cmd.ExecuteScalar();
+            if (cnt > 0)
+                return "update review set rvtime='" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() +
+                    "',reviewer='" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "',rvtype='" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
+                    "',success=" + (dg1[dg1.CurrentRowIndex, 5].ToString().ToLower()=="false"? 1:0) + " where itemno='" + ino + "' and email = '" + email + "'";
+            else
+                return "insert into review values ('" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 1].ToString().Trim() +
+                "','" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
+                "',0)";
         }
 
         private void btn_upt_Click(object sender, EventArgs e)
@@ -593,13 +617,17 @@ rechk:
         {
             mongodb mdb = new mongodb();
             string rtnmsg = "";
+            DataTable dtb = (dg1.DataSource as DataTable).Clone();
             await Task.Run(() => {
                 int cur = 1;
-                foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
+                foreach (DataRow r in dtb.Rows)
                 {
                     rtnmsg += mdb.wrapperAccount(r);
                     cur++;
-                    this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
+                    if (string.IsNullOrEmpty(rtnmsg))
+                        this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
+                    else
+                        rtnmsg += "(" + r["email"].ToString().Trim() + ")" ;
                 }
             });
             if (!string.IsNullOrEmpty(rtnmsg))
