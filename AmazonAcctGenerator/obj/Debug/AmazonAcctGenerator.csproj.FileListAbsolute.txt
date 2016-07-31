@@ -44,7 +44,6 @@ D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb.mdf
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb_log.ldf
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Dapper.dll
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Dapper.xml
-D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Bson.dll
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.Core.dll
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.dll

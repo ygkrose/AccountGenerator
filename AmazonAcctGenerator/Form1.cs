@@ -617,12 +617,13 @@ rechk:
         {
             mongodb mdb = new mongodb();
             string rtnmsg = "";
-            DataTable dtb = (dg1.DataSource as DataTable).Clone();
+            
             await Task.Run(() => {
                 int cur = 1;
-                foreach (DataRow r in dtb.Rows)
+                foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
                 {
-                    rtnmsg += mdb.wrapperAccount(r);
+                    DataTable tb = getColRows("review", "*", "email='"+ r["email"].ToString().Trim()+"'");
+                    rtnmsg += mdb.wrapperAccount(r,tb);
                     cur++;
                     if (string.IsNullOrEmpty(rtnmsg))
                         this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });

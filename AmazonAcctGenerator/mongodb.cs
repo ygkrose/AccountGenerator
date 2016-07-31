@@ -65,14 +65,28 @@ namespace AmazonAcctGenerator
           
         }
 
-        public string wrapperAccount(DataRow dr)
+        public string wrapperAccount(DataRow dr,DataTable dtb)
         {
             try
             {
+                List<BsonDocument> ba = new List<BsonDocument>();
+                foreach (DataRow _row in dtb.Rows)
+                {
+                    ba.Add(new BsonDocument
+                                {
+                                    {"ritem",_row["itemno"].ToString().Trim() },
+                                    {"rdate",_row["rvtime"].ToString().Trim()  },
+                                    {"rtype",_row["rvtype"].ToString().Trim() },
+                                    {"status",( _row["success"].ToString()=="false"? "fail" : "success") },
+                                    {"reviewer",_row["reviewer"].ToString().Trim()  }
+                                });
+                }
+                
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
                 {
                     BsonDocument _doc = null;
                     _doc = allaccounts[dr["email"].ToString().Trim()];
+                    
                     //_collection.UpdateOne(_doc,)
                     return "";
                 }
@@ -93,18 +107,7 @@ namespace AmazonAcctGenerator
                                 {"pcardno",  dr["cardno"].ToString().Trim() }
                             }
                         },
-                        {"review" , new BsonArray
-                            {
-                                new BsonDocument
-                                {
-                                    {"ritem","" },
-                                    {"rdate","" },
-                                    {"rtype","" },
-                                    {"status","" },
-                                    {"reviewer","" }
-                                }
-                            }
-                        }
+                        {"review" , new BsonArray(ba)}
                     };
 
                     //await collection.InsertOneAsync(document);
