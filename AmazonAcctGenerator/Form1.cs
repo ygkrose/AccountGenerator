@@ -138,7 +138,6 @@ namespace AmazonAcctGenerator
             addMsg(msg);
         }
 
-
         private string doCreatAccount()
         {
             string rtnmsg = "";
@@ -373,15 +372,12 @@ rechk:
             EdgeDriver iedrv = newAWebDriver("edge") as EdgeDriver;
         }
 
-
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (conn.State == ConnectionState.Open)
                 conn.Close();
         }
 
-  
 
         ChromeDriver cdbid;
         private void btn_onedollor_Click_1(object sender, EventArgs e)
@@ -545,7 +541,7 @@ rechk:
             switch (tabledata.Text.Trim())
             {
                 case "account":
-                    uptsql = "update account set status='"+dg1[dg1.CurrentRowIndex,7].ToString().Trim()+"' where email='"+ dg1[dg1.CurrentRowIndex, 1].ToString().Trim() + "'";
+                    uptsql = "update account set status='"+dg1[dg1.CurrentRowIndex,7].ToString().Trim()+"',rvtimes=" + dg1[dg1.CurrentRowIndex, 8] + "  where email='"+ dg1[dg1.CurrentRowIndex, 1].ToString().Trim() + "'";
                     break;
                 case "card":
                     int s = dg1[dg1.CurrentRowIndex, 4].ToString() == "False" ? 1 : 0;
@@ -584,7 +580,7 @@ rechk:
             if (cnt > 0)
                 return "update review set rvtime='" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() +
                     "',reviewer='" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "',rvtype='" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
-                    "',success=" + (dg1[dg1.CurrentRowIndex, 5].ToString().ToLower()=="false"? 1:0) + " where itemno='" + ino + "' and email = '" + email + "'";
+                    "',success=" + (dg1[dg1.CurrentRowIndex, 5].ToString()=="False"? 1:0) + " where itemno='" + ino + "' and email = '" + email + "'";
             else
                 return "insert into review values ('" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 1].ToString().Trim() +
                 "','" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
@@ -620,13 +616,16 @@ rechk:
             
             await Task.Run(() => {
                 int cur = 1;
-                foreach (DataRow r in (dg1.DataSource as DataTable).Rows)
+                DataRow[] tmpdr = (dg1.DataSource as DataTable).Select("status<>'Created'");
+                foreach (DataRow r in tmpdr)
                 {
                     DataTable tb = getColRows("review", "*", "email='"+ r["email"].ToString().Trim()+"'");
                     rtnmsg += mdb.wrapperAccount(r,tb);
                     cur++;
                     if (string.IsNullOrEmpty(rtnmsg))
-                        this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
+                    {
+                        // this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
+                    }
                     else
                         rtnmsg += "(" + r["email"].ToString().Trim() + ")" ;
                 }

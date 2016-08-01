@@ -23,6 +23,11 @@ namespace AmazonAcctGenerator
             _client =  new MongoClient("mongodb://ygkroses:4rfv5tgb@ds033015.mlab.com:33015/acct");
             _database = _client.GetDatabase("acct");
             _collection = _database.GetCollection<BsonDocument>("account");
+            dorestruct();
+        }
+
+        private void dorestruct()
+        {
             syncReStructCollection();
         }
 
@@ -38,6 +43,8 @@ namespace AmazonAcctGenerator
                     foreach (var document in batch)
                     {
                         allaccounts.Add(document["email"].ToString(), document);
+                        _rows++;
+                        System.Threading.Interlocked.Increment(ref _rows); //避免多續處裡競爭問題
                     }
                 }
             }
@@ -77,23 +84,12 @@ namespace AmazonAcctGenerator
                                     {"ritem",_row["itemno"].ToString().Trim() },
                                     {"rdate",_row["rvtime"].ToString().Trim()  },
                                     {"rtype",_row["rvtype"].ToString().Trim() },
-                                    {"status",( _row["success"].ToString()=="false"? "fail" : "success") },
+                                    {"status",( _row["success"].ToString()=="False"? "fail" : "success") },
                                     {"reviewer",_row["reviewer"].ToString().Trim()  }
                                 });
                 }
-                
-                if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
-                {
-                    BsonDocument _doc = null;
-                    _doc = allaccounts[dr["email"].ToString().Trim()];
-                    
-                    //_collection.UpdateOne(_doc,)
-                    return "";
-                }
-                else
-                {
 
-                    var document = new BsonDocument
+                var document = new BsonDocument
                     {
                         {"email", dr["email"].ToString().Trim() },
                         {"pwd", dr["pwd"].ToString().Trim() },
@@ -110,30 +106,30 @@ namespace AmazonAcctGenerator
                         {"review" , new BsonArray(ba)}
                     };
 
-                    //await collection.InsertOneAsync(document);
-                    //_collection.InsertOne(document);
-                    return "";
+                if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
+                {
+                    BsonDocument _doc = null;
+                    _doc = allaccounts[dr["email"].ToString().Trim()];
+                    var filter = Builders<BsonDocument>.Filter.Eq("_id", _doc["_id"]);
+                    var update = Builders<BsonDocument>.Update
+                            .Set("cuisine", "American (New)")
+                            .CurrentDate("lastModified");
+                    //_collection.UpdateOne(filter, update);
+                    _collection.ReplaceOneAsync(filter, document);
                 }
+                else
+                {
+                    //await collection.InsertOneAsync(document);
+                    _collection.InsertOne(document);
+                }
+                return "";
             }
             catch (Exception err)
             {
                 return err.Message;
             }
-            
-
         }
 
-        public IMongoQueryable<BsonDocument> eatMongo(string collection,string field="",string value="")
-        {
-            var _collection = _database.GetCollection<BsonDocument>(collection);
-            IMongoQueryable<BsonDocument> _target;
-            //if (field == "")
-               _target = _collection.AsQueryable();
-            //else
-            //    _target = Builders<BsonDocument>.Filter.AnyEq(field, value);
-
-            return _target;
-        }
     }
 
 }

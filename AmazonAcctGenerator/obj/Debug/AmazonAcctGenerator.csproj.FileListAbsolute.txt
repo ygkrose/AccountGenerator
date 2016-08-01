@@ -49,3 +49,4 @@ D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.Core
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.dll
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Bson.xml
 D:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.xml
+D:\VSProjects\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csprojResolveAssemblyReference.cache
