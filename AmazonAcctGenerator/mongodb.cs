@@ -93,7 +93,7 @@ namespace AmazonAcctGenerator
                     {
                         {"email", dr["email"].ToString().Trim() },
                         {"pwd", dr["pwd"].ToString().Trim() },
-                        {"status", dr["status"].ToString().Trim()},
+                        {"status", dr["status"].ToString().Trim()=="New"?"Created":dr["status"].ToString().Trim()},
                         {"purchase", new BsonDocument
                             {
                                 {"pdate", dr["pdate"].ToString().Trim() },
@@ -133,6 +133,7 @@ namespace AmazonAcctGenerator
 
         public List<BsonDocument> getDocForSync()
         {
+            _collection= _database.GetCollection<BsonDocument>("account");
             var filter = Builders<BsonDocument>.Filter.Ne("status", "Created");
             return _collection.Find(filter).ToList();
         }

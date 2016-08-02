@@ -614,7 +614,7 @@ rechk:
             string rtnmsg = "";
             if (tabledata.Text.Trim() != "account") return;
             await Task.Run(() => {
-                int cur = 1;
+                int cur = 0;
                 DataRow[] tmpdr = (dg1.DataSource as DataTable).Select("status<>'Created'");
                 foreach (DataRow r in tmpdr)
                 {
@@ -628,7 +628,7 @@ rechk:
                             //update status to Created
                             uptStatus(r["email"].ToString().Trim(), "Created");
                         }
-                         this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
+                         this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ tmpdr.Length });
                     }
                     else
                         rtnmsg += "(" + r["email"].ToString().Trim() + ")" ;
@@ -637,12 +637,30 @@ rechk:
                 var mongodocs = mdb.getDocForSync();
                 foreach (var doc in mongodocs) 
                 {
-                    string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + doc["purchase"]["pdate"] + "',cardno='" + doc["purchase"]["pcardno"] +
+                    int exist =(int) getSqlCmd("select count(*) from account where email='" + doc["email"] + "'").ExecuteScalar();
+                    string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
                          "' where email='" + doc["email"] + "'";
-                    string uptrv = "insert into review values ('" + doc["review"]["ritem"] + "','" + doc["email"] + "','" + doc["review"]["rdate"] + "','" + doc["review"]["reviewer"] + "','" + doc["review"]["rtype"] + "'," + (doc["review"]["status"].ToString() == "fail" ? 0 : 1) + ")";
+                    if (exist == 0)
+                    {
+                        uptacc = "insert into account values (null,'" + doc["email"] +"','"+ doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] +"','"+ doc["purchase"]["pitem"] + "','" + doc["status"] + "'," + 
+                        doc["review"].AsBsonArray.Count  + ",'" +  Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "')"  ;
+                    }
                     getSqlCmd(uptacc).ExecuteNonQuery();
-                    if (!string.IsNullOrEmpty(doc["review"]["ritem"].ToString()))
-                        getSqlCmd(uptrv).ExecuteNonQuery();
+
+                    if (doc["review"].AsBsonArray.Count > 0)
+                    {
+                        for (int i =0; i< doc["review"].AsBsonArray.Count; i++)
+                        {
+                            int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
+                            string rvsql= "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "'," + (doc["review"][i]["status"].ToString() == "fail" ? 0 : 1) + ")";
+                            if (hasrow > 0)
+                            {
+                                rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success=" + (doc["review"][i]["status"].ToString() == "fail" ? 0 : 1) + " where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
+                            }
+                            if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
+                                getSqlCmd(rvsql).ExecuteNonQuery();
+                        }
+                    }
                 }
             });
             if (!string.IsNullOrEmpty(rtnmsg))
