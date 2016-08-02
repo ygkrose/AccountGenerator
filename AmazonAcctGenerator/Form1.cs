@@ -92,10 +92,11 @@ namespace AmazonAcctGenerator
                             string _birth = splitdata[birthidx].Trim();
                             string[] bary = _birth.Split(new char[] { '/' });
                             string birthmd = bary[0].PadLeft(2, '0') + bary[1].PadLeft(2, '0');
-                            listBox1.Items.Add(splitdata[0] + ":" + _email.Replace("@", birthmd + "@"));
                             us.serial = splitdata[0];
                             us.name = _email.Split(new char[] { '@' })[0];
-                            us.email = _email.Replace("@", birthmd + "@");
+                            //us.email = _email.Replace("@", birthmd + "@");
+                            us.email = us.name + birthmd + "@gmail.com";
+                            listBox1.Items.Add(splitdata[0] + ":" + us.email);
                             us.birthday = _birth;
                             _users.Add(us);
                         }
@@ -184,7 +185,6 @@ rechk:
                         IReadOnlyList<IWebElement> ls = _driver.FindElements(By.Id("nav-tools"));
                         if (ls.Count == 1)
                         {
-                            btn_resume.Enabled = false;
                             IWebElement navpage = _driver.FindElement(By.Id("nav-tools"));
                             if (navpage != null && navpage.GetAttribute("innerText").IndexOf("Hello") > -1)
                                 this.Invoke(Delegate_listbox2, new Object[] { _users[i].serial + ":" + _users[i].email + addAccount(_users[i]) });
@@ -205,7 +205,6 @@ rechk:
                                     //userpwd.SendKeys(pwd);
                                     //IWebElement _userpwdchk = _driver.FindElement(By.Id("ap_password_check"));
                                     //userpwdchk.SendKeys(pwd);
-                                    btn_resume.Enabled = true;
                                     _pauseEvent.WaitOne(Timeout.Infinite);
                                     if (_pauseEvent.WaitOne(0)) break;
                                 }
