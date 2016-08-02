@@ -615,7 +615,7 @@ rechk:
             if (tabledata.Text.Trim() != "account") return;
             await Task.Run(() => {
                 int cur = 0;
-                DataRow[] tmpdr = (dg1.DataSource as DataTable).Select("status<>'Created'");
+                DataRow[] tmpdr = (dg1.DataSource as DataTable).Select("status<>'Created'"); //
                 foreach (DataRow r in tmpdr)
                 {
                     DataTable tb = getColRows("review", "*", "email='"+ r["email"].ToString().Trim()+"'");
