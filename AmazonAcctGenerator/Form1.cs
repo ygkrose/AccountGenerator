@@ -115,7 +115,7 @@ namespace AmazonAcctGenerator
         {
             listBox2.Items.Add(myItem);
             listBox2.Update();
-
+            listBox2.SelectedIndex = listBox2.Items.Count-1;
         }
 
         private void clearMsgCtrl()
@@ -268,7 +268,7 @@ rechk:
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','created',0,null)";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null)";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();
@@ -460,7 +460,7 @@ rechk:
 
         private UserStruct getRndBuyer()
         {
-            DataTable tmptable = getColRows("account", "top 1 *", "pitem='' and status='created' order by NEWID()");
+            DataTable tmptable = getColRows("account", "top 1 *", "pitem='' and status='Created' order by NEWID()");
             if (tmptable.Rows.Count == 0) { addMsg("no suitable buyer for use"); return null; }
             UserStruct us = new UserStruct()
             {
@@ -612,7 +612,7 @@ rechk:
         {
             mongodb mdb = new mongodb();
             string rtnmsg = "";
-            
+            if (tabledata.Text.Trim() != "account") return;
             await Task.Run(() => {
                 int cur = 1;
                 DataRow[] tmpdr = (dg1.DataSource as DataTable).Select("status<>'Created'");
@@ -623,10 +623,26 @@ rechk:
                     cur++;
                     if (string.IsNullOrEmpty(rtnmsg))
                     {
-                        // this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
+                        if (r["status"].ToString().Trim() == "New")
+                        {
+                            //update status to Created
+                            uptStatus(r["email"].ToString().Trim(), "Created");
+                        }
+                         this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ total });
                     }
                     else
                         rtnmsg += "(" + r["email"].ToString().Trim() + ")" ;
+                }
+                //from mongo to client
+                var mongodocs = mdb.getDocForSync();
+                foreach (var doc in mongodocs) 
+                {
+                    string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + doc["purchase"]["pdate"] + "',cardno='" + doc["purchase"]["pcardno"] +
+                         "' where email='" + doc["email"] + "'";
+                    string uptrv = "insert into review values ('" + doc["review"]["ritem"] + "','" + doc["email"] + "','" + doc["review"]["rdate"] + "','" + doc["review"]["reviewer"] + "','" + doc["review"]["rtype"] + "'," + (doc["review"]["status"].ToString() == "fail" ? 0 : 1) + ")";
+                    getSqlCmd(uptacc).ExecuteNonQuery();
+                    if (!string.IsNullOrEmpty(doc["review"]["ritem"].ToString()))
+                        getSqlCmd(uptrv).ExecuteNonQuery();
                 }
             });
             if (!string.IsNullOrEmpty(rtnmsg))
@@ -637,6 +653,11 @@ rechk:
             {
                 addMsg("Sync Finished!");
             }
+        }
+
+        private void uptStatus(string email,string status)
+        {
+            getSqlCmd("update account set status='" + status + "' where email = '" + email + "'").ExecuteNonQuery();
         }
     }
 }

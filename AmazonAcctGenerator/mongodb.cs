@@ -115,11 +115,12 @@ namespace AmazonAcctGenerator
                             .Set("cuisine", "American (New)")
                             .CurrentDate("lastModified");
                     //_collection.UpdateOne(filter, update);
-                    _collection.ReplaceOneAsync(filter, document);
+                    //_collection.ReplaceOneAsync(filter, document); //not use for free account
+                    _collection.ReplaceOne(filter, document);
                 }
                 else
                 {
-                    //await collection.InsertOneAsync(document);
+                    //await collection.InsertOneAsync(document);//not use for free account
                     _collection.InsertOne(document);
                 }
                 return "";
@@ -130,6 +131,11 @@ namespace AmazonAcctGenerator
             }
         }
 
+        public List<BsonDocument> getDocForSync()
+        {
+            var filter = Builders<BsonDocument>.Filter.Ne("status", "Created");
+            return _collection.Find(filter).ToList();
+        }
     }
 
 }
