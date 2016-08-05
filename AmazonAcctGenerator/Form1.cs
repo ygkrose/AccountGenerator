@@ -115,7 +115,7 @@ namespace AmazonAcctGenerator
         {
             listBox2.Items.Add(myItem);
             listBox2.Update();
-            listBox2.SelectedIndex = listBox2.Items.Count-1;
+            listBox2.SelectedIndex = listBox2.Items.Count - 1;
         }
 
         private void clearMsgCtrl()
@@ -145,7 +145,7 @@ namespace AmazonAcctGenerator
             try
             {
                 getallemail();
-                
+
                 for (int i = 0; i < _users.Count; i++)
                 {
                     if (allEmail.Exists(
@@ -181,7 +181,7 @@ namespace AmazonAcctGenerator
                     IWebElement resultpage = _driver.FindElement(By.Id("a-page"));
                     if (resultpage != null)
                     {
-rechk:
+                    rechk:
                         IReadOnlyList<IWebElement> ls = _driver.FindElements(By.Id("nav-tools"));
                         if (ls.Count == 1)
                         {
@@ -213,7 +213,7 @@ rechk:
                             }
                             else
                             {
-                                rtnmsg= ("unknow error! Stop Running program.");
+                                rtnmsg = ("unknow error! Stop Running program.");
                                 break;
                             }
                         }
@@ -234,7 +234,7 @@ rechk:
             return rtnmsg;
         }
 
-        private IWebDriver newAWebDriver(string typ,int sizew=120,int sizeh=200)
+        private IWebDriver newAWebDriver(string typ, int sizew = 120, int sizeh = 200)
         {
             if (typ == "edge")
             {
@@ -242,7 +242,7 @@ rechk:
                 eo.AddAdditionalCapability("ForceCreateProcessApi", true);
                 eo.AddAdditionalCapability("BrowserCommandLineArguments", "private");
                 eo.PageLoadStrategy = EdgePageLoadStrategy.Normal;
-                
+
                 EdgeDriver iedrv = new EdgeDriver(eo);
                 return iedrv;
             }
@@ -250,7 +250,7 @@ rechk:
             {
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
-                co.AddArgument("window-size=" + sizew.ToString() + "," + sizeh.ToString() );
+                co.AddArgument("window-size=" + sizew.ToString() + "," + sizeh.ToString());
                 ChromeDriver cd = new ChromeDriver(co);
                 cd.Manage().Cookies.DeleteAllCookies();
                 forceDeleteCookieFile(cd);
@@ -275,7 +275,7 @@ rechk:
             }
             catch (Exception err)
             {
-                rtn=(err.Message);
+                rtn = (err.Message);
             }
             return rtn;
         }
@@ -287,7 +287,7 @@ rechk:
             {
                 appPath = appPath.Replace("Roaming", "") + @"Local\Google\Chrome\User Data\Default";
             }
-            
+
             DirectoryInfo di = new DirectoryInfo(appPath);
             if (di.Exists)
             {
@@ -296,7 +296,7 @@ rechk:
                     f.Delete();
                 }
             }
-            
+
         }
 
         ChromeDriver ccypdriver = null;
@@ -319,7 +319,7 @@ rechk:
                     {
                         //string _html = iwe.GetAttribute("innerHTML");
                         string chName = iwe.FindElements(By.TagName("h1"))[0].Text.Trim();
-                        string enName = iwe.FindElements(By.TagName("h1"))[1].Text.Trim().Replace("'","\'");
+                        string enName = iwe.FindElements(By.TagName("h1"))[1].Text.Trim().Replace("'", "\'");
                         string addr = iwe.FindElements(By.TagName("address"))[0].Text;
                         string[] partaddr = addr.Split(new char[] { '\r' });
                         if (partaddr.Length == 3)
@@ -347,7 +347,7 @@ rechk:
                                 string insertsql = "insert into shipping values (N'" + chName + "', '" + enName + "', '" + _addr1 + "', '" + _addr2 + "', '" + _city + "', '" + _state + "', '" + _zip + "', '" + _tel + "')";
                                 getSqlCmd(insertsql).ExecuteNonQuery();
                                 this.Invoke(Delegate_listbox2, new Object[] { chName + " " + enName });
-                               // listBox2.Items.Add(chName + " " + enName);
+                                // listBox2.Items.Add(chName + " " + enName);
                             }
                             catch (Exception err)
                             {
@@ -362,7 +362,7 @@ rechk:
 
         private void btn_chrome_Click(object sender, EventArgs e)
         {
-            ChromeDriver cd = newAWebDriver("chrome",800,600) as ChromeDriver;
+            ChromeDriver cd = newAWebDriver("chrome", 800, 600) as ChromeDriver;
             cd.Navigate().GoToUrl("https://www.amazon.com");
         }
 
@@ -381,7 +381,7 @@ rechk:
         ChromeDriver cdbid;
         private void btn_onedollor_Click_1(object sender, EventArgs e)
         {
-            cdbid = newAWebDriver("chrome",800,600) as ChromeDriver;
+            cdbid = newAWebDriver("chrome", 800, 600) as ChromeDriver;
             cdbid.Navigate().GoToUrl("https://www.amazon.com/gp/aw/s/ref=aa_sbox_sort?fst=as%3Aoff&rh=n%3A165793011%2Cp_n_age_range%3A5442388011&bbn=165793011&sort=price-asc-rank&ie=UTF8&qid=1468937206");
         }
 
@@ -391,7 +391,15 @@ rechk:
         {
             if (cdbid != null)
             {
-                string _pitem = cdbid.FindElementById("productDetails_detailBullets_sections1").FindElements(By.TagName("td"))[2].Text;
+                //ASIN
+                string _pitem = "";
+                foreach (IWebElement we in cdbid.FindElementById("productDetails_detailBullets_sections1").FindElements(By.TagName("tr"))) {
+                    if (we.Text.StartsWith("ASIN"))
+                    {
+                        _pitem = we.Text.Replace("ASIN", "").TrimStart();
+                        break;
+                    }
+                }
                 //add to cart button
                 IWebElement addcart = cdbid.FindElementById("add-to-cart-button");
                 if (addcart == null) { addMsg("can't find add to cart btn!"); return; }
