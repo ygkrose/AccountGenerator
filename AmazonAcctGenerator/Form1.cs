@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using Microsoft.VisualBasic;
 
 namespace AmazonAcctGenerator
 {
@@ -131,12 +132,17 @@ namespace AmazonAcctGenerator
             l.BringToFront();
         }
 
+        string VPNName = "";
         private async void btn_create_Click(object sender, EventArgs e)
         {
-            string msg = "";
-            listBox2.Items.Clear();
-            msg = await Task.Run(() => doCreatAccount());
-            addMsg(msg);
+            VPNName = Interaction.InputBox("Input NordVPN Server Name or IP Address", "Input Data");
+            if (!string.IsNullOrEmpty(VPNName))
+            {
+                string msg = "";
+                listBox2.Items.Clear();
+                msg = await Task.Run(() => doCreatAccount());
+                addMsg(msg);
+            }
         }
 
         private string doCreatAccount()
@@ -268,7 +274,7 @@ namespace AmazonAcctGenerator
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null)";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null,'" + VPNName + "')";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();
