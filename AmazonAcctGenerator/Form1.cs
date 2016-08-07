@@ -474,7 +474,9 @@ namespace AmazonAcctGenerator
 
         private UserStruct getRndBuyer()
         {
-            DataTable tmptable = getColRows("account", "top 1 *", "pitem='' and status='Created' order by NEWID()");
+            string filter = "pitem='' and status='Created' order by NEWID()";
+            filter = "pdate is null and status='Created' and nordVPN='Canada#18' order by NEWID()";
+            DataTable tmptable = getColRows("account", "top 1 *", filter);
             if (tmptable.Rows.Count == 0) { addMsg("no suitable buyer for use"); return null; }
             UserStruct us = new UserStruct()
             {

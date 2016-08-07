@@ -72,7 +72,7 @@ namespace AmazonAcctGenerator
           
         }
 
-        public string wrapperAccount(DataRow dr,DataTable dtb)
+        public string wrapperAccount(DataRow dr, DataTable dtb)
         {
             try
             {
@@ -103,7 +103,8 @@ namespace AmazonAcctGenerator
                                 {"pcardno",  dr["cardno"].ToString().Trim() }
                             }
                         },
-                        {"review" , new BsonArray(ba)}
+                        {"review" , new BsonArray(ba)},
+                        {"vpn", dr["nordVPN"].ToString().Trim()}
                     };
 
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
@@ -111,9 +112,9 @@ namespace AmazonAcctGenerator
                     BsonDocument _doc = null;
                     _doc = allaccounts[dr["email"].ToString().Trim()];
                     var filter = Builders<BsonDocument>.Filter.Eq("_id", _doc["_id"]);
-                    var update = Builders<BsonDocument>.Update
-                            .Set("cuisine", "American (New)")
-                            .CurrentDate("lastModified");
+                    //var update = Builders<BsonDocument>.Update
+                    //        .Set("cuisine", "American (New)")
+                    //        .CurrentDate("lastModified");
                     //_collection.UpdateOne(filter, update);
                     //_collection.ReplaceOneAsync(filter, document); //not use for free account
                     _collection.ReplaceOne(filter, document);
