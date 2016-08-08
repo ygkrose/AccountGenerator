@@ -104,7 +104,7 @@ namespace AmazonAcctGenerator
                             }
                         },
                         {"review" , new BsonArray(ba)},
-                        {"vpn", dr["nordVPN"].ToString().Trim()}
+                        {"vpn", string.IsNullOrEmpty(dr["nordVPN"].ToString())?"":dr["nordVPN"].ToString().Trim()}
                     };
 
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
