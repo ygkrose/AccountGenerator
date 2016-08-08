@@ -76,3 +76,12 @@ C:\GIT\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj
 C:\GIT\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Form1.resources
 C:\GIT\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.Properties.Resources.resources
 C:\GIT\AccountGenerator\AmazonAcctGenerator\obj\Debug\AmazonAcctGenerator.csproj.GenerateResource.Cache
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb.mdf
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\mydb_log.ldf
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Dapper.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Bson.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.Core.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.dll
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\Dapper.xml
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Bson.xml
+K:\VSProjects\AccountGenerator\AmazonAcctGenerator\bin\Debug\MongoDB.Driver.xml

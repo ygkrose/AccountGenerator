@@ -407,11 +407,22 @@ namespace AmazonAcctGenerator
                     }
                 }
                 //add to cart button
-                IWebElement addcart = cdbid.FindElementById("add-to-cart-button");
+                IWebElement addcart = null; ;
+                if (cdbid.FindElementsById("add-to-cart-button").Count > 0)
+                    addcart = cdbid.FindElementById("add-to-cart-button");
+                else if (cdbid.FindElementsById("buybox-see-all-buying-choices-announce").Count > 0)
+                {
+                    cdbid.FindElementById("buybox-see-all-buying-choices-announce").Click();
+                    if (cdbid.FindElementsByName("submit.addToCart").Count>0)
+                        addcart = cdbid.FindElementByName("submit.addToCart");
+                }
+                   
                 if (addcart == null) { addMsg("can't find add to cart btn!"); return; }
                 addcart.Click();
                 //process to checkout button
-                IWebElement chkout = cdbid.FindElementById("hlb-ptc-btn-native");
+                IWebElement chkout = null;
+                if (cdbid.FindElementsById("hlb-ptc-btn-native").Count > 0)
+                    chkout = cdbid.FindElementById("hlb-ptc-btn-native");
                 if (chkout==null) { addMsg("can't find process to checkout button!"); return; }
                 chkout.Click();
                 //sign in form
@@ -448,23 +459,31 @@ namespace AmazonAcctGenerator
                 cdbid.FindElementById("ccName").SendKeys(_currentShipper.enname);
 
                 string[] ccds = cardpickup.Text.Split(new char[] { ',' });
+                System.Threading.Thread.Sleep(500);
                 cdbid.FindElementById("addCreditCardNumber").SendKeys(ccds[0].Trim());
 
                 string[] limit = ccds[1].Split(new char[] { '/' });
+                System.Threading.Thread.Sleep(1000);
+                while (cdbid.FindElementsByClassName("a-dropdown-prompt").Count < 2)
+                {
+                    System.Threading.Thread.Sleep(300);
+                }
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
+                System.Threading.Thread.Sleep(200);
                 cdbid.FindElementsByLinkText(limit[0])[0].Click();
 
                 //SelectElement sem = new SelectElement(cdbid.FindElementById("ccMonth"));
                 //sem.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0]);
-
+               
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[1].Click();
+                System.Threading.Thread.Sleep(500);
                 cdbid.FindElementsByLinkText(limit[1])[0].Click();
                 //SelectElement sey = new SelectElement(cdbid.FindElementById("ccYear"));
                 //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
 
                 cdbid.FindElementById("ccAddCard").Click();
 
-                System.Threading.Thread.Sleep(2300);
+                System.Threading.Thread.Sleep(2000);
                 
                 cdbid.FindElementById("continue-top").Click();
                 //cdbid.FindElementByName("placeYourOrder1").Click();
