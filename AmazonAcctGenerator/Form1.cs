@@ -257,7 +257,7 @@ namespace AmazonAcctGenerator
                 ChromeOptions co = new ChromeOptions();
                 co.AddArgument("-incognito");
                 co.AddArgument("window-size=" + sizew.ToString() + "," + sizeh.ToString());
-                ChromeDriver cd = new ChromeDriver(co);
+                ChromeDriver cd = new ChromeDriver(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), co);
                 cd.Manage().Cookies.DeleteAllCookies();
                 forceDeleteCookieFile(cd);
                 return cd;
@@ -474,9 +474,8 @@ namespace AmazonAcctGenerator
 
                 //SelectElement sem = new SelectElement(cdbid.FindElementById("ccMonth"));
                 //sem.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0]);
-               
+                System.Threading.Thread.Sleep(2700);
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[1].Click();
-                System.Threading.Thread.Sleep(500);
                 cdbid.FindElementsByLinkText(limit[1])[0].Click();
                 //SelectElement sey = new SelectElement(cdbid.FindElementById("ccYear"));
                 //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
@@ -494,7 +493,7 @@ namespace AmazonAcctGenerator
         private UserStruct getRndBuyer()
         {
             string filter = "pitem='' and status='Created' order by NEWID()";
-            filter = "pdate is null and status='Created' and nordVPN='Canada#18' order by NEWID()";
+            filter = "pdate is null and status='Created' and nordVPN='Taiwan' order by NEWID()";
             DataTable tmptable = getColRows("account", "top 1 *", filter);
             if (tmptable.Rows.Count == 0) { addMsg("no suitable buyer for use"); return null; }
             UserStruct us = new UserStruct()
