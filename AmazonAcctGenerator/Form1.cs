@@ -649,7 +649,8 @@ namespace AmazonAcctGenerator
             if (tabledata.Text.Trim() != "account") return;
             await Task.Run(() => {
                 int cur = 0;
-                DataRow[] tmpdr = (dg1.DataSource as DataTable).Select("status<>''"); //status<>'Created'
+                string _where = sync_all.Checked? "status <> ''" : "status<>'Created'";
+                DataRow[] tmpdr = (dg1.DataSource as DataTable).Select(_where); //status<>'Created'
                 foreach (DataRow r in tmpdr)
                 {
                     DataTable tb = getColRows("review", "*", "email='"+ r["email"].ToString().Trim()+"'");
