@@ -20,6 +20,7 @@ namespace AmazonAcctGenerator
         SortedList<string, BsonDocument> sortallaccount;
         public mongodb()
         {
+            //appharbor_f5h26gwv:b0i898m2k4kcp09l6btpj3g9fb@ds139735.mlab.com:39735/appharbor_f5h26gwv
             _client =  new MongoClient("mongodb://ygkroses:4rfv5tgb@ds033015.mlab.com:33015/acct");
             _database = _client.GetDatabase("acct");
             _collection = _database.GetCollection<BsonDocument>("account");

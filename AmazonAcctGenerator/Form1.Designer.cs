@@ -71,7 +71,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(674, 452);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(731, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -89,7 +89,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(670, 48);
+            this.groupBox1.Size = new System.Drawing.Size(727, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
@@ -132,12 +132,12 @@
             // 
             // btn_sync
             // 
-            this.btn_sync.Location = new System.Drawing.Point(566, 16);
+            this.btn_sync.Location = new System.Drawing.Point(562, 16);
             this.btn_sync.Margin = new System.Windows.Forms.Padding(2);
             this.btn_sync.Name = "btn_sync";
-            this.btn_sync.Size = new System.Drawing.Size(86, 25);
+            this.btn_sync.Size = new System.Drawing.Size(93, 25);
             this.btn_sync.TabIndex = 3;
-            this.btn_sync.Text = "Sync Accounts";
+            this.btn_sync.Text = "Sync MongoDB";
             this.btn_sync.UseVisualStyleBackColor = true;
             this.btn_sync.Click += new System.EventHandler(this.btn_sync_Click);
             // 
@@ -184,7 +184,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 146);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(333, 304);
+            this.listBox1.Size = new System.Drawing.Size(361, 304);
             this.listBox1.TabIndex = 2;
             // 
             // listBox2
@@ -194,10 +194,10 @@
             this.listBox2.ItemHeight = 12;
             this.listBox2.Items.AddRange(new object[] {
             "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(339, 146);
+            this.listBox2.Location = new System.Drawing.Point(367, 146);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(333, 304);
+            this.listBox2.Size = new System.Drawing.Size(362, 304);
             this.listBox2.TabIndex = 3;
             // 
             // groupBox2
@@ -212,7 +212,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 55);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(668, 46);
+            this.groupBox2.Size = new System.Drawing.Size(725, 46);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
@@ -284,14 +284,14 @@
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.msgpanel.Location = new System.Drawing.Point(3, 107);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(668, 34);
+            this.msgpanel.Size = new System.Drawing.Size(725, 34);
             this.msgpanel.TabIndex = 5;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 452);
+            this.ClientSize = new System.Drawing.Size(731, 452);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
