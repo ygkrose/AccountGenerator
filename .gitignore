@@ -4,4 +4,6 @@
 
 /AmazonAcctGenerator/bin/Debug
 /AmazonAcctGenerator/object/Debug
-/.vs
+.vs
+bin
+obj
