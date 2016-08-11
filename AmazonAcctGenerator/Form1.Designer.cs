@@ -30,6 +30,8 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.sync_all = new System.Windows.Forms.RadioButton();
+            this.sync_mod = new System.Windows.Forms.RadioButton();
             this.btn_resume = new System.Windows.Forms.Button();
             this.tabledata = new System.Windows.Forms.ComboBox();
             this.btn_edge = new System.Windows.Forms.Button();
@@ -47,8 +49,7 @@
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.sync_mod = new System.Windows.Forms.RadioButton();
-            this.sync_all = new System.Windows.Forms.RadioButton();
+            this.btn_review = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -73,7 +74,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(770, 452);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(733, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -93,10 +94,32 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(766, 48);
+            this.groupBox1.Size = new System.Drawing.Size(729, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
+            // 
+            // sync_all
+            // 
+            this.sync_all.AutoSize = true;
+            this.sync_all.Location = new System.Drawing.Point(650, 27);
+            this.sync_all.Name = "sync_all";
+            this.sync_all.Size = new System.Drawing.Size(37, 16);
+            this.sync_all.TabIndex = 9;
+            this.sync_all.Text = "All";
+            this.sync_all.UseVisualStyleBackColor = true;
+            // 
+            // sync_mod
+            // 
+            this.sync_mod.AutoSize = true;
+            this.sync_mod.Checked = true;
+            this.sync_mod.Location = new System.Drawing.Point(650, 11);
+            this.sync_mod.Name = "sync_mod";
+            this.sync_mod.Size = new System.Drawing.Size(58, 16);
+            this.sync_mod.TabIndex = 8;
+            this.sync_mod.TabStop = true;
+            this.sync_mod.Text = "Modify";
+            this.sync_mod.UseVisualStyleBackColor = true;
             // 
             // btn_resume
             // 
@@ -188,7 +211,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 146);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(381, 304);
+            this.listBox1.Size = new System.Drawing.Size(362, 304);
             this.listBox1.TabIndex = 2;
             // 
             // listBox2
@@ -198,15 +221,16 @@
             this.listBox2.ItemHeight = 12;
             this.listBox2.Items.AddRange(new object[] {
             "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(387, 146);
+            this.listBox2.Location = new System.Drawing.Point(368, 146);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(381, 304);
+            this.listBox2.Size = new System.Drawing.Size(363, 304);
             this.listBox2.TabIndex = 3;
             // 
             // groupBox2
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
+            this.groupBox2.Controls.Add(this.btn_review);
             this.groupBox2.Controls.Add(this.btn_upt);
             this.groupBox2.Controls.Add(this.btn_onedollor);
             this.groupBox2.Controls.Add(this.btn_ccyp);
@@ -216,14 +240,14 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 55);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(764, 46);
+            this.groupBox2.Size = new System.Drawing.Size(727, 46);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
             // 
             // btn_upt
             // 
-            this.btn_upt.Location = new System.Drawing.Point(531, 13);
+            this.btn_upt.Location = new System.Drawing.Point(501, 13);
             this.btn_upt.Name = "btn_upt";
             this.btn_upt.Size = new System.Drawing.Size(75, 23);
             this.btn_upt.TabIndex = 10;
@@ -233,7 +257,7 @@
             // 
             // btn_onedollor
             // 
-            this.btn_onedollor.Location = new System.Drawing.Point(206, 13);
+            this.btn_onedollor.Location = new System.Drawing.Point(184, 13);
             this.btn_onedollor.Name = "btn_onedollor";
             this.btn_onedollor.Size = new System.Drawing.Size(60, 26);
             this.btn_onedollor.TabIndex = 9;
@@ -245,7 +269,7 @@
             // 
             this.btn_ccyp.Location = new System.Drawing.Point(6, 16);
             this.btn_ccyp.Name = "btn_ccyp";
-            this.btn_ccyp.Size = new System.Drawing.Size(79, 23);
+            this.btn_ccyp.Size = new System.Drawing.Size(67, 23);
             this.btn_ccyp.TabIndex = 8;
             this.btn_ccyp.Text = "ccyp.com";
             this.btn_ccyp.UseVisualStyleBackColor = true;
@@ -253,7 +277,7 @@
             // 
             // btn_fillbill
             // 
-            this.btn_fillbill.Location = new System.Drawing.Point(464, 14);
+            this.btn_fillbill.Location = new System.Drawing.Point(434, 13);
             this.btn_fillbill.Name = "btn_fillbill";
             this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
             this.btn_fillbill.TabIndex = 5;
@@ -265,14 +289,14 @@
             // 
             this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cardpickup.FormattingEnabled = true;
-            this.cardpickup.Location = new System.Drawing.Point(280, 16);
+            this.cardpickup.Location = new System.Drawing.Point(259, 16);
             this.cardpickup.Name = "cardpickup";
             this.cardpickup.Size = new System.Drawing.Size(169, 20);
             this.cardpickup.TabIndex = 6;
             // 
             // btn_save
             // 
-            this.btn_save.Location = new System.Drawing.Point(96, 15);
+            this.btn_save.Location = new System.Drawing.Point(78, 14);
             this.btn_save.Margin = new System.Windows.Forms.Padding(2);
             this.btn_save.Name = "btn_save";
             this.btn_save.Size = new System.Drawing.Size(96, 25);
@@ -288,36 +312,24 @@
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.msgpanel.Location = new System.Drawing.Point(3, 107);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(764, 34);
+            this.msgpanel.Size = new System.Drawing.Size(727, 34);
             this.msgpanel.TabIndex = 5;
             // 
-            // sync_mod
+            // btn_review
             // 
-            this.sync_mod.AutoSize = true;
-            this.sync_mod.Checked = true;
-            this.sync_mod.Location = new System.Drawing.Point(650, 11);
-            this.sync_mod.Name = "sync_mod";
-            this.sync_mod.Size = new System.Drawing.Size(58, 16);
-            this.sync_mod.TabIndex = 8;
-            this.sync_mod.TabStop = true;
-            this.sync_mod.Text = "Modify";
-            this.sync_mod.UseVisualStyleBackColor = true;
-            // 
-            // sync_all
-            // 
-            this.sync_all.AutoSize = true;
-            this.sync_all.Location = new System.Drawing.Point(650, 27);
-            this.sync_all.Name = "sync_all";
-            this.sync_all.Size = new System.Drawing.Size(37, 16);
-            this.sync_all.TabIndex = 9;
-            this.sync_all.Text = "All";
-            this.sync_all.UseVisualStyleBackColor = true;
+            this.btn_review.Location = new System.Drawing.Point(582, 13);
+            this.btn_review.Name = "btn_review";
+            this.btn_review.Size = new System.Drawing.Size(81, 23);
+            this.btn_review.TabIndex = 11;
+            this.btn_review.Text = "Write Review";
+            this.btn_review.UseVisualStyleBackColor = true;
+            this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 452);
+            this.ClientSize = new System.Drawing.Size(733, 452);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -355,6 +367,7 @@
         private System.Windows.Forms.Button btn_resume;
         private System.Windows.Forms.RadioButton sync_all;
         private System.Windows.Forms.RadioButton sync_mod;
+        private System.Windows.Forms.Button btn_review;
     }
 }
 

@@ -613,7 +613,7 @@ namespace AmazonAcctGenerator
             if (cnt > 0)
                 return "update review set rvtime='" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() +
                     "',reviewer='" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "',rvtype='" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
-                    "',success=" + (dg1[dg1.CurrentRowIndex, 5].ToString()=="False"? 1:0) + " where itemno='" + ino + "' and email = '" + email + "'";
+                    "',success='" + dg1[dg1.CurrentRowIndex, 5].ToString() + "' where itemno='" + ino + "' and email = '" + email + "'";
             else
                 return "insert into review values ('" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 1].ToString().Trim() +
                 "','" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
@@ -690,7 +690,7 @@ namespace AmazonAcctGenerator
                             string rvsql= "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "'," + (doc["review"][i]["status"].ToString() == "fail" ? 0 : 1) + ")";
                             if (hasrow > 0)
                             {
-                                rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success=" + (doc["review"][i]["status"].ToString() == "fail" ? 0 : 1) + " where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
+                                rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success='" + doc["review"][i]["status"].ToString()  + "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
                             }
                             if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
                                 getSqlCmd(rvsql).ExecuteNonQuery();
@@ -711,6 +711,11 @@ namespace AmazonAcctGenerator
         private void uptStatus(string email,string status)
         {
             getSqlCmd("update account set status='" + status + "' where email = '" + email + "'").ExecuteNonQuery();
+        }
+
+        private void btn_review_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

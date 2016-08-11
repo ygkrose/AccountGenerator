@@ -85,8 +85,8 @@ namespace AmazonAcctGenerator
                                     {"ritem",_row["itemno"].ToString().Trim() },
                                     {"rdate",_row["rvtime"].ToString().Trim()  },
                                     {"rtype",_row["rvtype"].ToString().Trim() },
-                                    {"status",( _row["success"].ToString()=="False"? "fail" : "success") },
-                                    {"reviewer",_row["reviewer"].ToString().Trim()  }
+                                    {"status", _row["success"].ToString() },
+                                    {"reviewer",_row["reviewer"].ToString().Trim() }
                                 });
                 }
 
