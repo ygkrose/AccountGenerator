@@ -56,7 +56,7 @@ namespace AmazonAcctGenerator
             {
                 while (dr.Read())
                 {
-                    cardpickup.Items.Add(dr["CardID"].ToString().Trim() + "," + dr["bmonth"].ToString().Trim() + "/" + dr["byear"].ToString().Trim());
+                    cardpickup.Items.Add(dr["cardname"].ToString().Trim() + ", " + dr["bmonth"].ToString().Trim() + "/" + dr["byear"].ToString().Trim()+ ", " + dr["balance"].ToString());
                 }
             }
 
