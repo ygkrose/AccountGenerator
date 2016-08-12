@@ -713,9 +713,14 @@ namespace AmazonAcctGenerator
             getSqlCmd("update account set status='" + status + "' where email = '" + email + "'").ExecuteNonQuery();
         }
 
+        ChromeDriver rvChrome;
         private void btn_review_Click(object sender, EventArgs e)
         {
-
+            rvChrome = newAWebDriver("chrome", 800, 600) as ChromeDriver;
+            rvChrome.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_custrec_signin");
+            rvChrome.FindElementById("ap_email").SendKeys(dg1[dg1.CurrentRowIndex, 1].ToString().Trim());
+            rvChrome.FindElementById("ap_password").SendKeys(dg1[dg1.CurrentRowIndex, 2].ToString().Trim());
+            rvChrome.FindElementById("signInSubmit").Click();
         }
 
         private void sql_filter_KeyPress(object sender, KeyPressEventArgs e)

@@ -50,9 +50,14 @@
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
             this.sql_filter = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -60,10 +65,10 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.listBox2, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.msgpanel, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -74,7 +79,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(733, 452);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(802, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -94,7 +99,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(729, 48);
+            this.groupBox1.Size = new System.Drawing.Size(798, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
@@ -200,7 +205,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 146);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(362, 304);
+            this.listBox1.Size = new System.Drawing.Size(397, 304);
             this.listBox1.TabIndex = 2;
             // 
             // listBox2
@@ -210,37 +215,35 @@
             this.listBox2.ItemHeight = 12;
             this.listBox2.Items.AddRange(new object[] {
             "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(368, 146);
+            this.listBox2.Location = new System.Drawing.Point(403, 146);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(363, 304);
+            this.listBox2.Size = new System.Drawing.Size(397, 304);
             this.listBox2.TabIndex = 3;
             // 
             // groupBox2
             // 
-            this.tableLayoutPanel1.SetColumnSpan(this.groupBox2, 2);
-            this.groupBox2.Controls.Add(this.btn_review);
             this.groupBox2.Controls.Add(this.btn_upt);
             this.groupBox2.Controls.Add(this.btn_onedollor);
             this.groupBox2.Controls.Add(this.btn_ccyp);
             this.groupBox2.Controls.Add(this.btn_fillbill);
             this.groupBox2.Controls.Add(this.cardpickup);
             this.groupBox2.Controls.Add(this.btn_save);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 55);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(727, 46);
+            this.groupBox2.Size = new System.Drawing.Size(592, 46);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
             // 
             // btn_review
             // 
-            this.btn_review.Location = new System.Drawing.Point(582, 13);
+            this.btn_review.Location = new System.Drawing.Point(20, 16);
             this.btn_review.Name = "btn_review";
-            this.btn_review.Size = new System.Drawing.Size(81, 23);
+            this.btn_review.Size = new System.Drawing.Size(62, 23);
             this.btn_review.TabIndex = 11;
-            this.btn_review.Text = "Write Review";
+            this.btn_review.Text = "login acct";
             this.btn_review.UseVisualStyleBackColor = true;
             this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
             // 
@@ -311,7 +314,7 @@
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.msgpanel.Location = new System.Drawing.Point(3, 107);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(727, 34);
+            this.msgpanel.Size = new System.Drawing.Size(796, 34);
             this.msgpanel.TabIndex = 5;
             // 
             // sql_filter
@@ -322,11 +325,43 @@
             this.sql_filter.TabIndex = 10;
             this.sql_filter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sql_filter_KeyPress);
             // 
+            // panel1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.groupBox3);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 55);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(796, 46);
+            this.panel1.TabIndex = 11;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.btn_review);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox3.Location = new System.Drawing.Point(592, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(255, 46);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Review";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(88, 15);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(69, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "upt review";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(733, 452);
+            this.ClientSize = new System.Drawing.Size(802, 452);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -337,6 +372,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -365,6 +402,9 @@
         private System.Windows.Forms.RadioButton sync_mod;
         private System.Windows.Forms.Button btn_review;
         private System.Windows.Forms.TextBox sql_filter;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button1;
     }
 }
 
