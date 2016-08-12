@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
 using Microsoft.VisualBasic;
+using System.Collections;
 
 namespace AmazonAcctGenerator
 {
@@ -49,13 +50,14 @@ namespace AmazonAcctGenerator
             //    btn_export.Enabled = false;
             //}
         }
-
+        Hashtable cardStore = new Hashtable();
         private void getCardNo()
         {
             using (SqlDataReader dr = getSqlCmd("select * from card where status=1").ExecuteReader())
             {
                 while (dr.Read())
                 {
+                    cardStore.Add(dr["cardname"].ToString().Trim(), dr["cardid"].ToString().Trim());
                     cardpickup.Items.Add(dr["cardname"].ToString().Trim() + ", " + dr["bmonth"].ToString().Trim() + "/" + dr["byear"].ToString().Trim()+ ", " + dr["balance"].ToString() + ", ~" + dr["cardid"].ToString().Substring(6));
                 }
             }
@@ -463,7 +465,7 @@ namespace AmazonAcctGenerator
 
                 string[] ccds = cardpickup.Text.Split(new char[] { ',' });
                 System.Threading.Thread.Sleep(500);
-                cdbid.FindElementById("addCreditCardNumber").SendKeys(ccds[0].Trim());
+                cdbid.FindElementById("addCreditCardNumber").SendKeys(cardStore[ccds[0].Trim()].ToString());
 
                 string[] limit = ccds[1].Split(new char[] { '/' });
                 System.Threading.Thread.Sleep(1000);
@@ -730,7 +732,14 @@ namespace AmazonAcctGenerator
         {
             if ((int)e.KeyChar==13)
             {
-                fillDataGrid(sql_filter.Text);
+                try
+                {
+                    fillDataGrid(sql_filter.Text);
+                }
+                catch (Exception err)
+                {
+                    addMsg(err.Message);
+                }
             }
         }
     }
