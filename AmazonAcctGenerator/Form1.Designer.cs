@@ -53,6 +53,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.chk_usernd = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -79,7 +80,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(802, 452);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(869, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -99,7 +100,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(798, 48);
+            this.groupBox1.Size = new System.Drawing.Size(865, 48);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
@@ -205,7 +206,7 @@
             this.listBox1.Location = new System.Drawing.Point(2, 146);
             this.listBox1.Margin = new System.Windows.Forms.Padding(2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(397, 304);
+            this.listBox1.Size = new System.Drawing.Size(430, 304);
             this.listBox1.TabIndex = 2;
             // 
             // listBox2
@@ -215,14 +216,15 @@
             this.listBox2.ItemHeight = 12;
             this.listBox2.Items.AddRange(new object[] {
             "finish items"});
-            this.listBox2.Location = new System.Drawing.Point(403, 146);
+            this.listBox2.Location = new System.Drawing.Point(436, 146);
             this.listBox2.Margin = new System.Windows.Forms.Padding(2);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(397, 304);
+            this.listBox2.Size = new System.Drawing.Size(431, 304);
             this.listBox2.TabIndex = 3;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chk_usernd);
             this.groupBox2.Controls.Add(this.btn_upt);
             this.groupBox2.Controls.Add(this.btn_onedollor);
             this.groupBox2.Controls.Add(this.btn_ccyp);
@@ -232,7 +234,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(592, 46);
+            this.groupBox2.Size = new System.Drawing.Size(644, 46);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
@@ -249,7 +251,7 @@
             // 
             // btn_upt
             // 
-            this.btn_upt.Location = new System.Drawing.Point(501, 13);
+            this.btn_upt.Location = new System.Drawing.Point(551, 13);
             this.btn_upt.Name = "btn_upt";
             this.btn_upt.Size = new System.Drawing.Size(75, 23);
             this.btn_upt.TabIndex = 10;
@@ -279,7 +281,7 @@
             // 
             // btn_fillbill
             // 
-            this.btn_fillbill.Location = new System.Drawing.Point(434, 13);
+            this.btn_fillbill.Location = new System.Drawing.Point(475, 14);
             this.btn_fillbill.Name = "btn_fillbill";
             this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
             this.btn_fillbill.TabIndex = 5;
@@ -314,7 +316,7 @@
             this.msgpanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.msgpanel.Location = new System.Drawing.Point(3, 107);
             this.msgpanel.Name = "msgpanel";
-            this.msgpanel.Size = new System.Drawing.Size(796, 34);
+            this.msgpanel.Size = new System.Drawing.Size(863, 34);
             this.msgpanel.TabIndex = 5;
             // 
             // sql_filter
@@ -333,7 +335,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 55);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(796, 46);
+            this.panel1.Size = new System.Drawing.Size(863, 46);
             this.panel1.TabIndex = 11;
             // 
             // groupBox3
@@ -341,7 +343,7 @@
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.btn_review);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox3.Location = new System.Drawing.Point(592, 0);
+            this.groupBox3.Location = new System.Drawing.Point(644, 0);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(255, 46);
             this.groupBox3.TabIndex = 5;
@@ -357,11 +359,21 @@
             this.button1.Text = "upt review";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // chk_usernd
+            // 
+            this.chk_usernd.AutoSize = true;
+            this.chk_usernd.Location = new System.Drawing.Point(434, 18);
+            this.chk_usernd.Name = "chk_usernd";
+            this.chk_usernd.Size = new System.Drawing.Size(44, 16);
+            this.chk_usernd.TabIndex = 11;
+            this.chk_usernd.Text = "Rnd";
+            this.chk_usernd.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 452);
+            this.ClientSize = new System.Drawing.Size(869, 452);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -372,6 +384,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -405,6 +418,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox chk_usernd;
     }
 }
 

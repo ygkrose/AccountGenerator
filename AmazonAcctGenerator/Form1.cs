@@ -429,7 +429,10 @@ namespace AmazonAcctGenerator
                 if (cdbid.FindElementByName("signIn") != null)
                 {
                     //get account from db here
-                    _currentBuyer = getRndBuyer();
+                    if (chk_usernd.Checked)
+                        _currentBuyer = getRndBuyer();
+                    else
+                        _currentBuyer = new UserStruct() { email = dg1[dg1.CurrentRowIndex, 1].ToString().Trim(), pwd = dg1[dg1.CurrentRowIndex, 2].ToString().Trim() };
                     _currentBuyer.pitm = _pitem.Trim();
                     cdbid.FindElementById("ap_email").SendKeys(_currentBuyer.email);
                     cdbid.FindElementById("ap_password").SendKeys(_currentBuyer.pwd);
