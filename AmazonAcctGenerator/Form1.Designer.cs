@@ -34,7 +34,6 @@
             this.sync_mod = new System.Windows.Forms.RadioButton();
             this.btn_resume = new System.Windows.Forms.Button();
             this.tabledata = new System.Windows.Forms.ComboBox();
-            this.btn_edge = new System.Windows.Forms.Button();
             this.btn_sync = new System.Windows.Forms.Button();
             this.btn_create = new System.Windows.Forms.Button();
             this.btn_open = new System.Windows.Forms.Button();
@@ -42,6 +41,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btn_review = new System.Windows.Forms.Button();
             this.btn_upt = new System.Windows.Forms.Button();
             this.btn_onedollor = new System.Windows.Forms.Button();
             this.btn_ccyp = new System.Windows.Forms.Button();
@@ -49,7 +49,7 @@
             this.cardpickup = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.btn_review = new System.Windows.Forms.Button();
+            this.sql_filter = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -80,11 +80,11 @@
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
+            this.groupBox1.Controls.Add(this.sql_filter);
             this.groupBox1.Controls.Add(this.sync_all);
             this.groupBox1.Controls.Add(this.sync_mod);
             this.groupBox1.Controls.Add(this.btn_resume);
             this.groupBox1.Controls.Add(this.tabledata);
-            this.groupBox1.Controls.Add(this.btn_edge);
             this.groupBox1.Controls.Add(this.btn_sync);
             this.groupBox1.Controls.Add(this.btn_create);
             this.groupBox1.Controls.Add(this.btn_open);
@@ -140,22 +140,11 @@
             "review",
             "shipping",
             "card"});
-            this.tabledata.Location = new System.Drawing.Point(380, 21);
+            this.tabledata.Location = new System.Drawing.Point(369, 20);
             this.tabledata.Name = "tabledata";
             this.tabledata.Size = new System.Drawing.Size(70, 20);
             this.tabledata.TabIndex = 6;
             this.tabledata.SelectedIndexChanged += new System.EventHandler(this.tabledata_SelectedIndexChanged);
-            // 
-            // btn_edge
-            // 
-            this.btn_edge.Location = new System.Drawing.Point(465, 17);
-            this.btn_edge.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_edge.Name = "btn_edge";
-            this.btn_edge.Size = new System.Drawing.Size(83, 25);
-            this.btn_edge.TabIndex = 5;
-            this.btn_edge.Text = "Edge inPrivate";
-            this.btn_edge.UseVisualStyleBackColor = true;
-            this.btn_edge.Click += new System.EventHandler(this.btn_edge_Click);
             // 
             // btn_sync
             // 
@@ -245,6 +234,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bid and Shipping";
             // 
+            // btn_review
+            // 
+            this.btn_review.Location = new System.Drawing.Point(582, 13);
+            this.btn_review.Name = "btn_review";
+            this.btn_review.Size = new System.Drawing.Size(81, 23);
+            this.btn_review.TabIndex = 11;
+            this.btn_review.Text = "Write Review";
+            this.btn_review.UseVisualStyleBackColor = true;
+            this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
+            // 
             // btn_upt
             // 
             this.btn_upt.Location = new System.Drawing.Point(501, 13);
@@ -315,15 +314,13 @@
             this.msgpanel.Size = new System.Drawing.Size(727, 34);
             this.msgpanel.TabIndex = 5;
             // 
-            // btn_review
+            // sql_filter
             // 
-            this.btn_review.Location = new System.Drawing.Point(582, 13);
-            this.btn_review.Name = "btn_review";
-            this.btn_review.Size = new System.Drawing.Size(81, 23);
-            this.btn_review.TabIndex = 11;
-            this.btn_review.Text = "Write Review";
-            this.btn_review.UseVisualStyleBackColor = true;
-            this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
+            this.sql_filter.Location = new System.Drawing.Point(447, 18);
+            this.sql_filter.Name = "sql_filter";
+            this.sql_filter.Size = new System.Drawing.Size(100, 22);
+            this.sql_filter.TabIndex = 10;
+            this.sql_filter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sql_filter_KeyPress);
             // 
             // Form1
             // 
@@ -360,7 +357,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btn_onedollor;
         private System.Windows.Forms.Button btn_ccyp;
-        private System.Windows.Forms.Button btn_edge;
         private System.Windows.Forms.FlowLayoutPanel msgpanel;
         private System.Windows.Forms.ComboBox tabledata;
         private System.Windows.Forms.Button btn_upt;
@@ -368,6 +364,7 @@
         private System.Windows.Forms.RadioButton sync_all;
         private System.Windows.Forms.RadioButton sync_mod;
         private System.Windows.Forms.Button btn_review;
+        private System.Windows.Forms.TextBox sql_filter;
     }
 }
 

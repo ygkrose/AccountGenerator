@@ -56,7 +56,7 @@ namespace AmazonAcctGenerator
             {
                 while (dr.Read())
                 {
-                    cardpickup.Items.Add(dr["cardname"].ToString().Trim() + ", " + dr["bmonth"].ToString().Trim() + "/" + dr["byear"].ToString().Trim()+ ", " + dr["balance"].ToString());
+                    cardpickup.Items.Add(dr["cardname"].ToString().Trim() + ", " + dr["bmonth"].ToString().Trim() + "/" + dr["byear"].ToString().Trim()+ ", " + dr["balance"].ToString() + ", ~" + dr["cardid"].ToString().Substring(6));
                 }
             }
 
@@ -374,7 +374,7 @@ namespace AmazonAcctGenerator
 
         private void btn_edge_Click(object sender, EventArgs e)
         {
-            EdgeDriver iedrv = newAWebDriver("edge") as EdgeDriver;
+            //EdgeDriver iedrv = newAWebDriver("edge") as EdgeDriver;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -531,7 +531,7 @@ namespace AmazonAcctGenerator
         }
 
         int total = 0;
-        private void fillDataGrid()
+        private void fillDataGrid(string _filter="")
         {
             if (dg1 == null)
             {
@@ -562,7 +562,7 @@ namespace AmazonAcctGenerator
                 listBox1.Visible = false;
                 listBox2.Visible = false;
 
-                dg1.DataSource = getColRows(tabledata.Text, "*");
+                dg1.DataSource = getColRows(tabledata.Text, "*", _filter);
                 total = (dg1.DataSource as DataTable).Rows.Count;
             }
             
@@ -578,7 +578,7 @@ namespace AmazonAcctGenerator
                     break;
                 case "card":
                     int s = dg1[dg1.CurrentRowIndex, 4].ToString() == "False" ? 1 : 0;
-                    uptsql = "update card set status=" + s + " where CardId='" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "'";
+                    uptsql = "update card set status=" + s + ", balance=" + dg1[dg1.CurrentRowIndex, 7] + " where CardId='" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "'";
                     break;
                 case "review":
                     uptsql = uptReview();
@@ -716,6 +716,14 @@ namespace AmazonAcctGenerator
         private void btn_review_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void sql_filter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar==13)
+            {
+                fillDataGrid(sql_filter.Text);
+            }
         }
     }
 }
