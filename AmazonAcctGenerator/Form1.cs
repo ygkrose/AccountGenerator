@@ -428,7 +428,7 @@ namespace AmazonAcctGenerator
                 if (chkout==null) { addMsg("can't find process to checkout button!"); return; }
                 chkout.Click();
                 //sign in form
-                if (cdbid.FindElementByName("signIn") != null)
+                if (cdbid.FindElementsByName("signIn").Count >0)
                 {
                     //get account from db here
                     if (chk_usernd.Checked)
@@ -439,6 +439,11 @@ namespace AmazonAcctGenerator
                     cdbid.FindElementById("ap_email").SendKeys(_currentBuyer.email);
                     cdbid.FindElementById("ap_password").SendKeys(_currentBuyer.pwd);
                     cdbid.FindElementById("signInSubmit").Click();
+                }
+                else
+                {
+                    _currentBuyer = new UserStruct() { email = dg1[dg1.CurrentRowIndex, 1].ToString().Trim(), pwd = dg1[dg1.CurrentRowIndex, 2].ToString().Trim() };
+                    _currentBuyer.pitm = _pitem.Trim();
                 }
                 this.Invoke(Delegate_listbox2, new Object[] { _currentBuyer.email });
                 //fill shipping data
@@ -468,18 +473,20 @@ namespace AmazonAcctGenerator
                 cdbid.FindElementById("addCreditCardNumber").SendKeys(cardStore[ccds[0].Trim()].ToString());
 
                 string[] limit = ccds[1].Split(new char[] { '/' });
-                System.Threading.Thread.Sleep(1000);
-                while (cdbid.FindElementsByClassName("a-dropdown-prompt").Count < 2)
+                
+                cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
+                cdbid.FindElementsByLinkText("01")[0].Click();
+                System.Threading.Thread.Sleep(2800);
+                cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
+                while (cdbid.FindElementsByLinkText(limit[0].ToString()).Count == 0)
                 {
                     System.Threading.Thread.Sleep(300);
                 }
-                cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
-                System.Threading.Thread.Sleep(200);
-                cdbid.FindElementsByLinkText(limit[0])[0].Click();
+                cdbid.FindElementsByLinkText(limit[0].ToString())[0].Click();
 
                 //SelectElement sem = new SelectElement(cdbid.FindElementById("ccMonth"));
                 //sem.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0]);
-                System.Threading.Thread.Sleep(2700);
+                System.Threading.Thread.Sleep(700);
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[1].Click();
                 cdbid.FindElementsByLinkText(limit[1])[0].Click();
                 //SelectElement sey = new SelectElement(cdbid.FindElementById("ccYear"));
@@ -636,7 +643,7 @@ namespace AmazonAcctGenerator
             if (cmd.ExecuteNonQuery() == 1)
             {
                 addMsg("update success!");
-                fillDataGrid();
+                fillDataGrid(sql_filter.Text.Trim());
             }
             else
                 addMsg("update fail!");
@@ -718,14 +725,13 @@ namespace AmazonAcctGenerator
             getSqlCmd("update account set status='" + status + "' where email = '" + email + "'").ExecuteNonQuery();
         }
 
-        ChromeDriver rvChrome;
         private void btn_review_Click(object sender, EventArgs e)
         {
-            rvChrome = newAWebDriver("chrome", 800, 600) as ChromeDriver;
-            rvChrome.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_custrec_signin");
-            rvChrome.FindElementById("ap_email").SendKeys(dg1[dg1.CurrentRowIndex, 1].ToString().Trim());
-            rvChrome.FindElementById("ap_password").SendKeys(dg1[dg1.CurrentRowIndex, 2].ToString().Trim());
-            rvChrome.FindElementById("signInSubmit").Click();
+            cdbid = newAWebDriver("chrome", 800, 600) as ChromeDriver;
+            cdbid.Navigate().GoToUrl("https://www.amazon.com/ap/signin?_encoding=UTF8&openid.assoc_handle=usflex&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.pape=http%3A%2F%2Fspecs.openid.net%2Fextensions%2Fpape%2F1.0&openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.com%2F%3Fref_%3Dnav_custrec_signin");
+            cdbid.FindElementById("ap_email").SendKeys(dg1[dg1.CurrentRowIndex, 1].ToString().Trim());
+            cdbid.FindElementById("ap_password").SendKeys(dg1[dg1.CurrentRowIndex, 2].ToString().Trim());
+            cdbid.FindElementById("signInSubmit").Click();
         }
 
         private void sql_filter_KeyPress(object sender, KeyPressEventArgs e)
