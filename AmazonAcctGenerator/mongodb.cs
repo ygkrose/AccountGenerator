@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using MongoDB.Driver.Linq;
+using System.Globalization;
 
 namespace AmazonAcctGenerator
 {
@@ -83,7 +84,7 @@ namespace AmazonAcctGenerator
                     ba.Add(new BsonDocument
                                 {
                                     {"ritem",_row["itemno"].ToString().Trim() },
-                                    {"rdate",_row["rvtime"].ToString().Trim()  },
+                                    {"rdate", Convert.ToDateTime(string.IsNullOrEmpty(_row["rvtime"].ToString())?"1000-1-2":_row["rvtime"],new CultureInfo("en-US"))},
                                     {"rtype",_row["rvtype"].ToString().Trim() },
                                     {"status", _row["success"].ToString() },
                                     {"reviewer",_row["reviewer"].ToString().Trim() }
@@ -97,7 +98,7 @@ namespace AmazonAcctGenerator
                         {"status", dr["status"].ToString().Trim()=="New"?"Created":dr["status"].ToString().Trim()},
                         {"purchase", new BsonDocument
                             {
-                                {"pdate", dr["pdate"].ToString().Trim() },
+                                {"pdate", Convert.ToDateTime(string.IsNullOrEmpty(dr["pdate"].ToString())?"1000-1-2":dr["pdate"] ,new CultureInfo("en-US")) },
                                 {"pname",  dr["rcvname"].ToString().Trim() },
                                 {"ptel",  dr["tel"].ToString().Trim() },
                                 {"pitem",  dr["pitem"].ToString().Trim() },
@@ -106,7 +107,7 @@ namespace AmazonAcctGenerator
                         },
                         {"review" , new BsonArray(ba)},
                         {"vpn", string.IsNullOrEmpty(dr["nordVPN"].ToString())?"":dr["nordVPN"].ToString().Trim()},
-                        {"createdate", string.IsNullOrEmpty(dr["createtime"].ToString())?"":((DateTime)dr["createtime"]).ToString("yyyy-MM-dd HH:mm:ss")}
+                        {"createdate", Convert.ToDateTime(dr["createtime"],new CultureInfo("en-US"))}
                     };
 
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
