@@ -55,6 +55,12 @@ namespace AmazonAcctGenerator
         {
             using (SqlDataReader dr = getSqlCmd("select * from card where status=1").ExecuteReader())
             {
+                if (dr.HasRows)
+                {
+                    cardpickup.Items.Clear();
+                    cardStore.Clear();
+                }
+                    
                 while (dr.Read())
                 {
                     cardStore.Add(dr["cardname"].ToString().Trim(), dr["cardid"].ToString().Trim());
@@ -478,17 +484,14 @@ namespace AmazonAcctGenerator
                 cdbid.FindElementsByLinkText("01")[0].Click();
                 System.Threading.Thread.Sleep(2800);
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[0].Click();
-                while (cdbid.FindElementsByLinkText(limit[0].ToString()).Count == 0)
-                {
-                    System.Threading.Thread.Sleep(300);
-                }
-                cdbid.FindElementsByLinkText(limit[0].ToString())[0].Click();
+               
+                cdbid.FindElementsByLinkText(limit[0].ToString().Trim())[0].Click();
 
                 //SelectElement sem = new SelectElement(cdbid.FindElementById("ccMonth"));
                 //sem.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[0]);
                 System.Threading.Thread.Sleep(700);
                 cdbid.FindElementsByClassName("a-dropdown-prompt")[1].Click();
-                cdbid.FindElementsByLinkText(limit[1])[0].Click();
+                cdbid.FindElementsByLinkText(limit[1].ToString().Trim())[0].Click();
                 //SelectElement sey = new SelectElement(cdbid.FindElementById("ccYear"));
                 //sey.SelectByText(cardpickup.Text.Split(new char[] { ',' })[1].Split(new char[] { '/' })[1]);
 
@@ -539,7 +542,7 @@ namespace AmazonAcctGenerator
         DataGrid dg1 = null;
         private void tabledata_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fillDataGrid();
+            fillDataGrid();            
         }
 
         int total = 0;
@@ -608,6 +611,8 @@ namespace AmazonAcctGenerator
             {
                 addMsg("update success!");
                 fillDataGrid();
+                if (tabledata.Text.Trim()=="card")
+                    getCardNo();
             }
             else
                 addMsg("update nothing!");
