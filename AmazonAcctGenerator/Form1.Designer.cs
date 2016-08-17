@@ -29,7 +29,20 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btn_uptrv = new System.Windows.Forms.Button();
+            this.btn_review = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chk_usernd = new System.Windows.Forms.CheckBox();
+            this.btn_upt = new System.Windows.Forms.Button();
+            this.btn_onedollor = new System.Windows.Forms.Button();
+            this.btn_ccyp = new System.Windows.Forms.Button();
+            this.btn_fillbill = new System.Windows.Forms.Button();
+            this.cardpickup = new System.Windows.Forms.ComboBox();
+            this.btn_save = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.sql_filter = new System.Windows.Forms.TextBox();
             this.sync_all = new System.Windows.Forms.RadioButton();
             this.sync_mod = new System.Windows.Forms.RadioButton();
             this.btn_resume = new System.Windows.Forms.Button();
@@ -40,25 +53,12 @@
             this.btn_chrome = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btn_review = new System.Windows.Forms.Button();
-            this.btn_upt = new System.Windows.Forms.Button();
-            this.btn_onedollor = new System.Windows.Forms.Button();
-            this.btn_ccyp = new System.Windows.Forms.Button();
-            this.btn_fillbill = new System.Windows.Forms.Button();
-            this.cardpickup = new System.Windows.Forms.ComboBox();
-            this.btn_save = new System.Windows.Forms.Button();
             this.msgpanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.sql_filter = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.chk_usernd = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -83,6 +83,136 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(869, 452);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // panel1
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.groupBox3);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 55);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(863, 46);
+            this.panel1.TabIndex = 11;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btn_uptrv);
+            this.groupBox3.Controls.Add(this.btn_review);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox3.Location = new System.Drawing.Point(644, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(255, 46);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Review";
+            // 
+            // btn_uptrv
+            // 
+            this.btn_uptrv.Location = new System.Drawing.Point(88, 15);
+            this.btn_uptrv.Name = "btn_uptrv";
+            this.btn_uptrv.Size = new System.Drawing.Size(69, 23);
+            this.btn_uptrv.TabIndex = 12;
+            this.btn_uptrv.Text = "upt review";
+            this.btn_uptrv.UseVisualStyleBackColor = true;
+            this.btn_uptrv.Click += new System.EventHandler(this.btn_uptrv_Click);
+            // 
+            // btn_review
+            // 
+            this.btn_review.Location = new System.Drawing.Point(20, 16);
+            this.btn_review.Name = "btn_review";
+            this.btn_review.Size = new System.Drawing.Size(62, 23);
+            this.btn_review.TabIndex = 11;
+            this.btn_review.Text = "login acct";
+            this.btn_review.UseVisualStyleBackColor = true;
+            this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.chk_usernd);
+            this.groupBox2.Controls.Add(this.btn_upt);
+            this.groupBox2.Controls.Add(this.btn_onedollor);
+            this.groupBox2.Controls.Add(this.btn_ccyp);
+            this.groupBox2.Controls.Add(this.btn_fillbill);
+            this.groupBox2.Controls.Add(this.cardpickup);
+            this.groupBox2.Controls.Add(this.btn_save);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(644, 46);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Bid and Shipping";
+            // 
+            // chk_usernd
+            // 
+            this.chk_usernd.AutoSize = true;
+            this.chk_usernd.Location = new System.Drawing.Point(434, 18);
+            this.chk_usernd.Name = "chk_usernd";
+            this.chk_usernd.Size = new System.Drawing.Size(44, 16);
+            this.chk_usernd.TabIndex = 11;
+            this.chk_usernd.Text = "Rnd";
+            this.chk_usernd.UseVisualStyleBackColor = true;
+            // 
+            // btn_upt
+            // 
+            this.btn_upt.Location = new System.Drawing.Point(551, 13);
+            this.btn_upt.Name = "btn_upt";
+            this.btn_upt.Size = new System.Drawing.Size(75, 23);
+            this.btn_upt.TabIndex = 10;
+            this.btn_upt.Text = "upt purchase";
+            this.btn_upt.UseVisualStyleBackColor = true;
+            this.btn_upt.Click += new System.EventHandler(this.btn_upt_Click);
+            // 
+            // btn_onedollor
+            // 
+            this.btn_onedollor.Location = new System.Drawing.Point(184, 13);
+            this.btn_onedollor.Name = "btn_onedollor";
+            this.btn_onedollor.Size = new System.Drawing.Size(60, 26);
+            this.btn_onedollor.TabIndex = 9;
+            this.btn_onedollor.Text = "$1 page";
+            this.btn_onedollor.UseVisualStyleBackColor = true;
+            this.btn_onedollor.Click += new System.EventHandler(this.btn_onedollor_Click_1);
+            // 
+            // btn_ccyp
+            // 
+            this.btn_ccyp.Location = new System.Drawing.Point(6, 16);
+            this.btn_ccyp.Name = "btn_ccyp";
+            this.btn_ccyp.Size = new System.Drawing.Size(67, 23);
+            this.btn_ccyp.TabIndex = 8;
+            this.btn_ccyp.Text = "ccyp.com";
+            this.btn_ccyp.UseVisualStyleBackColor = true;
+            this.btn_ccyp.Click += new System.EventHandler(this.btn_ccyp_Click);
+            // 
+            // btn_fillbill
+            // 
+            this.btn_fillbill.Location = new System.Drawing.Point(475, 14);
+            this.btn_fillbill.Name = "btn_fillbill";
+            this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
+            this.btn_fillbill.TabIndex = 5;
+            this.btn_fillbill.Text = "fill bill";
+            this.btn_fillbill.UseVisualStyleBackColor = true;
+            this.btn_fillbill.Click += new System.EventHandler(this.btn_fillbill_Click);
+            // 
+            // cardpickup
+            // 
+            this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cardpickup.FormattingEnabled = true;
+            this.cardpickup.Location = new System.Drawing.Point(259, 16);
+            this.cardpickup.Name = "cardpickup";
+            this.cardpickup.Size = new System.Drawing.Size(169, 20);
+            this.cardpickup.TabIndex = 6;
+            // 
+            // btn_save
+            // 
+            this.btn_save.Location = new System.Drawing.Point(78, 14);
+            this.btn_save.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(96, 25);
+            this.btn_save.TabIndex = 7;
+            this.btn_save.Text = "save contact info";
+            this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
+            // 
             // groupBox1
             // 
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox1, 2);
@@ -104,6 +234,14 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account Function";
+            // 
+            // sql_filter
+            // 
+            this.sql_filter.Location = new System.Drawing.Point(447, 18);
+            this.sql_filter.Name = "sql_filter";
+            this.sql_filter.Size = new System.Drawing.Size(100, 22);
+            this.sql_filter.TabIndex = 10;
+            this.sql_filter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sql_filter_KeyPress);
             // 
             // sync_all
             // 
@@ -222,93 +360,6 @@
             this.listBox2.Size = new System.Drawing.Size(431, 304);
             this.listBox2.TabIndex = 3;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.chk_usernd);
-            this.groupBox2.Controls.Add(this.btn_upt);
-            this.groupBox2.Controls.Add(this.btn_onedollor);
-            this.groupBox2.Controls.Add(this.btn_ccyp);
-            this.groupBox2.Controls.Add(this.btn_fillbill);
-            this.groupBox2.Controls.Add(this.cardpickup);
-            this.groupBox2.Controls.Add(this.btn_save);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(644, 46);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Bid and Shipping";
-            // 
-            // btn_review
-            // 
-            this.btn_review.Location = new System.Drawing.Point(20, 16);
-            this.btn_review.Name = "btn_review";
-            this.btn_review.Size = new System.Drawing.Size(62, 23);
-            this.btn_review.TabIndex = 11;
-            this.btn_review.Text = "login acct";
-            this.btn_review.UseVisualStyleBackColor = true;
-            this.btn_review.Click += new System.EventHandler(this.btn_review_Click);
-            // 
-            // btn_upt
-            // 
-            this.btn_upt.Location = new System.Drawing.Point(551, 13);
-            this.btn_upt.Name = "btn_upt";
-            this.btn_upt.Size = new System.Drawing.Size(75, 23);
-            this.btn_upt.TabIndex = 10;
-            this.btn_upt.Text = "upt purchase";
-            this.btn_upt.UseVisualStyleBackColor = true;
-            this.btn_upt.Click += new System.EventHandler(this.btn_upt_Click);
-            // 
-            // btn_onedollor
-            // 
-            this.btn_onedollor.Location = new System.Drawing.Point(184, 13);
-            this.btn_onedollor.Name = "btn_onedollor";
-            this.btn_onedollor.Size = new System.Drawing.Size(60, 26);
-            this.btn_onedollor.TabIndex = 9;
-            this.btn_onedollor.Text = "$1 page";
-            this.btn_onedollor.UseVisualStyleBackColor = true;
-            this.btn_onedollor.Click += new System.EventHandler(this.btn_onedollor_Click_1);
-            // 
-            // btn_ccyp
-            // 
-            this.btn_ccyp.Location = new System.Drawing.Point(6, 16);
-            this.btn_ccyp.Name = "btn_ccyp";
-            this.btn_ccyp.Size = new System.Drawing.Size(67, 23);
-            this.btn_ccyp.TabIndex = 8;
-            this.btn_ccyp.Text = "ccyp.com";
-            this.btn_ccyp.UseVisualStyleBackColor = true;
-            this.btn_ccyp.Click += new System.EventHandler(this.btn_ccyp_Click);
-            // 
-            // btn_fillbill
-            // 
-            this.btn_fillbill.Location = new System.Drawing.Point(475, 14);
-            this.btn_fillbill.Name = "btn_fillbill";
-            this.btn_fillbill.Size = new System.Drawing.Size(61, 23);
-            this.btn_fillbill.TabIndex = 5;
-            this.btn_fillbill.Text = "fill bill";
-            this.btn_fillbill.UseVisualStyleBackColor = true;
-            this.btn_fillbill.Click += new System.EventHandler(this.btn_fillbill_Click);
-            // 
-            // cardpickup
-            // 
-            this.cardpickup.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cardpickup.FormattingEnabled = true;
-            this.cardpickup.Location = new System.Drawing.Point(259, 16);
-            this.cardpickup.Name = "cardpickup";
-            this.cardpickup.Size = new System.Drawing.Size(169, 20);
-            this.cardpickup.TabIndex = 6;
-            // 
-            // btn_save
-            // 
-            this.btn_save.Location = new System.Drawing.Point(78, 14);
-            this.btn_save.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(96, 25);
-            this.btn_save.TabIndex = 7;
-            this.btn_save.Text = "save contact info";
-            this.btn_save.UseVisualStyleBackColor = true;
-            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
-            // 
             // msgpanel
             // 
             this.msgpanel.AutoScroll = true;
@@ -318,56 +369,6 @@
             this.msgpanel.Name = "msgpanel";
             this.msgpanel.Size = new System.Drawing.Size(863, 34);
             this.msgpanel.TabIndex = 5;
-            // 
-            // sql_filter
-            // 
-            this.sql_filter.Location = new System.Drawing.Point(447, 18);
-            this.sql_filter.Name = "sql_filter";
-            this.sql_filter.Size = new System.Drawing.Size(100, 22);
-            this.sql_filter.TabIndex = 10;
-            this.sql_filter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sql_filter_KeyPress);
-            // 
-            // panel1
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.groupBox3);
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 55);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(863, 46);
-            this.panel1.TabIndex = 11;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.btn_review);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox3.Location = new System.Drawing.Point(644, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(255, 46);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Review";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(88, 15);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(69, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "upt review";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // chk_usernd
-            // 
-            this.chk_usernd.AutoSize = true;
-            this.chk_usernd.Location = new System.Drawing.Point(434, 18);
-            this.chk_usernd.Name = "chk_usernd";
-            this.chk_usernd.Size = new System.Drawing.Size(44, 16);
-            this.chk_usernd.TabIndex = 11;
-            this.chk_usernd.Text = "Rnd";
-            this.chk_usernd.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -381,12 +382,12 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -417,7 +418,7 @@
         private System.Windows.Forms.TextBox sql_filter;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_uptrv;
         private System.Windows.Forms.CheckBox chk_usernd;
     }
 }

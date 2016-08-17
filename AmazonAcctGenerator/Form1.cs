@@ -610,9 +610,17 @@ namespace AmazonAcctGenerator
             if (cmd.ExecuteNonQuery() == 1)
             {
                 addMsg("update success!");
-                fillDataGrid();
-                if (tabledata.Text.Trim()=="card")
-                    getCardNo();
+                if (tabledata.Text.Trim() == "account")
+                {
+                    fillDataGrid(sql_filter.Text.Trim());
+                }
+                else
+                {
+                    fillDataGrid();
+                    if (tabledata.Text.Trim() == "card")
+                        getCardNo();
+                }
+
             }
             else
                 addMsg("update nothing!");
@@ -751,6 +759,35 @@ namespace AmazonAcctGenerator
                 {
                     addMsg(err.Message);
                 }
+            }
+        }
+
+        private void btn_uptrv_Click(object sender, EventArgs e)
+        {
+            Task<SqlDataReader> drasyn = null;
+            string uSql = "";
+            try
+            {
+                 drasyn = getSqlCmd("select email , count(email) as rvs from review group by email").ExecuteReaderAsync();
+                while (drasyn.Result.Read())
+                {
+                    uSql += "update account set rvtimes = " + drasyn.Result["rvs"] + " where email='" + drasyn.Result["email"].ToString().Trim() + "';";
+                }
+                drasyn.Result.Close();
+                getSqlCmd(uSql).ExecuteNonQuery();
+                addMsg("update review times finish!");
+            }
+            catch (SqlException serr)
+            {
+                addMsg(serr.Message);
+            }
+            catch (Exception err)
+            {
+                addMsg(err.Message);
+            }
+            finally
+            {
+                drasyn.Dispose();
             }
         }
     }
