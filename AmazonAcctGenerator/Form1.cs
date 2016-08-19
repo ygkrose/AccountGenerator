@@ -671,58 +671,71 @@ namespace AmazonAcctGenerator
         {
             mongodb mdb = new mongodb();
             string rtnmsg = "";
-            if (tabledata.Text.Trim() != "account") return;
-            await Task.Run(() => {
-                int cur = 0;
-                string _where = sync_all.Checked? "status <> ''" : "status<>'Created'";
-                DataRow[] tmpdr = (dg1.DataSource as DataTable).Select(_where); //status<>'Created'
-                foreach (DataRow r in tmpdr)
+            if (tabledata.Text.Trim() == "account")
+            {
+                await Task.Run(() =>
                 {
-                    DataTable tb = getColRows("review", "*", "email='"+ r["email"].ToString().Trim()+"'");
-                    rtnmsg += mdb.wrapperAccount(r,tb);
-                    cur++;
-                    if (string.IsNullOrEmpty(rtnmsg))
+                    int cur = 0;
+                    string _where = sync_all.Checked ? "status <> ''" : "status<>'Created'";
+                    DataRow[] tmpdr = (dg1.DataSource as DataTable).Select(_where); //status<>'Created'
+                    foreach (DataRow r in tmpdr)
                     {
-                        if (r["status"].ToString().Trim() == "New")
+                        DataTable tb = getColRows("review", "*", "email='" + r["email"].ToString().Trim() + "'");
+                        rtnmsg += mdb.wrapperAccount(r, tb);
+                        cur++;
+                        if (string.IsNullOrEmpty(rtnmsg))
                         {
-                            //update status to Created
-                            uptStatus(r["email"].ToString().Trim(), "Created");
-                        }
-                         this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() +"/"+ tmpdr.Length });
-                    }
-                    else
-                        rtnmsg += "(" + r["email"].ToString().Trim() + ")" ;
-                }
-                //from mongo to client
-                var mongodocs = mdb.getDocForSync();
-                foreach (var doc in mongodocs) 
-                {
-                    int exist =(int) getSqlCmd("select count(*) from account where email='" + doc["email"] + "'").ExecuteScalar();
-                    string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
-                         "' where email='" + doc["email"] + "'";
-                    if (exist == 0)
-                    {
-                        uptacc = "insert into account values (null,'" + doc["email"] +"','"+ doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] +"','"+ doc["purchase"]["pitem"] + "','" + doc["status"] + "'," + 
-                        doc["review"].AsBsonArray.Count  + ",'" +  Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "')"  ;
-                    }
-                    getSqlCmd(uptacc).ExecuteNonQuery();
-
-                    if (doc["review"].AsBsonArray.Count > 0)
-                    {
-                        for (int i =0; i< doc["review"].AsBsonArray.Count; i++)
-                        {
-                            int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
-                            string rvsql= "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "'," + (doc["review"][i]["status"].ToString() == "fail" ? 0 : 1) + ")";
-                            if (hasrow > 0)
+                            if (r["status"].ToString().Trim() == "New")
                             {
-                                rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success='" + doc["review"][i]["status"].ToString()  + "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
+                                //update status to Created
+                                uptStatus(r["email"].ToString().Trim(), "Created");
                             }
-                            if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
-                                getSqlCmd(rvsql).ExecuteNonQuery();
+                            this.Invoke(Delegate_listbox2, new Object[] { cur.ToString() + "/" + tmpdr.Length });
+                        }
+                        else
+                            rtnmsg += "(" + r["email"].ToString().Trim() + ")";
+                    }
+                    //from mongo to client
+                    var mongodocs = mdb.getDocForSync();
+                    foreach (var doc in mongodocs)
+                    {
+                        int exist = (int)getSqlCmd("select count(*) from account where email='" + doc["email"] + "'").ExecuteScalar();
+                        string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
+                             "' where email='" + doc["email"] + "'";
+                        if (exist == 0)
+                        {
+                            uptacc = "insert into account values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
+                            doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                        }
+                        getSqlCmd(uptacc).ExecuteNonQuery();
+
+                        if (doc["review"].AsBsonArray.Count > 0)
+                        {
+                            for (int i = 0; i < doc["review"].AsBsonArray.Count; i++)
+                            {
+                                int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
+                                string rvsql = "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "'," + (doc["review"][i]["status"].ToString() == "fail" ? 0 : 1) + ")";
+                                if (hasrow > 0)
+                                {
+                                    rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success='" + doc["review"][i]["status"].ToString() + "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
+                                }
+                                if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
+                                    getSqlCmd(rvsql).ExecuteNonQuery();
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+            else if (tabledata.Text.Trim() == "card")
+            {
+                string rtn = syncCardInfo();
+                if (string.IsNullOrEmpty(rtn))
+                    addMsg("Card Update OK!");
+                else
+                    addMsg(rtn);
+            }
+            else { return; }
+
             if (!string.IsNullOrEmpty(rtnmsg))
             {
                 addMsg(rtnmsg);
@@ -731,6 +744,24 @@ namespace AmazonAcctGenerator
             {
                 addMsg("Sync Finished!");
             }
+        }
+
+        private string syncCardInfo()
+        {
+            string rtnmsg = "";
+            DataRow[] tmpdr = (dg1.DataSource as DataTable).Select();
+            mongodb mdb = new mongodb();
+            foreach (DataRow r in tmpdr)
+            {
+                rtnmsg += mdb.wrapperCard(r);
+                if (string.IsNullOrEmpty(rtnmsg))
+                {
+                    this.Invoke(Delegate_listbox2, new Object[] { r["cardname"].ToString() + " OK" });
+                }
+                else
+                    rtnmsg += "(" + r["cardname"].ToString().Trim() + ")";
+            }
+            return rtnmsg;
         }
 
         private void uptStatus(string email,string status)
