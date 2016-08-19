@@ -87,7 +87,9 @@ namespace AmazonAcctGenerator
                                     {"rdate", Convert.ToDateTime(string.IsNullOrEmpty(_row["rvtime"].ToString())?"1000-1-2":_row["rvtime"],new CultureInfo("en-US"))},
                                     {"rtype",_row["rvtype"].ToString().Trim() },
                                     {"status", _row["success"].ToString() },
-                                    {"reviewer",_row["reviewer"].ToString().Trim() }
+                                    {"reviewer",_row["reviewer"].ToString().Trim() },
+                                    {"seller",_row["seller"].ToString().Trim() },
+                                    {"stars", BsonInt32.Create( _row["stars"]) }
                                 });
                 }
 
