@@ -84,10 +84,12 @@ namespace AmazonAcctGenerator
                     ba.Add(new BsonDocument
                                 {
                                     {"ritem",_row["itemno"].ToString().Trim() },
-                                    {"rdate", Convert.ToDateTime(string.IsNullOrEmpty(_row["rvtime"].ToString())?"1000-1-2":_row["rvtime"],new CultureInfo("en-US"))},
+                                    {"rdate", Convert.ToDateTime(string.IsNullOrEmpty(_row["rvtime"].ToString())?"1000-1-2":_row["rvtime"],new CultureInfo("zh-TW"))},
                                     {"rtype",_row["rvtype"].ToString().Trim() },
                                     {"status", _row["success"].ToString() },
-                                    {"reviewer",_row["reviewer"].ToString().Trim() }
+                                    {"reviewer",_row["reviewer"].ToString().Trim() },
+                                    {"seller",_row["seller"].ToString().Trim() },
+                                    {"stars",_row["stars"].ToString().Trim()}
                                 });
                 }
 
@@ -98,7 +100,7 @@ namespace AmazonAcctGenerator
                         {"status", dr["status"].ToString().Trim()=="New"?"Created":dr["status"].ToString().Trim()},
                         {"purchase", new BsonDocument
                             {
-                                {"pdate", Convert.ToDateTime(string.IsNullOrEmpty(dr["pdate"].ToString())?"1000-1-2":dr["pdate"] ,new CultureInfo("en-US")) },
+                                {"pdate", Convert.ToDateTime(string.IsNullOrEmpty(dr["pdate"].ToString())?"1000-1-2":dr["pdate"] ,new CultureInfo("zh-TW")) },
                                 {"pname",  dr["rcvname"].ToString().Trim() },
                                 {"ptel",  dr["tel"].ToString().Trim() },
                                 {"pitem",  dr["pitem"].ToString().Trim() },
@@ -107,8 +109,8 @@ namespace AmazonAcctGenerator
                         },
                         {"review" , new BsonArray(ba)},
                         {"vpn", string.IsNullOrEmpty(dr["nordVPN"].ToString())?"":dr["nordVPN"].ToString().Trim()},
-                        {"createdate", Convert.ToDateTime(dr["createtime"],new CultureInfo("en-US")) },
-                        {"modtime", Convert.ToDateTime(DateTime.Now , new CultureInfo("en-US")) }
+                        {"createdate", Convert.ToDateTime(dr["createtime"],new CultureInfo("zh-TW")) },
+                        {"modtime", Convert.ToDateTime(DateTime.Now , new CultureInfo("zh-TW")) }
                     };
 
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
@@ -148,7 +150,7 @@ namespace AmazonAcctGenerator
                         {"scode" , dr["scode"].ToString().Trim()},
                         {"status" , BsonBoolean.Create(dr["status"])},
                         {"cardname", dr["cardname"].ToString().Trim()},
-                        {"adddate", Convert.ToDateTime(dr["adddate"],new CultureInfo("en-US"))},
+                        {"adddate", Convert.ToDateTime(dr["adddate"],new CultureInfo("zh-TW"))},
                         {"balance", dr["balance"].ToString().Trim()}
                     };
                 IMongoCollection<BsonDocument> _cardcoll = _database.GetCollection<BsonDocument>("card");

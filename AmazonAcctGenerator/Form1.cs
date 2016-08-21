@@ -638,11 +638,14 @@ namespace AmazonAcctGenerator
             if (cnt > 0)
                 return "update review set rvtime='" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() +
                     "',reviewer='" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "',rvtype='" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
-                    "',success='" + dg1[dg1.CurrentRowIndex, 5].ToString() + "' where itemno='" + ino + "' and email = '" + email + "'";
+                    "',success='" + dg1[dg1.CurrentRowIndex, 5].ToString().Trim() + 
+                    "',seller='" + dg1[dg1.CurrentRowIndex, 6].ToString().Trim() +
+                    "',stars=" + dg1[dg1.CurrentRowIndex, 7] +
+                    " where itemno='" + ino + "' and email = '" + email + "'";
             else
                 return "insert into review values ('" + dg1[dg1.CurrentRowIndex, 0].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 1].ToString().Trim() +
                 "','" + dg1[dg1.CurrentRowIndex, 2].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 3].ToString().Trim() + "','" + dg1[dg1.CurrentRowIndex, 4].ToString().Trim() +
-                "',0)";
+                "',0,'" + dg1[dg1.CurrentRowIndex, 6].ToString().Trim() +"'," + dg1[dg1.CurrentRowIndex, 7] + ")";
         }
 
         private void btn_upt_Click(object sender, EventArgs e)
@@ -677,44 +680,45 @@ namespace AmazonAcctGenerator
                 {
 
                     //from mongo to client
-                    var mongodocs = mdb.getDocForSync();
-                    foreach (var doc in mongodocs)
-                    {
-                        MongoDB.Bson.BsonElement _modtime = new MongoDB.Bson.BsonElement();
-                        bool exist = doc.TryGetElement("modtime", out _modtime);
-                        var localtime = getSqlCmd("select modtime from account where email='" + doc["email"] + "'").ExecuteScalar();
-                        string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
-                             "' where email='" + doc["email"] + "'";
-                        if (localtime == null)
-                        {
-                            uptacc = "insert into account values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
-                            doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Convert.ToDateTime(_modtime.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                        }
-                        else
-                        {
+                    //var mongodocs = mdb.getDocForSync();
+                    //foreach (var doc in mongodocs)
+                    //{
+                    //    MongoDB.Bson.BsonElement _modtime = new MongoDB.Bson.BsonElement();
+                    //    bool exist = doc.TryGetElement("modtime", out _modtime);
+                    //    var localtime = getSqlCmd("select modtime from account where email='" + doc["email"] + "'").ExecuteScalar();
+                    //    string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
+                    //    "', modtime='" + _modtime.Value +
+                    //    "' where email='" + doc["email"] + "'";
+                    //    if (localtime == null)
+                    //    {
+                    //        uptacc = "insert into account values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
+                    //        doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Convert.ToDateTime(_modtime.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                    //    }
+                    //    else
+                    //    {
                             
-                            if (!exist || (DateTime)localtime > (DateTime)_modtime.Value)
-                            {
-                                continue;
-                            }
-                        }
-                        getSqlCmd(uptacc).ExecuteNonQuery();
+                    //        if (!exist || (DateTime)localtime > (DateTime)_modtime.Value)
+                    //        {
+                    //            continue;
+                    //        }
+                    //    }
+                    //    getSqlCmd(uptacc).ExecuteNonQuery();
 
-                        if (doc["review"].AsBsonArray.Count > 0)
-                        {
-                            for (int i = 0; i < doc["review"].AsBsonArray.Count; i++)
-                            {
-                                int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
-                                string rvsql = "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "','" + doc["review"][i]["status"].ToString() + "','" + doc["review"][i]["seller"].ToString() + "'," + doc["review"][i]["stars"] + ")";
-                                if (hasrow > 0)
-                                {
-                                    rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success='" + doc["review"][i]["status"].ToString() + "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
-                                }
-                                if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
-                                    getSqlCmd(rvsql).ExecuteNonQuery();
-                            }
-                        }
-                    }
+                    //    if (doc["review"].AsBsonArray.Count > 0)
+                    //    {
+                    //        for (int i = 0; i < doc["review"].AsBsonArray.Count; i++)
+                    //        {
+                    //            int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
+                    //            string rvsql = "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "','" + doc["review"][i]["status"].ToString() + "','" + doc["review"][i]["seller"].ToString() + "'," + doc["review"][i]["stars"] + ")";
+                    //            if (hasrow > 0)
+                    //            {
+                    //                rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success='" + doc["review"][i]["status"].ToString() + "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
+                    //            }
+                    //            if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
+                    //                getSqlCmd(rvsql).ExecuteNonQuery();
+                    //        }
+                    //    }
+                    //}
 
                     //localdb to mongodb
                     int cur = 0;
