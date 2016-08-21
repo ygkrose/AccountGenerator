@@ -136,6 +136,39 @@ namespace AmazonAcctGenerator
             }
         }
 
+        public string wrapperCard(DataRow dr)
+        {
+            try
+            {
+                var document = new BsonDocument
+                    {
+                        {"CardId", dr["CardId"].ToString().Trim() },
+                        {"bmonth", dr["bmonth"].ToString().Trim() },
+                        {"byear", dr["byear"].ToString().Trim()},
+                        {"scode" , dr["scode"].ToString().Trim()},
+                        {"status" , BsonBoolean.Create(dr["status"])},
+                        {"cardname", dr["cardname"].ToString().Trim()},
+                        {"adddate", Convert.ToDateTime(dr["adddate"],new CultureInfo("en-US"))},
+                        {"balance", dr["balance"].ToString().Trim()}
+                    };
+                IMongoCollection<BsonDocument> _cardcoll = _database.GetCollection<BsonDocument>("card");
+                var filter = Builders<BsonDocument>.Filter.Eq("CardId", dr["CardId"].ToString().Trim());
+
+                if (_cardcoll.Find(filter).Count() > 0)
+                {
+                    _cardcoll.ReplaceOne(filter, document);
+                }
+                else
+                {
+                    _cardcoll.InsertOne(document);
+                }
+                return "";
+            }
+            catch (Exception err)
+            {
+                return err.Message;
+            }
+        }
         public List<BsonDocument> getDocForSync()
         {
             _collection= _database.GetCollection<BsonDocument>("account");
