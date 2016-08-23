@@ -92,7 +92,7 @@ namespace AmazonAcctGenerator
                                     {"stars",_row["stars"].ToString().Trim()}
                                 });
                 }
-
+                
                 var document = new BsonDocument
                     {
                         {"email", dr["email"].ToString().Trim() },
@@ -110,7 +110,7 @@ namespace AmazonAcctGenerator
                         {"review" , new BsonArray(ba)},
                         {"vpn", string.IsNullOrEmpty(dr["nordVPN"].ToString())?"":dr["nordVPN"].ToString().Trim()},
                         {"createdate", Convert.ToDateTime(dr["createtime"],new CultureInfo("zh-TW")) },
-                        {"modtime", Convert.ToDateTime(DateTime.Now , new CultureInfo("zh-TW")) }
+                        {"modtime", TimeZoneInfo.ConvertTimeToUtc(Convert.ToDateTime(dr["modtime"]), TimeZoneInfo.Utc)}
                     };
 
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
@@ -123,7 +123,8 @@ namespace AmazonAcctGenerator
                     //        .CurrentDate("lastModified");
                     //_collection.UpdateOne(filter, update);
                     //_collection.ReplaceOneAsync(filter, document); //not use for free account
-                    _collection.ReplaceOne(filter, document);
+                    if (document["modtime"]>_doc["modtime"])
+                        _collection.ReplaceOne(filter, document);
                 }
                 else
                 {

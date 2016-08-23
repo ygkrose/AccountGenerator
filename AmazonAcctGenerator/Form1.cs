@@ -282,7 +282,7 @@ namespace AmazonAcctGenerator
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null,'" + VPNName + "','" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") +  "')";
+            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null,'" + VPNName + "','" + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") +  "')";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();
@@ -655,7 +655,9 @@ namespace AmazonAcctGenerator
             if (dapper.State == ConnectionState.Closed)
                 dapper.Open();
             cmd.CommandText = "update account set rcvname='" + _currentShipper.enname + "' , tel='" + _currentShipper.phone + "', pitem='" + _currentBuyer.pitm + "',cardno='" +
-                cardpickup.Text.Split(new char[] { ',' })[0].Trim() + "',status='Ready',pdate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' where email='" + _currentBuyer.email.Trim() + "'";
+                cardpickup.Text.Split(new char[] { ',' })[0].Trim() + "',status='Ready',pdate='" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + 
+                "', modtime='" + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") + 
+                "' where email='" + _currentBuyer.email.Trim() + "'";
             if (cmd.ExecuteNonQuery() == 1)
             {
                 addMsg("update success!");
@@ -680,45 +682,52 @@ namespace AmazonAcctGenerator
                 {
 
                     //from mongo to client
-                    //var mongodocs = mdb.getDocForSync();
-                    //foreach (var doc in mongodocs)
-                    //{
-                    //    MongoDB.Bson.BsonElement _modtime = new MongoDB.Bson.BsonElement();
-                    //    bool exist = doc.TryGetElement("modtime", out _modtime);
-                    //    var localtime = getSqlCmd("select modtime from account where email='" + doc["email"] + "'").ExecuteScalar();
-                    //    string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
-                    //    "', modtime='" + _modtime.Value +
-                    //    "' where email='" + doc["email"] + "'";
-                    //    if (localtime == null)
-                    //    {
-                    //        uptacc = "insert into account values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
-                    //        doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Convert.ToDateTime(_modtime.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')";
-                    //    }
-                    //    else
-                    //    {
-                            
-                    //        if (!exist || (DateTime)localtime > (DateTime)_modtime.Value)
-                    //        {
-                    //            continue;
-                    //        }
-                    //    }
-                    //    getSqlCmd(uptacc).ExecuteNonQuery();
+                    var mongodocs = mdb.getDocForSync();
+                    foreach (var doc in mongodocs)
+                    {
+                        MongoDB.Bson.BsonElement _modtime = new MongoDB.Bson.BsonElement();
+                        bool exist = doc.TryGetElement("modtime", out _modtime);
+                        var localtime = getSqlCmd("select modtime from account where email='" + doc["email"] + "'").ExecuteScalar();
+                        string uptacc = "update account set rcvname='" + doc["purchase"]["pname"] + "',tel='" + doc["purchase"]["ptel"] + "', pitem='" + doc["purchase"]["pitem"] + "',pdate='" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',cardno='" + doc["purchase"]["pcardno"] +
+                        "', modtime='" + _modtime.Value + 
+                        "',rvtimes=" + (doc["review"].AsBsonArray.Count > 0 ? doc["review"].AsBsonArray.Count : 0) +
+                        " where email='" + doc["email"] + "'";
+                        if (localtime == null)
+                        {
+                            uptacc = "insert into account values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
+                            doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Convert.ToDateTime(_modtime.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                        }
+                        else
+                        {
 
-                    //    if (doc["review"].AsBsonArray.Count > 0)
-                    //    {
-                    //        for (int i = 0; i < doc["review"].AsBsonArray.Count; i++)
-                    //        {
-                    //            int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
-                    //            string rvsql = "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "','" + doc["review"][i]["status"].ToString() + "','" + doc["review"][i]["seller"].ToString() + "'," + doc["review"][i]["stars"] + ")";
-                    //            if (hasrow > 0)
-                    //            {
-                    //                rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + "',success='" + doc["review"][i]["status"].ToString() + "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
-                    //            }
-                    //            if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
-                    //                getSqlCmd(rvsql).ExecuteNonQuery();
-                    //        }
-                    //    }
-                    //}
+                            if (!exist || (DateTime)localtime > (DateTime)_modtime.Value)
+                            {
+                                continue;
+                            }
+                        }
+                        getSqlCmd(uptacc).ExecuteNonQuery();
+
+                        if (doc["review"].AsBsonArray.Count > 0)
+                        {
+                            for (int i = 0; i < doc["review"].AsBsonArray.Count; i++)
+                            {
+                                int hasrow = (int)getSqlCmd("select count(*) from review where itemno='" + doc["review"][i]["ritem"] + "' and email='" + doc["email"] + "'").ExecuteScalar();
+                                string rvsql = "insert into review values ('" + doc["review"][i]["ritem"] + "','" + doc["email"] + "','" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") 
+                                + "','" + doc["review"][i]["reviewer"] + "','" + doc["review"][i]["rtype"] + "','" + doc["review"][i]["status"].ToString() + 
+                                "','" + doc["review"][i]["seller"].ToString() + "'," + doc["review"][i]["stars"] + ")";
+                                if (hasrow > 0)
+                                {
+                                    rvsql = "update review set rvtime='" + Convert.ToDateTime(doc["review"][i]["rdate"]).ToString("yyyy-MM-dd HH:mm:ss") + 
+                                            "',reviewer='" + doc["review"][i]["reviewer"] + "',rvtype='" + doc["review"][i]["rtype"] + 
+                                            "',success='" + doc["review"][i]["status"].ToString() + 
+                                            "',stars=" + doc["review"][i]["stars"] + ",seller ='" + doc["review"][i]["seller"] +
+                                            "' where email='" + doc["email"] + "' and itemno='" + doc["review"][i]["ritem"] + "'";
+                                }
+                                if (!string.IsNullOrEmpty(doc["review"][i]["ritem"].ToString()))
+                                    getSqlCmd(rvsql).ExecuteNonQuery();
+                            }
+                        }
+                    }
 
                     //localdb to mongodb
                     int cur = 0;
@@ -819,7 +828,7 @@ namespace AmazonAcctGenerator
                  drasyn = getSqlCmd("select email , count(email) as rvs from review group by email").ExecuteReaderAsync();
                 while (drasyn.Result.Read())
                 {
-                    uSql += "update account set rvtimes = " + drasyn.Result["rvs"] + " where email='" + drasyn.Result["email"].ToString().Trim() + "';";
+                    uSql += "update account set rvtimes = " + drasyn.Result["rvs"] + ", modtime='" + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") + "' where email='" + drasyn.Result["email"].ToString().Trim() + "';";
                 }
                 drasyn.Result.Close();
                 getSqlCmd(uSql).ExecuteNonQuery();
