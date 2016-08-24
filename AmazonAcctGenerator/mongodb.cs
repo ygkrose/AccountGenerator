@@ -92,7 +92,7 @@ namespace AmazonAcctGenerator
                                     {"stars",_row["stars"].ToString().Trim()}
                                 });
                 }
-                
+                DateTime dt = string.IsNullOrEmpty(dr["modtime"].ToString()) ? DateTime.UtcNow : TimeZoneInfo.ConvertTimeToUtc(Convert.ToDateTime(dr["modtime"]), TimeZoneInfo.Utc);
                 var document = new BsonDocument
                     {
                         {"email", dr["email"].ToString().Trim() },
@@ -110,7 +110,7 @@ namespace AmazonAcctGenerator
                         {"review" , new BsonArray(ba)},
                         {"vpn", string.IsNullOrEmpty(dr["nordVPN"].ToString())?"":dr["nordVPN"].ToString().Trim()},
                         {"createdate", Convert.ToDateTime(dr["createtime"],new CultureInfo("zh-TW")) },
-                        {"modtime", TimeZoneInfo.ConvertTimeToUtc(Convert.ToDateTime(dr["modtime"]), TimeZoneInfo.Utc)}
+                        {"modtime", dt}
                     };
 
                 if (allaccounts.ContainsKey(dr["email"].ToString().Trim()))
