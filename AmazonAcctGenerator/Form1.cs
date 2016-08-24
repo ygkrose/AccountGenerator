@@ -591,7 +591,7 @@ namespace AmazonAcctGenerator
             switch (tabledata.Text.Trim())
             {
                 case "account":
-                    uptsql = "update account set status='"+dg1[dg1.CurrentRowIndex,7].ToString().Trim()+"',rvtimes=" + dg1[dg1.CurrentRowIndex, 8] + "  where email='"+ dg1[dg1.CurrentRowIndex, 1].ToString().Trim() + "'";
+                    uptsql = "update account set status='"+dg1[dg1.CurrentRowIndex,7].ToString().Trim()+"',modtime='" + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") + "'  where email='"+ dg1[dg1.CurrentRowIndex, 1].ToString().Trim() + "'";
                     break;
                 case "card":
                     int s = dg1[dg1.CurrentRowIndex, 4].ToString() == "False" ? 1 : 0;
