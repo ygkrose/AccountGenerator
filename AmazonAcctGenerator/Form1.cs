@@ -282,7 +282,9 @@ namespace AmazonAcctGenerator
         private string addAccount(UserStruct user)
         {
             string rtn = "";
-            string insSql = "insert into account values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null,'" + VPNName + "','" + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") +  "')";
+            string insSql = "insert into account " +
+                "(createtime,email,pwd,rcvname,tel,cardno,pitem,status,rvtimes,pdate,nordVPN,modtime) " +
+                "values ('" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + user.email + "','" + pwd + "','','','','','New',0,null,'" + VPNName + "','" + DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss") +  "')";
             try
             {
                 getSqlCmd(insSql).ExecuteNonQuery();
@@ -694,8 +696,10 @@ namespace AmazonAcctGenerator
                         " where email='" + doc["email"] + "'";
                         if (localtime == null)
                         {
-                            uptacc = "insert into account values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
-                            doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + Convert.ToDateTime(_modtime.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')";
+                            uptacc = "insert into account "+
+                            "(createtime, email, pwd, rcvname, tel, cardno, pitem, status, rvtimes, pdate, nordVPN, modtime) "+ 
+                            "values (null,'" + doc["email"] + "','" + doc["pwd"] + "','" + doc["purchase"]["pname"] + "','" + doc["purchase"]["ptel"] + "','" + doc["purchase"]["pcardno"] + "','" + doc["purchase"]["pitem"] + "','" + doc["status"] + "'," +
+                            doc["review"].AsBsonArray.Count + ",'" + Convert.ToDateTime(doc["purchase"]["pdate"]).ToString("yyyy-MM-dd HH:mm:ss") + "','" + doc["vpn"] + "','" + Convert.ToDateTime(_modtime.Value).ToString("yyyy-MM-dd HH:mm:ss") + "')";
                         }
                         else
                         {
