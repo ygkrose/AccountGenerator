@@ -7,3 +7,5 @@
 .vs
 bin
 obj
+/AmazonAcctGenerator/*.mdf
+/AmazonAcctGenerator/*.ldf
