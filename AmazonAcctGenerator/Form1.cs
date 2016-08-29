@@ -704,7 +704,7 @@ namespace AmazonAcctGenerator
                         else
                         {
 
-                            if (!exist || (DateTime)localtime > (DateTime)_modtime.Value)
+                            if (!exist || (((DateTime)localtime) - ((DateTime)_modtime.Value)).Seconds >= 0)
                             {
                                 continue;
                             }
